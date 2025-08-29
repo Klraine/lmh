@@ -1,434 +1,1312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources & Insights | Linkage Media Hub</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Blog CSS -->
-  <link rel="stylesheet" href="index.css">
-  <link rel="stylesheet" href="blog.css">
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <!-- For modern browsers -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <!-- iOS/Safari -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <!-- Android -->
-  <link rel="manifest" href="/site.webmanifest">
-  <style>
-    :root {
-      --primary-color: #0856a8;
-      --secondary-color: #e52e71;
-      --accent-color: #4a47a3;
-      --text-color: #333;
-      --light-text: #b9b9b9;
-      --white: #fff;
-      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources & Insights | Linkage Media Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #FFD700;
+            --deep-navy: #0A1931;
+            --charcoal: #212121;
+            --off-white: #F8F5F0;
+            --light-gray: #E5E5E5;
+            --dark-overlay: rgba(10, 25, 49, 0.85);
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            --text-color: #333;
+            --light-text: #7D7D7D;
+            --white: #fff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--off-white);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .luxury-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(248, 245, 240, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 15px 0;
+        }
+
+        .luxury-header.scrolled {
+            background-color: rgba(10, 25, 49, 0.95);
+            padding: 10px 0;
+        }
+
+        .luxury-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .luxury-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .luxury-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .luxury-logo span {
+            color: var(--primary-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .luxury-blog-header {
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--deep-navy) 0%, #1a3b6c 100%);
+            color: var(--off-white);
+            text-align: center;
+        }
+
+        .blog-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-pre-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-main-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .blog-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .luxury-blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .luxury-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 60px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .luxury-tab-button {
+            padding: 15px 32px;
+            background: transparent;
+            border: 2px solid var(--primary-gold);
+            color: var(--primary-gold);
+            font-weight: 600;
+            border-radius: 0;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luxury-tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .luxury-tab-button.active {
+            color: var(--deep-navy);
+        }
+
+        .luxury-tab-button.active::before {
+            left: 0;
+        }
+
+        .luxury-tab-button:hover:not(.active) {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .luxury-tab-content {
+            display: none;
+        }
+
+        .luxury-tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .luxury-article {
+            background: var(--white);
+            padding: 50px;
+            margin-bottom: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            border-top: 5px solid var(--primary-gold);
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .article-header h2 {
+            font-size: 2.2rem;
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .article-meta::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--gold-gradient);
+            margin: 15px auto 0;
+        }
+
+        .luxury-article img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 0;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .luxury-article h3 {
+            color: var(--deep-navy);
+            margin: 40px 0 20px;
+            font-size: 1.7rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .luxury-article h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 4px;
+            background: var(--gold-gradient);
+            border-radius: 2px;
+        }
+
+        .luxury-article p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .luxury-article ul, .luxury-article ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .luxury-article li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .luxury-highlight-box {
+            background: linear-gradient(135deg, #f9f7f2 0%, #f1ece0 100%);
+            border-left: 4px solid var(--primary-gold);
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .luxury-highlight-box::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--primary-gold);
+            opacity: 0.2;
+        }
+
+        .luxury-highlight-box p {
+            margin-bottom: 10px;
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+
+        .luxury-highlight-box strong {
+            color: var(--primary-gold);
+        }
+
+        .luxury-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .luxury-stat-item {
+            background: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-gold);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .luxury-stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .luxury-stat-item strong {
+            display: block;
+            font-size: 2.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .luxury-stat-item span {
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+
+        .luxury-table-responsive {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .luxury-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        .luxury-table th, .luxury-table td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .luxury-table th {
+            background: var(--deep-navy);
+            color: var(--primary-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .luxury-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .luxury-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .luxury-recommendation-box {
+            background: var(--white);
+            border-radius: 0;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-gold);
+            position: relative;
+        }
+
+        .luxury-recommendation-box h4 {
+            color: var(--deep-navy);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .luxury-back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            background: var(--gold-gradient);
+            color: var(--deep-navy);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            margin: 20px 0;
+        }
+
+        .luxury-back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: var(--transition);
+        }
+
+        .luxury-back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .luxury-back-button:hover::before {
+            left: 100%;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--primary-gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0;
+            border: 2px solid var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+            margin: 10px 0;
+        }
+
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-gradient);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .download-button:hover {
+            color: var(--deep-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .download-button:hover::before {
+            left: 0;
+        }
+
+        .download-button i {
+            margin-right: 10px;
+        }
+
+        .luxury-footer {
+            background: var(--deep-navy);
+            color: var(--off-white);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links a::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 1px;
+            background: var(--primary-gold);
+            margin-right: 15px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-gold);
+            transform: translateX(5px);
+        }
+
+        .footer-links a:hover::before {
+            width: 20px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+
+        .powered-by {
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .powered-by::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background: var(--primary-gold);
+            margin-right: 15px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: var(--gold-gradient);
+            color: var(--deep-navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* PDF Popup Styles */
+        .pdf-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 49, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .pdf-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pdf-popup {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 5px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .pdf-popup-overlay.active .pdf-popup {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .pdf-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+
+        .pdf-popup-close:hover {
+            color: var(--primary-gold);
+        }
+
+        .pdf-popup-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--deep-navy);
+        }
+
+        .pdf-popup-text {
+            margin-bottom: 25px;
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        .pdf-popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .pdf-popup-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .pdf-popup-btn.cancel {
+            background: transparent;
+            color: var(--light-text);
+            border: 1px solid var(--light-gray);
+        }
+
+        .pdf-popup-btn.cancel:hover {
+            background: var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .pdf-popup-btn.download {
+            background: var(--gold-gradient);
+            color: var(--deep-navy);
+        }
+
+        .pdf-popup-btn.download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 1200px) {
+            .luxury-container {
+                padding: 0 30px;
+            }
+            
+            .blog-main-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .blog-main-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--deep-navy);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-links a {
+                color: var(--off-white);
+                font-size: 1.2rem;
+            }
+            
+            .luxury-stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .luxury-blog-header {
+                padding: 150px 0 80px;
+            }
+            
+            .blog-main-title {
+                font-size: 2.2rem;
+            }
+            
+            .blog-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .luxury-blog-container {
+                padding: 40px 20px;
+            }
+            
+            .luxury-tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .luxury-tab-button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .luxury-article {
+                padding: 30px;
+            }
+            
+            .luxury-stat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .luxury-table th, .luxury-table td {
+                padding: 12px;
+            }
+
+            .pdf-popup {
+                padding: 30px 20px;
+            }
+            
+            .pdf-popup-buttons {
+                flex-direction: column;
+            }
+            
+            .pdf-popup-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .luxury-blog-header {
+                padding: 130px 0 60px;
+            }
+            
+            .blog-main-title {
+                font-size: 2rem;
+            }
+            
+            .luxury-article {
+                padding: 25px;
+            }
+            
+            .article-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .back-to-top {
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loader">
-    <div class="loader-spinner"></div>
-  </div>
-
-  <!-- Header -->
-  <div class="header-container" id="header">
-    <div class="container">
-      <nav>
-        <a href="index.html" class="logo">Linkage Media Hub</a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html#home">Home</a></li>
-          <li><a href="index.html#portfolio">Portfolio</a></li>
-          <li><a href="index.html#case-studies">Case Studies</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="mailto:linkage.media.hub@gmail.com">Contact</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger">
-          <i class="fas fa-bars"></i>
+    <!-- Header -->
+    <header class="luxury-header" id="header">
+        <div class="luxury-container">
+            <nav class="luxury-nav">
+                <a href="index.html" class="luxury-logo">Linkage <span>Media</span></a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#portfolio">Portfolio</a></li>
+                    <li><a href="index.html#case-studies">Case Studies</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="career.html">Careers</a></li>
+                    <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
+                </ul>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
         </div>
-      </nav>
-    </div>
-  </div>
+    </header>
 
-  <!-- Blog Header -->
-  <header class="blog-header">
-    <div class="blog-container">
-      <h1>Resources & Insights</h1>
-      <p class="subtitle">Actionable strategies for brands and influencers</p>
-    </div>
-  </header>
-
-  <!-- Blog Content -->
-  <main class="blog-container">
-    <div class="blog-tabs">
-      <button class="tab-button active" data-tab="case-studies">Case Studies</button>
-      <button class="tab-button" data-tab="guides">Marketing Guides</button>
-      <button class="tab-button" data-tab="trends">Industry Trends</button>
+    <!-- PDF Download Popup -->
+    <div class="pdf-popup-overlay" id="pdfPopup">
+        <div class="pdf-popup">
+            <button class="pdf-popup-close" id="closePopup">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="pdf-popup-title">Download Our Service Packages</h2>
+            <p class="pdf-popup-text">Get our complete pricing guide with detailed information about our Bronze, Silver, Gold, and Black Label packages. This PDF contains everything you need to choose the right solution for your brand.</p>
+            <div class="pdf-popup-buttons">
+                <button class="pdf-popup-btn cancel" id="cancelDownload">Not Now</button>
+                <button class="pdf-popup-btn download" id="startDownload">Download PDF</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Case Studies Section -->
-    <section id="case-studies" class="tab-content active">
-      <article class="blog-article" id="udg-foundation">
-        <div class="article-header">
-          <h2>Transforming U.D.G Foundation's Digital Presence</h2>
-          <div class="meta">Nonprofit Sector | Published: June 15, 2024</div>
+    <!-- Blog Header -->
+    <section class="luxury-blog-header">
+        <div class="blog-header-content">
+            <p class="blog-pre-title">Premium Insights</p>
+            <h1 class="blog-main-title">Resources & Expertise</h1>
+            <p class="blog-subtitle">Strategic knowledge for brands and influencers seeking transformative growth</p>
         </div>
-        
-        <img src="https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg" alt="U.D.G Foundation Team">
-        
-        <h3>The Challenge</h3>
-        <p>The U.D.G Foundation, committed to feeding vulnerable children and families across underserved communities, came to us with a vital challenge:
-Despite the real impact of their work on the ground, they were struggling to expand their donor network and communicate their mission in a way that inspired everyday people to get involved—beyond just large institutions.</p>
-        
-        <div class="highlight-box">
-          <p>"We had amazing stories to tell but didn't know how to share them in a way that would resonate with potential donors. Our social media was stagnant, and we weren't seeing the growth in individual donations we needed."</p>
-          <p><strong>- Michael Chen, Development Director</strong></p>
-        </div>
-        
-        <h3>Our Strategic Approach</h3>
-        <p>We developed a 3-phase influencer marketing strategy focused on authentic storytelling with mission-aligned content creators, immersive content creation, and conversion optimization.</p>
-        
-        <div class="stat-grid">
-          <div class="stat-item">
-            <strong>30%</strong>
-            <span>Increase in recurring donors</span>
-          </div>
-          <div class="stat-item">
-            <strong>42%</strong>
-            <span>Higher retention rate</span>
-          </div>
-          <div class="stat-item">
-            <strong>120%</strong>
-            <span>More social engagement</span>
-          </div>
-        </div>
-        
-        <a href="#case-studies" class="cta-button">Back to Case Studies</a>
-      </article>
-
-      <article class="blog-article" id="velvet-beauty">
-        <div class="article-header">
-          <h2>Velvet Beauty Cosmetics: From Obscurity to Market Leader</h2>
-          <div class="meta">Beauty Industry | Published: May 28, 2024</div>
-        </div>
-        
-        <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg" alt="Velvet Beauty Products">
-        
-        <h3>The Challenge</h3>
-        <p>Velvet Beauty had premium products but minimal brand recognition in the crowded cosmetics market. They needed to establish credibility and connect with Gen Z and Millennial consumers.</p>
-        
-        <div class="highlight-box">
-          <p>"We were being outspent 10-to-1 by competitors with celebrity endorsements. We needed a smarter approach to stand out."</p>
-          <p><strong>- Sarah J., Marketing Director</strong></p>
-        </div>
-        
-        <h3>Our Solution</h3>
-        <p>We implemented a nano-influencer strategy focusing on authentic product reviews and user-generated content challenges.</p>
-        
-        <div class="stat-grid">
-          <div class="stat-item">
-            <strong>140%</strong>
-            <span>Sales increase</span>
-          </div>
-          <div class="stat-item">
-            <strong>19K</strong>
-            <span>New followers</span>
-          </div>
-          <div class="stat-item">
-            <strong>1.2M</strong>
-            <span>Total impressions</span>
-          </div>
-        </div>
-        
-        <a href="#case-studies" class="cta-button">Back to Case Studies</a>
-      </article>
-
-      <article class="blog-article" id="mecky-makeup">
-        <div class="article-header">
-          <h2>Mecky Makeup Studios: Building a Beauty Empire</h2>
-          <div class="meta">Beauty Services | Published: April 12, 2024</div>
-        </div>
-        
-        <img src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg" alt="Mecky Makeup Studio">
-        
-        <h3>The Challenge</h3>
-        <p>Mecky Makeup Studios offered premium services but struggled with inconsistent client flow and needed to establish authority in their local market.</p>
-        
-        <h3>Our Strategy</h3>
-        <p>We developed a hyper-local influencer campaign combined with educational content showcasing their expertise.</p>
-        
-        <div class="stat-grid">
-          <div class="stat-item">
-            <strong>180%</strong>
-            <span>More bookings</span>
-          </div>
-          <div class="stat-item">
-            <strong>5.7%</strong>
-            <span>Engagement rate</span>
-          </div>
-          <div class="stat-item">
-            <strong>62%</strong>
-            <span>Client retention</span>
-          </div>
-        </div>
-        
-        <a href="#case-studies" class="cta-button">Back to Case Studies</a>
-      </article>
     </section>
 
-    <!-- Marketing Guides Section -->
-    <section id="guides" class="tab-content">
-      <article class="blog-article" id="pricing-guide">
-        <div class="article-header">
-          <h2>The 2024 Influencer Pricing Guide</h2>
-          <div class="meta">Resource Guide | Updated: June 1, 2024</div>
+    <!-- Blog Content -->
+    <main class="luxury-blog-container">
+        <div class="luxury-tabs">
+            <button class="luxury-tab-button active" data-tab="case-studies">Case Studies</button>
+            <button class="luxury-tab-button" data-tab="guides">Marketing Guides</button>
+            <button class="luxury-tab-button" data-tab="trends">Industry Trends</button>
         </div>
-        
-        <img src="https://images.pexels.com/photos/669610/pexels-photo-669610.jpeg" alt="Influencer Marketing">
-        
-        <h3>Understanding the Market Rates</h3>
-        <p>Based on our analysis of 300+ campaigns, here are current influencer pricing benchmarks:</p>
-        
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>Tier</th>
-                <th>Followers</th>
-                <th>Instagram</th>
-                <th>TikTok</th>
-                <th>YouTube</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Nano</td>
-                <td>1K-10K</td>
-                <td>$50-$500</td>
-                <td>$75-$600</td>
-                <td>$100-$800</td>
-              </tr>
-              <tr>
-                <td>Micro</td>
-                <td>10K-50K</td>
-                <td>$500-$2K</td>
-                <td>$600-$2.5K</td>
-                <td>$800-$3K</td>
-              </tr>
-              <tr>
-                <td>Mid-tier</td>
-                <td>50K-500K</td>
-                <td>$2K-$10K</td>
-                <td>$2.5K-$12K</td>
-                <td>$3K-$15K</td>
-              </tr>
-              <tr>
-                <td>Macro</td>
-                <td>500K-1M</td>
-                <td>$10K-$50K</td>
-                <td>$12K-$60K</td>
-                <td>$15K-$75K</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <h3>Regional Adjustments</h3>
-        <p>Multiply base rates by these regional factors:</p>
-        <ul>
-          <li>North America: 1.0x</li>
-          <li>Western Europe: 0.9x</li>
-          <li>Middle East: 0.8x</li>
-          <li>Asia: 0.7x</li>
-          <li>Africa/Latin America: 0.6x</li>
-        </ul>
-        
-        <a href="#guides" class="cta-button">Back to Guides</a>
-      </article>
-    </section>
 
-    <!-- Industry Trends Section -->
-    <section id="trends" class="tab-content">
-      <article class="blog-article" id="platform-comparison">
-        <div class="article-header">
-          <h2>TikTok vs Instagram Reels: 2024 Platform Strategy</h2>
-          <div class="meta">Industry Analysis | Published: May 5, 2024</div>
-        </div>
-        
-        <img src="https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg" alt="Social Media Platforms">
-        
-        <h3>Key Platform Differences</h3>
-        
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>TikTok</th>
-                <th>Instagram Reels</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Avg. Engagement Rate</td>
-                <td>5.69%</td>
-                <td>2.43%</td>
-              </tr>
-              <tr>
-                <td>Conversion Rate</td>
-                <td>1.1%</td>
-                <td>1.8%</td>
-              </tr>
-              <tr>
-                <td>Best For</td>
-                <td>Brand Awareness</td>
-                <td>Direct Response</td>
-              </tr>
-              <tr>
-                <td>Content Lifespan</td>
-                <td>72 hours</td>
-                <td>48 hours</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <h3>Our Recommendations</h3>
-        <div class="recommendation-box">
-          <h4>Choose TikTok if you need:</h4>
-          <ul>
-            <li>Rapid brand awareness</li>
-            <li>Younger demographics (Gen Z)</li>
-            <li>Creative, trend-driven content</li>
-          </ul>
-        </div>
-        
-        <div class="recommendation-box">
-          <h4>Choose Instagram Reels if you need:</h4>
-          <ul>
-            <li>Direct conversions</li>
-            <li>Older demographics (Millennials+)</li>
-            <li>Integration with existing IG presence</li>
-          </ul>
-        </div>
-        
-        <a href="#trends" class="cta-button">Back to Trends</a>
-      </article>
-    </section>
-  </main>
+        <!-- Case Studies Section -->
+        <section id="case-studies" class="luxury-tab-content active">
+            <article class="luxury-article" id="udg-foundation">
+                <div class="article-header">
+                    <h2>Transforming U.D.G Foundation's Digital Presence</h2>
+                    <div class="article-meta">Nonprofit Sector | Published: June 15, 2024</div>
+                </div>
+                
+                <img src="https://cdn.pixabay.com/photo/2021/10/28/13/43/poverty-6749769_1280.jpg" alt="U.D.G Foundation Team">
+                
+                <h3>The Challenge</h3>
+                <p>The U.D.G Foundation, committed to feeding vulnerable children and families across underserved communities, came to us with a vital challenge:
+                Despite the real impact of their work on the ground, they were struggling to expand their donor network and communicate their mission in a way that inspired everyday people to get involved—beyond just large institutions.</p>
+                
+                <div class="luxury-highlight-box">
+                    <p>"We had amazing stories to tell but didn't know how to share them in a way that would resonate with potential donors. Our social media was stagnant, and we weren't seeing the growth in individual donations we needed."</p>
+                    <p><strong>- Michael Willies, Development Director</strong></p>
+                </div>
+                
+                <h3>Our Strategic Approach</h3>
+                <p>We developed a 3-phase influencer marketing strategy focused on authentic storytelling with mission-aligned content creators, immersive content creation, and conversion optimization.</p>
+                
+                <div class="luxury-stat-grid">
+                    <div class="luxury-stat-item">
+                        <strong>30%</strong>
+                        <span>Increase in recurring donors</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>42%</strong>
+                        <span>Higher retention rate</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>120%</strong>
+                        <span>More social engagement</span>
+                    </div>
+                </div>
+                
+                <a href="#case-studies" class="luxury-back-button">Back to Case Studies</a>
+            </article>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <ul class="footer-links">
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#portfolio">Portfolio</a></li>
-        <li><a href="index.html#case-studies">Case Studies</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-      <p class="copyright">&copy; 2024 Linkage Media Hub. All rights reserved. <span class="powered-by-footer">Powered by MortApps Studios</span></p>
+            <article class="luxury-article" id="velvet-beauty">
+                <div class="article-header">
+                    <h2>Velvet Beauty Cosmetics: From Obscurity to Market Leader</h2>
+                    <div class="article-meta">Beauty Industry | Published: May 28, 2024</div>
+                </div>
+                
+                <img src="https://cdn.pixabay.com/photo/2019/10/11/12/19/hair-care-4541744_1280.jpg" alt="Velvet Beauty Products">
+                
+                <h3>The Challenge</h3>
+                <p>Velvet Beauty had premium products but minimal brand recognition in the crowded cosmetics market. They needed to establish credibility and connect with Gen Z and Millennial consumers.</p>
+                
+                <div class="luxury-highlight-box">
+                    <p>"We were being outspent 10-to-1 by competitors with celebrity endorsements. We needed a smarter approach to stand out."</p>
+                    <p><strong>- Sarah J., Marketing Director</strong></p>
+                </div>
+                
+                <h3>Our Solution</h3>
+                <p>We implemented a nano-influencer strategy focusing on authentic product reviews and user-generated content challenges.</p>
+                
+                <div class="luxury-stat-grid">
+                    <div class="luxury-stat-item">
+                        <strong>140%</strong>
+                        <span>Sales increase</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>19K</strong>
+                        <span>New followers</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>1.2M</strong>
+                        <span>Total impressions</span>
+                    </div>
+                </div>
+                
+                <a href="#case-studies" class="luxury-back-button">Back to Case Studies</a>
+            </article>
+
+            <article class="luxury-article" id="mecky-makeup">
+                <div class="article-header">
+                    <h2>Mecky Makeup Studios: Building a Beauty Empire</h2>
+                    <div class="article-meta">Beauty Services | Published: April 12, 2024</div>
+                </div>
+                
+                <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg" alt="Mecky Makeup Studio">
+                
+                <h3>The Challenge</h3>
+                <p>Mecky Makeup Studios offered premium services but struggled with inconsistent client flow and needed to establish authority in their local market.</p>
+                
+                <h3>Our Strategy</h3>
+                <p>We developed a hyper-local influencer campaign combined with educational content showcasing their expertise.</p>
+                
+                <div class="luxury-stat-grid">
+                    <div class="luxury-stat-item">
+                        <strong>180%</strong>
+                        <span>More bookings</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>5.7%</strong>
+                        <span>Engagement rate</span>
+                    </div>
+                    <div class="luxury-stat-item">
+                        <strong>62%</strong>
+                        <span>Client retention</span>
+                    </div>
+                </div>
+                
+                <a href="#case-studies" class="luxury-back-button">Back to Case Studies</a>
+            </article>
+        </section>
+
+        <!-- Marketing Guides Section -->
+        <section id="guides" class="luxury-tab-content">
+            <article class="luxury-article" id="pricing-guide">
+                <div class="article-header">
+                    <h2>The 2025 Influencer Pricing Guide</h2>
+                    <div class="article-meta">Resource Guide | Updated: June 1, 2024</div>
+                </div>
+                
+                <img src="https://cdn.pixabay.com/photo/2016/11/19/21/01/analysis-1841158_1280.jpg" alt="Influencer Marketing">
+                
+                <h3>Understanding the Market Rates</h3>
+                <p>Based on our analysis of 300+ campaigns, here are current influencer pricing benchmarks:</p>
+                
+                <div class="luxury-table-responsive">
+                    <table class="luxury-table">
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Followers</th>
+                                <th>Instagram</th>
+                                <th>TikTok</th>
+                                <th>YouTube</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nano</td>
+                                <td>1K-10K</td>
+                                <td>$50-$500</td>
+                                <td>$75-$600</td>
+                                <td>$100-$800</td>
+                            </tr>
+                            <tr>
+                                <td>Micro</td>
+                                <td>10K-50K</td>
+                                <td>$500-$2K</td>
+                                <td>$600-$2.5K</td>
+                                <td>$800-$3K</td>
+                            </tr>
+                            <tr>
+                                <td>Mid-tier</td>
+                                <td>50K-500K</td>
+                                <td>$2K-$10K</td>
+                                <td>$2.5K-$12K</td>
+                                <td>$3K-$15K</td>
+                            </tr>
+                            <tr>
+                                <td>Macro</td>
+                                <td>500K-1M</td>
+                                <td>$10K-$50K</td>
+                                <td>$12K-$60K</td>
+                                <td>$15K-$75K</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>Regional Adjustments</h3>
+                <p>Multiply base rates by these regional factors:</p>
+                <ul>
+                    <li>North America: 1.0x</li>
+                    <li>Western Europe: 0.9x</li>
+                    <li>Middle East: 0.8x</li>
+                    <li>Asia: 0.7x</li>
+                    <li>Africa/Latin America: 0.6x</li>
+                </ul>
+
+                <p><strong>Note:</strong> Pricing may vary based on region, campaign scope, and influencer tier. Our service packages are tailored to specific market conditions and campaign requirements.</p>
+                
+                <!-- Download Button for Pricing Guide -->
+                <button class="download-button" id="downloadPricingGuide">
+                    <i class="fas fa-download"></i> Download Complete Pricing Guide
+                </button>
+                
+                <a href="#guides" class="luxury-back-button">Back to Guides</a>
+            </article>
+        </section>
+
+        <!-- Industry Trends Section -->
+        <section id="trends" class="luxury-tab-content">
+            <article class="luxury-article" id="platform-comparison">
+                <div class="article-header">
+                    <h2>TikTok vs Instagram Reels: 2024 Platform Strategy</h2>
+                    <div class="article-meta">Industry Analysis | Published: May 5, 2024</div>
+                </div>
+                
+                <img src="https://cdn.pixabay.com/photo/2018/01/28/10/59/internet-3113279_960_720.jpg" alt="Social Media Platforms">
+                
+                <h3>Key Platform Differences</h3>
+                
+                <div class="luxury-table-responsive">
+                    <table class="luxury-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>TikTok</th>
+                                <th>Instagram Reels</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Avg. Engagement Rate</td>
+                                <td>5.69%</td>
+                                <td>2.43%</td>
+                            </tr>
+                            <tr>
+                                <td>Conversion Rate</td>
+                                <td>1.1%</td>
+                                <td>1.8%</td>
+                            </tr>
+                            <tr>
+                                <td>Best For</td>
+                                <td>Brand Awareness</td>
+                                <td>Direct Response</td>
+                            </tr>
+                            <tr>
+                                <td>Content Lifespan</td>
+                                <td>72 hours</td>
+                                <td>48 hours</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>Our Recommendations</h3>
+                <div class="luxury-recommendation-box">
+                    <h4>Choose TikTok if you need:</h4>
+                    <ul>
+                        <li>Rapid brand awareness</li>
+                        <li>Younger demographics (Gen Z)</li>
+                        <li>Creative, trend-driven content</li>
+                    </ul>
+                </div>
+                
+                <div class="luxury-recommendation-box">
+                    <h4>Choose Instagram Reels if you need:</h4>
+                    <ul>
+                        <li>Direct conversions</li>
+                        <li>Older demographics (Millennials+)</li>
+                        <li>Integration with existing IG presence</li>
+                    </ul>
+                </div>
+                
+                <a href="#trends" class="luxury-back-button">Back to Trends</a>
+            </article>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-content">
+            <div class="footer-links-container">
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#portfolio">Portfolio</a></li>
+                    <li><a href="index.html#case-studies">Case Studies</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="career.html">Careers</a></li>
+                    <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 Linkage Media Hub. All rights reserved.</p>
+            <p class="powered-by">Powered by MortApps Studios</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
     </div>
-  </footer>
 
-  <!-- Back to Top Button -->
-  <div class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- JavaScript -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Loading Screen
-      setTimeout(function() {
-        document.querySelector('.loader').classList.add('hidden');
-      }, 1500);
-
-      // Mobile Navigation
-      const hamburger = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-      
-      hamburger.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        hamburger.innerHTML = navLinks.classList.contains('active') ? 
-          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-      });
-
-      // Header Scroll Effect
-      const header = document.getElementById('header');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-
-      // Back to Top Button
-      const backToTop = document.getElementById('backToTop');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
-        }
-      });
-
-      backToTop.addEventListener('click', function() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-
-      // Tab Functionality
-      const tabButtons = document.querySelectorAll('.tab-button');
-      const tabContents = document.querySelectorAll('.tab-content');
-      
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // Remove active class from all buttons and contents
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-          
-          // Add active class to clicked button
-          button.classList.add('active');
-          
-          // Show corresponding content
-          const tabId = button.getAttribute('data-tab');
-          document.getElementById(tabId).classList.add('active');
-        });
-      });
-
-      // Smooth scrolling for anchor links within page
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          if(this.getAttribute('href') === '#') return;
-          
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          if (targetElement) {
-            window.scrollTo({
-              top: targetElement.offsetTop - 100,
-              behavior: 'smooth'
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Navigation
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
-          }
+
+            // Header Scroll Effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Back to Top Button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Tab Functionality
+            const tabButtons = document.querySelectorAll('.luxury-tab-button');
+            const tabContents = document.querySelectorAll('.luxury-tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // PDF Popup Functionality
+            const pdfPopup = document.getElementById('pdfPopup');
+            const closePopup = document.getElementById('closePopup');
+            const cancelDownload = document.getElementById('cancelDownload');
+            const startDownload = document.getElementById('startDownload');
+            const downloadPricingGuide = document.getElementById('downloadPricingGuide');
+            let popupShown = false;
+
+            // Show popup after 5 seconds
+            setTimeout(function() {
+                if (!popupShown) {
+                    pdfPopup.classList.add('active');
+                    popupShown = true;
+                }
+            }, 5000);
+
+            // Close popup when clicking close button or cancel
+            function closePdfPopup() {
+                pdfPopup.classList.remove('active');
+            }
+
+            closePopup.addEventListener('click', closePdfPopup);
+            cancelDownload.addEventListener('click', closePdfPopup);
+
+            // Start download when clicking download button
+            function downloadPdf() {
+                // Create a temporary anchor element to trigger download
+                const link = document.createElement('a');
+                
+                // Use the correct path to your PDF file
+                link.href = 'docs/service-packages.pdf';
+                link.download = 'Linkage-Media-Service-Packages.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Close the popup
+                closePdfPopup();
+            }
+
+            startDownload.addEventListener('click', downloadPdf);
+            downloadPricingGuide.addEventListener('click', downloadPdf);
+
+            // Close popup when clicking outside the popup content
+            pdfPopup.addEventListener('click', function(e) {
+                if (e.target === pdfPopup) {
+                    closePdfPopup();
+                }
+            });
         });
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
