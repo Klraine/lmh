@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership & Vision | Linkage Media Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- For modern browsers -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <!-- iOS/Safari -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <!-- Android -->
+  <link rel="manifest" href="/site.webmanifest">
+  <style>
+    /* ===== LUXURY DESIGN VARIABLES ===== */
+    :root {
+      --primary-gold: #D4AF37;
+      --secondary-gold: #FFD700;
+      --deep-navy: #0A1931;
+      --charcoal: #212121;
+      --off-white: #F8F5F0;
+      --light-gray: #E5E5E5;
+      --dark-overlay: rgba(10, 25, 49, 0.85);
+      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+      --text-color: #333;
+      --light-text: #7D7D7D;
+      --white: #fff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* ===== BASE STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--off-white);
+      color: var(--text-color);
+      line-height: 1.7;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    
+    /* ===== LUXURY LOADING SCREEN ===== */
+    .luxury-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--deep-navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    
+    .luxury-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    .luxury-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .luxury-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gold-gradient);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.8s ease;
+    }
+    
+    .luxury-loader.animate-out .luxury-logo::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .luxury-powered {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .luxury-powered::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
+    }
+    
+    .loader-animation {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+    }
+    
+    .loader-circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-top: 2px solid var(--primary-gold);
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+    
+    .loader-circle:nth-child(2) {
+      border: 2px solid transparent;
+      border-right: 2px solid var(--secondary-gold);
+      animation: spin 2s linear infinite reverse;
+    }
+    
+    .loader-circle:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      top: 20px;
+      left: 20px;
+      border: 2px solid transparent;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.7);
+      animation: spin 2.5s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    .luxury-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(248, 245, 240, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 15px 0;
+    }
+    
+    .luxury-header.scrolled {
+      background-color: rgba(10, 25, 49, 0.95);
+      padding: 10px 0;
+    }
+    
+    .luxury-header.scrolled .luxury-logo {
+      color: var(--primary-gold);
+    }
+    
+    .luxury-header.scrolled .nav-links a {
+      color: var(--off-white);
+    }
+    
+    .luxury-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    .luxury-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .luxury-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--deep-navy);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    .luxury-logo span {
+      color: var(--primary-gold);
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2.5rem;
+      position: relative;
+    }
+    
+    .nav-links a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -5px;
+      left: 0;
+      background: var(--gold-gradient);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-gold);
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 30px;
+      height: 20px;
+      position: relative;
+    }
+    
+    .hamburger span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: var(--deep-navy);
+      border-radius: 2px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: var(--transition);
+    }
+    
+    .hamburger span:nth-child(1) { top: 0px; }
+    .hamburger span:nth-child(2) { top: 9px; }
+    .hamburger span:nth-child(3) { top: 18px; }
+    
+    .luxury-header.scrolled .hamburger span {
+      background: var(--primary-gold);
+    }
+    
+    .hamburger.active span:nth-child(1) {
+      top: 9px;
+      transform: rotate(135deg);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      left: -30px;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      top: 9px;
+      transform: rotate(-135deg);
+    }
+    
+    /* ===== LEADERSHIP HEADER ===== */
+    .leadership-header {
+      padding: 180px 0 100px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--deep-navy) 0%, #1a3b6c 100%);
+      color: var(--off-white);
+      text-align: center;
+    }
+    
+    .leadership-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center/cover no-repeat;
+      opacity: 0.15;
+    }
+    
+    .leadership-header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(10, 25, 49, 0.7) 100%);
+    }
+    
+    .leadership-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .leadership-pre-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+    }
+    
+    .leadership-title {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .leadership-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+    
+    /* ===== TEAM SECTION ===== */
+    .team-section {
+      padding: 100px 0;
+    }
+    
+    .team-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+    
+    .team-member {
+      background: var(--white);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      text-align: center;
+    }
+    
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: var(--gold-gradient);
+      z-index: -1;
+      opacity: 0.05;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .member-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 3px solid var(--primary-gold);
+      box-shadow: var(--shadow);
+    }
+    
+    .member-name {
+      font-size: 1.5rem;
+      color: var(--deep-navy);
+      margin-bottom: 5px;
+    }
+    
+    .member-title {
+      color: var(--primary-gold);
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+    
+    .member-bio {
+      color: var(--light-text);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .member-expertise {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    
+    .expertise-tag {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--primary-gold);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    /* ===== FOUNDER SECTION ===== */
+    .founder-section {
+      background: var(--deep-navy);
+      color: var(--off-white);
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .founder-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center/cover no-repeat;
+      opacity: 0.1;
+    }
+    
+    .founder-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .founder-image {
+      position: relative;
+    }
+    
+    .founder-image img {
+      width: 100%;
+      border-radius: 0;
+      box-shadow: var(--shadow);
+    }
+    
+    .founder-image::after {
+      content: '';
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: 15px;
+      bottom: 15px;
+      border: 2px solid var(--primary-gold);
+      z-index: -1;
+    }
+    
+    .founder-details h3 {
+      font-size: 2.2rem;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+    }
+    
+    .founder-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      color: var(--off-white);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+    
+    .founder-bio {
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    
+    .founder-quote {
+      font-style: italic;
+      padding: 30px;
+      border-left: 3px solid var(--primary-gold);
+      background: rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    
+    .founder-quote::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--primary-gold);
+      opacity: 0.2;
+      line-height: 1;
+    }
+    
+    /* ===== LUXURY BUTTONS ===== */
+    .luxury-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 16px 38px;
+      background: var(--gold-gradient);
+      color: var(--deep-navy);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 1px;
+    }
+    
+    .luxury-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition);
+    }
+    
+    .luxury-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+    }
+    
+    .luxury-btn:hover::before {
+      left: 100%;
+    }
+    
+    .luxury-btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+    }
+    
+    .luxury-btn-outline:hover {
+      background: var(--primary-gold);
+      color: var(--deep-navy);
+    }
+    
+    /* ===== FOOTER ===== */
+    .luxury-footer {
+      background: var(--deep-navy);
+      color: var(--off-white);
+      padding: 80px 0 30px;
+      position: relative;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--primary-gold);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-about {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--light-gray);
+      margin-bottom: 20px;
+    }
+    
+    .footer-heading {
+      font-size: 1.2rem;
+      color: var(--primary-gold);
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-gold);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .footer-links a::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary-gold);
+      transform: translateX(5px);
+    }
+    
+    .footer-links a:hover::before {
+      width: 20px;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .copyright {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+    
+    .powered-by {
+      color: var(--primary-gold);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .powered-by::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
+    }
+    
+    .team-mention {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+      margin-top: 15px;
+      font-style: italic;
+    }
+    
+    /* ===== BACK TO TOP BUTTON ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: var(--gold-gradient);
+      color: var(--deep-navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* ===== RESPONSIVE STYLES ===== */
+    @media (max-width: 1200px) {
+      .luxury-container {
+        padding: 0 30px;
+      }
+      
+      .leadership-title {
+        font-size: 3rem;
+      }
+      
+      .founder-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .leadership-title {
+        font-size: 2.5rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--deep-navy);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        z-index: 999;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links li {
+        margin: 1.5rem 0;
+      }
+      
+      .nav-links a {
+        color: var(--off-white);
+        font-size: 1.2rem;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .leadership-header {
+        padding: 150px 0 80px;
+      }
+      
+      .leadership-title {
+        font-size: 2.2rem;
+      }
+      
+      .leadership-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .team-section {
+        padding: 80px 0;
+      }
+      
+      .team-container {
+        padding: 0 20px;
+      }
+      
+      .founder-section {
+        padding: 80px 0;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .back-to-top {
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .leadership-header {
+        padding: 130px 0 60px;
+      }
+      
+      .leadership-title {
+        font-size: 2rem;
+      }
+      
+      .team-member {
+        padding: 25px;
+      }
+      
+      .member-image {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .founder-quote {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Luxury Loading Screen -->
+  <div class="luxury-loader" id="luxuryLoader">
+    <div class="loader-animation">
+      <div class="loader-circle"></div>
+      <div class="loader-circle"></div>
+      <div class="loader-circle"></div>
+    </div>
+    <div class="luxury-logo">Linkage Media Hub</div>
+    <div class="luxury-powered">Powered by MortApps Studios</div>
+  </div>
+
+  <!-- Header -->
+  <header class="luxury-header" id="header">
+    <div class="luxury-container">
+      <nav class="luxury-nav">
+        <a href="index.html" class="luxury-logo">Linkage <span>Media</span></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="index.html#case-studies">Case Studies</a></li>
+          <li><a href="index.html#blog">Resources</a></li>
+          <li><a href="career.html">Careers</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
+
+        </ul>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Leadership Header -->
+  <section class="leadership-header">
+    <div class="leadership-content">
+      <p class="leadership-pre-title">Executive Leadership</p>
+      <h1 class="leadership-title">Leadership & Vision</h1>
+      <p class="leadership-subtitle">Meet the exceptional minds guiding our agency's success and innovation</p>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="team-container">
+      <div class="team-grid">
+        <!-- Maria Wangari -->
+        <div class="team-member">
+          <img src="https://images.pexels.com/photos/28867467/pexels-photo-28867467.jpeg" alt="Maria Wangari" class="member-image">
+          <h3 class="member-name">Maria Wangari</h3>
+          <p class="member-title">Director of Client Strategy</p>
+          <p class="member-bio">Maria specializes in developing comprehensive influencer marketing strategies that align with brand objectives and drive measurable results.</p>
+          <div class="member-expertise">
+            <span class="expertise-tag">Client Relations</span>
+            <span class="expertise-tag">Strategy Development</span>
+            <span class="expertise-tag">Brand Alignment</span>
+          </div>
+        </div>
+
+        <!-- Issac J. K. -->
+        <div class="team-member">
+          <img src="https://images.pexels.com/photos/9159003/pexels-photo-9159003.jpeg" alt="Issac J. K." class="member-image">
+          <h3 class="member-name">Issac J. K.</h3>
+          <p class="member-title">Head of Creative Development</p>
+          <p class="member-bio">Issac leads our creative team in developing innovative content strategies that captivate audiences and elevate brand storytelling.</p>
+          <div class="member-expertise">
+            <span class="expertise-tag">Creative Direction</span>
+            <span class="expertise-tag">Content Strategy</span>
+            <span class="expertise-tag">Visual Storytelling</span>
+          </div>
+        </div>
+
+        <!-- K. W. Muhoho -->
+        <div class="team-member">
+          <img src="https://images.pexels.com/photos/14586100/pexels-photo-14586100.jpeg" alt="K. W. Muhoho" class="member-image">
+          <h3 class="member-name">K. W. Muhoho</h3>
+          <p class="member-title">Operations Director</p>
+          <p class="member-bio">With expertise in project management and process optimization, K. W. ensures our campaigns are executed flawlessly and efficiently.</p>
+          <div class="member-expertise">
+            <span class="expertise-tag">Operations</span>
+            <span class="expertise-tag">Project Management</span>
+            <span class="expertise-tag">Process Optimization</span>
+          </div>
+        </div>
+
+        <!-- Cynthia Wariri -->
+        <div class="team-member">
+          <img src="https://images.pexels.com/photos/28312350/pexels-photo-28312350.jpeg" alt="Cynthia Wariri" class="member-image">
+          <h3 class="member-name">Cynthia Wariri</h3>
+          <p class="member-title">Head of Talent Relations</p>
+          <p class="member-bio">Cynthia manages our network of influencers and content creators, ensuring perfect brand-creator alignment for every campaign.</p>
+          <div class="member-expertise">
+            <span class="expertise-tag">Talent Management</span>
+            <span class="expertise-tag">Relationship Building</span>
+            <span class="expertise-tag">Negotiation</span>
+          </div>
+        </div>
+
+        <!-- Cosmic -->
+        <div class="team-member">
+          <img src="https://images.pexels.com/photos/3026282/pexels-photo-3026282.jpeg" alt="Cosmic" class="member-image">
+          <h3 class="member-name">Cosmic</h3>
+          <p class="member-title">Campaign Director</p>
+          <p class="member-bio">Cosmic oversees the execution of all marketing campaigns, ensuring strategic alignment and maximum impact for our clients.</p>
+          <div class="member-expertise">
+            <span class="expertise-tag">Campaign Management</span>
+            <span class="expertise-tag">Performance Analytics</span>
+            <span class="expertise-tag">ROI Optimization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder Section -->
+  <section class="founder-section">
+    <div class="luxury-container">
+      <div class="founder-content">
+        <div class="founder-image">
+          <img src="images/founder.png" alt="Mort Ian K.">
+        </div>
+        
+        <div class="founder-details">
+          <h3>Mort Ian K.</h3>
+          <p class="founder-title">Founder & Visionary Entrepreneur</p>
+          
+          <p class="founder-bio">Mort Ian K. founded Linkage Media Hub with the simple idea that meaningful partnerships between brands and creators could drive real impact. At 22, he has already built a reputation for clear thinking, steady execution, and an eye for opportunities in the fast-changing digital landscape.</p>
+          
+          <p class="founder-bio">Grounded in strategy rather than hype, Mort’s work reflects a commitment to helping businesses grow through honest, effective influencer marketing. Beyond LMH, he has also ventured into technology and creative projects—each guided by the same principle: building what lasts. His vision for LMH is not about chasing trends but creating a platform where brands and creators thrive together.</p>
+          
+          <div class="founder-quote">
+            <p>"We don’t chase trends—we build what outlives them."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="luxury-footer">
+    <div class="footer-content">
+      <div class="footer-about">
+        <a href="index.html" class="footer-logo">Linkage Media Hub</a>
+        <p class="footer-about">We position brands, businesses, and creators for digital growth that lasts through strategic influencer partnerships and data-driven campaigns.</p>
+      </div>
+      
+      <div class="footer-links-container">
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#portfolio">Portfolio</a></li>
+          <li><a href="index.html#case-studies">Case Studies</a></li>
+          <li><a href="index.html#blog">Resources</a></li>
+          <li><a href="leadership.html">Our Team</a></li>
+          <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links-container">
+        <h3 class="footer-heading">Connect</h3>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/254105399526" target="_blank">WhatsApp</a></li>
+          <li><a href="mailto:mort@linkagemediahub.co.ke">Email</a></li>
+          <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.linkagemediahub.co.ke" target="_blank">LinkedIn</a></li>
+          <li><a href="https://twitter.com/intent/tweet?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success&url=https://www.linkagemediahub.co.ke" target="_blank">X (Twitter)</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">&copy; 2025 Linkage Media Hub. All rights reserved.</p>
+      <p class="powered-by">Powered by MortApps Studios</p>
+      <p class="team-mention">Supported by a talented team of 7+ marketing specialists, analysts, and creative professionals.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Luxury Loading Screen
+      const luxuryLoader = document.getElementById('luxuryLoader');
+      
+      setTimeout(function() {
+        luxuryLoader.classList.add('animate-out');
+      }, 2000);
+      
+      setTimeout(function() {
+        luxuryLoader.classList.add('hidden');
+      }, 2800);
+
+      // Mobile Navigation
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      // Header Scroll Effect
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // Back to Top Button
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            const headerHeight = document.getElementById('header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
