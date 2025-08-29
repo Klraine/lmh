@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linkage Media Hub - Digital Marketing Agency</title>
+  <title>Linkage Media Hub - Premium Digital Marketing Agency</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Favicon -->
@@ -19,21 +19,25 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <!-- Android -->
   <link rel="manifest" href="/site.webmanifest">
-
-
   <style>
-    /* ===== BASE STYLES ===== */
+    /* ===== LUXURY DESIGN VARIABLES ===== */
     :root {
-      --primary-color: #0856a8;
-      --secondary-color: #e52e71;
-      --accent-color: #4a47a3;
+      --primary-gold: #D4AF37;
+      --secondary-gold: #FFD700;
+      --deep-navy: #0A1931;
+      --charcoal: #212121;
+      --off-white: #F8F5F0;
+      --light-gray: #E5E5E5;
+      --dark-overlay: rgba(10, 25, 49, 0.85);
+      --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
       --text-color: #333;
-      --light-text: #b9b9b9;
+      --light-text: #7D7D7D;
       --white: #fff;
-      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
+    /* ===== BASE STYLES ===== */
     * {
       margin: 0;
       padding: 0;
@@ -41,48 +45,225 @@
     }
     
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #ff8a00, #e52e71, #4a47a3);
+      font-family: 'Inter', sans-serif;
+      background: var(--off-white);
       color: var(--text-color);
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
     
-    /* ===== HEADER & NAVIGATION ===== */
-    .header-container {
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    
+    /* ===== LUXURY LOADING SCREEN ===== */
+    .luxury-loader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.95);
+      height: 100%;
+      background: var(--deep-navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    
+    .luxury-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
+    .luxury-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .luxury-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gold-gradient);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.8s ease;
+    }
+    
+    .luxury-loader.animate-out .luxury-logo::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .luxury-powered {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .luxury-powered::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
+    }
+    
+    .loader-animation {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+    }
+    
+    .loader-circle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-top: 2px solid var(--primary-gold);
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+    
+    .loader-circle:nth-child(2) {
+      border: 2px solid transparent;
+      border-right: 2px solid var(--secondary-gold);
+      animation: spin 2s linear infinite reverse;
+    }
+    
+    .loader-circle:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      top: 20px;
+      left: 20px;
+      border: 2px solid transparent;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.7);
+      animation: spin 2.5s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* ===== LOADER TEXT WITH GOLDEN LINE ===== */
+    .loader-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 2px;
+      margin-top: 1.5rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    
+    .loader-text::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: dashLine 2.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+    
+    @keyframes dashLine {
+      0% {
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+      50% {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+      51% {
+        transform: scaleX(1);
+        transform-origin: right;
+      }
+      100% {
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    .luxury-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(248, 245, 240, 0.95);
+      backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       z-index: 1000;
       transition: var(--transition);
+      padding: 15px 0;
     }
     
-    .header-container.scrolled {
-      background-color: rgba(8, 86, 168, 0.95);
+    .luxury-header.scrolled {
+      background-color: rgba(10, 25, 49, 0.95);
+      padding: 10px 0;
     }
     
-    .container {
-      max-width: 1200px;
+    .luxury-header.scrolled .luxury-logo {
+      color: var(--primary-gold);
+    }
+    
+    .luxury-header.scrolled .nav-links a {
+      color: var(--off-white);
+    }
+    
+    .luxury-container {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 0 40px;
     }
     
-    nav {
+    .luxury-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 0;
     }
     
-    .logo {
-      font-size: 1.8rem;
+    .luxury-logo {
+      font-size: 2rem;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--deep-navy);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    .luxury-logo span {
+      color: var(--primary-gold);
     }
     
     .nav-links {
@@ -91,29 +272,28 @@
     }
     
     .nav-links li {
-      margin-left: 2rem;
+      margin-left: 2.5rem;
+      position: relative;
     }
     
     .nav-links a {
-      color: var(--text-color);
+      color: var(--charcoal);
       text-decoration: none;
       font-weight: 500;
       transition: var(--transition);
       position: relative;
-    }
-    
-    .nav-links a:hover {
-      color: var(--primary-color);
+      font-size: 1rem;
+      letter-spacing: 0.5px;
     }
     
     .nav-links a::after {
       content: '';
       position: absolute;
       width: 0;
-      height: 2px;
+      height: 1px;
       bottom: -5px;
       left: 0;
-      background-color: var(--primary-color);
+      background: var(--gold-gradient);
       transition: var(--transition);
     }
     
@@ -121,109 +301,340 @@
       width: 100%;
     }
     
+    .nav-links a:hover {
+      color: var(--primary-gold);
+    }
+    
     .hamburger {
       display: none;
       cursor: pointer;
+      background: none;
+      border: none;
+      width: 30px;
+      height: 20px;
+      position: relative;
     }
     
-    /* ===== HERO SECTION ===== */
-    .hero {
-      padding: 120px 0 60px;
-      text-align: center;
-    }
-    
-    header h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      color: var(--white);
-      font-weight: 700;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: slideDown 1s forwards;
-    }
-    
-    header p {
-      font-size: 1.5rem;
-      color: var(--white);
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: slideDown 1s 0.3s forwards;
-      margin-bottom: 2rem;
-    }
-    
-    .landing-image {
+    .hamburger span {
       display: block;
-      margin: 0 auto 40px;
+      position: absolute;
+      height: 2px;
       width: 100%;
-      max-width: 800px;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-      transform: translateY(20px);
-      opacity: 0;
-      animation: fadeIn 1s 0.6s forwards;
-    }
-    
-    /* ===== CONTENT SECTIONS ===== */
-    .content-section {
-      background-color: var(--white);
-      padding: 3rem;
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-      margin: 2rem 0;
-      opacity: 0;
-      transform: translateY(20px);
+      background: var(--deep-navy);
+      border-radius: 2px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
       transition: var(--transition);
     }
     
-    .content-section.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .hamburger span:nth-child(1) { top: 0px; }
+    .hamburger span:nth-child(2) { top: 9px; }
+    .hamburger span:nth-child(3) { top: 18px; }
+    
+    .luxury-header.scrolled .hamburger span {
+      background: var(--primary-gold);
     }
     
-    .content-section h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary-color);
+    .hamburger.active span:nth-child(1) {
+      top: 9px;
+      transform: rotate(135deg);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      left: -30px;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      top: 9px;
+      transform: rotate(-135deg);
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .luxury-hero {
+      padding: 180px 0 100px;
       position: relative;
-      display: inline-block;
-      font-weight: 600;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--deep-navy) 0%, #1a3b6c 100%);
+      color: var(--off-white);
     }
     
-    .content-section h2::after {
+    .luxury-hero::before {
       content: '';
       position: absolute;
-      width: 50%;
-      height: 3px;
-      bottom: -8px;
+      top: 0;
       left: 0;
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      width: 100%;
+      height: 100%;
+      background: url("https://images.pexels.com/photos/6476186/pexels-photo-6476186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center/cover no-repeat;
+      opacity: 0.2;
+    }
+    
+    .luxury-hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(10, 25, 49, 0.9) 0%, rgba(10, 25, 49, 0.7) 100%);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .hero-pre-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s 0.3s forwards;
+    }
+    
+    .hero-title {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s 0.5s forwards;
+    }
+    
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s 0.7s forwards;
+    }
+    
+    .hero-cta {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s 0.9s forwards;
+    }
+    
+    /* ===== LUXURY BUTTONS ===== */
+    .luxury-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 16px 38px;
+      background: var(--gold-gradient);
+      color: var(--deep-navy);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 1px;
+    }
+    
+    .luxury-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition);
+    }
+    
+    .luxury-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+    }
+    
+    .luxury-btn:hover::before {
+      left: 100%;
+    }
+    
+    .luxury-btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary-gold);
+      color: var(--primary-gold);
+    }
+    
+    .luxury-btn-outline:hover {
+      background: var(--primary-gold);
+      color: var(--deep-navy);
+    }
+    
+    /* ===== CONTENT SECTIONS ===== */
+    .luxury-section {
+      padding: 100px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    
+    .section-pre-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-size: 2.8rem;
+      color: var(--deep-navy);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--gold-gradient);
+    }
+    
+    .section-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      color: var(--light-text);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    /* ===== ABOUT SECTION ===== */
+    .about-content {
+      background: var(--white);
+      padding: 60px;
+      border-radius: 0;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .about-content::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: var(--gold-gradient);
+      z-index: -1;
+      opacity: 0.1;
+    }
+    
+    .about-text {
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    
+    /* ===== STATS SECTION ===== */
+    .luxury-stats {
+      background: var(--deep-navy);
+      color: var(--off-white);
+      padding: 80px 0;
+      position: relative;
+    }
+    
+    .luxury-stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center/cover no-repeat;
+      opacity: 0.15;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: var(--transition);
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-bottom: 0.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .stat-label {
+      font-size: 1.1rem;
+      color: var(--off-white);
+      letter-spacing: 1px;
     }
     
     /* ===== PORTFOLIO SECTION ===== */
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
-      margin: 2rem 0;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
     }
     
     .portfolio-item {
       position: relative;
-      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      height: 400px;
+      background: var(--charcoal);
+      cursor: pointer;
     }
     
-    .portfolio-item img {
+    .portfolio-img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
-      transition: transform 0.5s;
+      transition: var(--transition);
     }
     
-    .portfolio-item:hover img {
+    .portfolio-item:hover .portfolio-img {
       transform: scale(1.05);
+      opacity: 0.7;
     }
     
     .portfolio-overlay {
@@ -231,347 +642,350 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(8, 86, 168, 0.9);
-      color: white;
-      padding: 15px;
+      background: linear-gradient(to top, var(--dark-overlay), transparent);
+      padding: 30px;
+      color: var(--white);
       transform: translateY(100%);
-      transition: transform 0.3s;
+      transition: var(--transition);
     }
     
     .portfolio-item:hover .portfolio-overlay {
       transform: translateY(0);
     }
     
-    /* ===== CASE STUDIES ===== */
+    .portfolio-title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-gold);
+    }
+    
+    .portfolio-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .portfolio-item:hover .portfolio-desc {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+    
+    /* Mobile-specific portfolio styles */
+    @media (max-width: 992px) {
+      .portfolio-overlay {
+        transform: translateY(0);
+        background: var(--dark-overlay);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .portfolio-desc {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      
+      .portfolio-item.active .portfolio-overlay {
+        opacity: 1;
+      }
+      
+      .portfolio-item.active .portfolio-desc {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* ===== CASE STUDIES SECTION ===== */
     .case-study {
-      margin-bottom: 3rem;
+      margin-bottom: 80px;
+      background: var(--white);
+      padding: 50px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .case-study::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--gold-gradient);
+    }
+    
+    .case-study-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--deep-navy);
     }
     
     .case-study-highlight {
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-      border-left: 4px solid #e52e71;
-      padding: 25px;
-      margin: 30px 0;
-      border-radius: 0 8px 8px 0;
+      background: linear-gradient(135deg, #f9f7f2 0%, #f1ece0 100%);
+      border-left: 4px solid var(--primary-gold);
+      padding: 30px;
+      margin: 40px 0;
+      position: relative;
+    }
+    
+    .case-study-highlight::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--primary-gold);
+      opacity: 0.2;
+    }
+    
+    .case-study-quote {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .case-study-cite {
+      font-weight: 600;
+      color: var(--primary-gold);
     }
     
     .case-study-stats {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
-      margin: 20px 0;
+      margin: 30px 0;
     }
     
     .stat-box {
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      min-width: 120px;
+      background: var(--white);
+      padding: 25px 15px;
       text-align: center;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border-top: 3px solid var(--primary-gold);
+      transition: var(--transition);
+    }
+    
+    .stat-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
     
     .stat-box strong {
       display: block;
-      font-size: 1.8rem;
-      color: #0856a8;
+      font-size: 2.2rem;
+      color: var(--deep-navy);
+      margin-bottom: 5px;
     }
     
-    /* ===== BLOG/RESOURCES ===== */
+    /* ===== RESOURCES SECTION ===== */
     .resource-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
-      margin-top: 2rem;
+      margin-top: 50px;
     }
     
     .resource-card {
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid #eee;
+      background: var(--white);
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gold-gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
     }
     
     .resource-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resource-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .resource-content {
+      padding: 30px;
     }
     
     .resource-card h3 {
-      color: #0856a8;
-      margin-bottom: 10px;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--deep-navy);
     }
     
-    .blog-preview {
-      margin: 40px 0;
+    .resource-card p {
+      margin-bottom: 20px;
+      color: var(--light-text);
     }
     
-    .blog-preview h3 {
-      color: #0856a8;
-      border-bottom: 2px solid #e52e71;
-      display: inline-block;
-      padding-bottom: 5px;
-    }
-    
-    /* ===== TESTIMONIALS ===== */
-    .testimonial-section {
+    /* ===== TESTIMONIALS SECTION ===== */
+    .luxury-testimonials {
+      background: linear-gradient(135deg, #f9f7f2 0%, #f1ece0 100%);
+      padding: 100px 0;
       position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 1000px;
-      margin: 3rem auto;
-      background-color: var(--white);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: var(--shadow);
-    }
-    
-    .testimonial-header {
-      text-align: center;
-      margin-bottom: 2rem;
     }
     
     .testimonial-slider {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+    .testimonial-track {
       display: flex;
       transition: transform 0.5s ease-in-out;
     }
     
     .testimonial-slide {
       min-width: 100%;
-      box-sizing: border-box;
-      padding: 1rem;
       display: flex;
       align-items: center;
-    }
-    
-    .profile-photo {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 2rem;
-      border: 3px solid var(--primary-color);
-      box-shadow: var(--shadow);
+      padding: 0 20px;
     }
     
     .testimonial-content {
-      flex: 1;
-    }
-    
-    .testimonial-content p:first-child {
-      font-style: italic;
-      margin-bottom: 1rem;
+      background: var(--white);
+      padding: 50px;
+      box-shadow: var(--shadow);
       position: relative;
-      padding-left: 1.5rem;
     }
     
-    .testimonial-content p:first-child::before {
+    .testimonial-content::before {
       content: '"';
-      font-size: 3rem;
-      color: var(--primary-color);
       position: absolute;
-      left: -1rem;
-      top: -1rem;
-      opacity: 0.3;
+      top: 20px;
+      left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      color: var(--primary-gold);
+      opacity: 0.2;
+      line-height: 1;
+    }
+    
+    .testimonial-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+      line-height: 1.8;
     }
     
     .testimonial-author {
-      font-weight: 700;
-      color: var(--primary-color);
+      display: flex;
+      align-items: center;
     }
     
-    .testimonial-controls {
+    .author-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 3px solid var(--primary-gold);
+    }
+    
+    .author-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .author-name {
+      font-weight: 700;
+      color: var(--deep-navy);
+      margin-bottom: 5px;
+    }
+    
+    .author-company {
+      color: var(--primary-gold);
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
       display: flex;
       justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .testimonial-btn {
+      width: 50px;
+      height: 50px;
+      background: var(--white);
+      color: var(--deep-navy);
+      border: none;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
-      margin-top: 1.5rem;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      pointer-events: all;
+    }
+    
+    .testimonial-btn:hover {
+      background: var(--primary-gold);
+      color: var(--white);
     }
     
     .testimonial-dots {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
+      margin-top: 40px;
+      gap: 10px;
     }
     
-    .testimonial-dots span {
+    .testimonial-dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background-color: #ddd;
+      background: var(--light-gray);
       cursor: pointer;
       transition: var(--transition);
     }
     
-    .testimonial-dots span.active {
-      background-color: var(--primary-color);
-      transform: scale(1.2);
+    .testimonial-dot.active {
+      background: var(--primary-gold);
+      transform: scale(1.3);
     }
     
-    .progress-bar {
-      height: 4px;
-      background-color: #eee;
-      margin-top: 1rem;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    
-    .progress {
-      height: 100%;
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-      width: 0;
-      transition: width 0.1s linear;
-    }
-    
-    .testimonial-nav {
-      display: flex;
-      gap: 1rem;
-    }
-    
-    .testimonial-nav button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .testimonial-nav button:hover {
-      background-color: var(--secondary-color);
-      transform: translateY(-2px);
-    }
-    
-    /* ===== STATS SECTION ===== */
-    .stats-section {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin: 3rem 0;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-    }
-    
-    .stat-item {
+    /* ===== SOCIAL MEDIA SECTION ===== */
+    .social-section {
       text-align: center;
-      padding: 1rem;
-      min-width: 200px;
+      padding: 80px 0;
     }
     
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-    
-    .stat-label {
-      font-size: 1.2rem;
-      color: var(--text-color);
-    }
-    
-    /* ===== CONTACT FORM ===== */
-    .contact-form {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 2rem;
-      background-color: var(--white);
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-family: inherit;
-      transition: var(--transition);
-    }
-    
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(8, 86, 168, 0.2);
-    }
-    
-    textarea.form-control {
-      min-height: 150px;
-      resize: vertical;
-    }
-    
-    /* ===== BUTTONS ===== */
-    .cta-button {
-      display: inline-block;
-      padding: 0.8rem 1.8rem;
-      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-      color: var(--white);
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 15px rgba(8, 86, 168, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(8, 86, 168, 0.4);
-    }
-    
-    .cta-button:active {
-      transform: translateY(1px);
-    }
-    
-    .cta-button::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, var(--accent-color), var(--primary-color));
-      opacity: 0;
-      transition: var(--transition);
-      z-index: -1;
-    }
-    
-    .cta-button:hover::after {
-      opacity: 1;
-    }
-    
-    /* ===== SOCIAL MEDIA ===== */
-    .social-media-section {
-      text-align: center;
-      margin: 3rem 0;
-    }
-    
-    .social-media-buttons {
+    .social-buttons {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+      gap: 25px;
+      margin-top: 40px;
     }
     
     .social-button {
@@ -583,47 +997,184 @@
     }
     
     .social-icon {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--white);
+      background: var(--white);
       box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .social-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-gradient);
+      opacity: 0;
       transition: var(--transition);
     }
     
     .social-icon i {
       font-size: 1.8rem;
-      color: var(--primary-color);
+      color: var(--deep-navy);
+      position: relative;
+      z-index: 2;
+      transition: var(--transition);
     }
     
     .social-button:hover .social-icon {
       transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     }
     
-    .social-button:hover .icon-label {
-      color: var(--primary-color);
+    .social-button:hover .social-icon::before {
+      opacity: 1;
     }
     
-    .icon-label {
-      margin-top: 0.5rem;
+    .social-button:hover .social-icon i {
+      color: var(--white);
+    }
+    
+    .social-label {
+      margin-top: 15px;
       font-size: 0.9rem;
-      color: var(--text-color);
+      color: var(--light-text);
       transition: var(--transition);
+    }
+    
+    .social-button:hover .social-label {
+      color: var(--primary-gold);
+    }
+    
+    /* ===== FOOTER ===== */
+    .luxury-footer {
+      background: var(--deep-navy);
+      color: var(--off-white);
+      padding: 80px 0 30px;
+      position: relative;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--primary-gold);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-about {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--light-gray);
+      margin-bottom: 20px;
+    }
+    
+    .footer-heading {
+      font-size: 1.2rem;
+      color: var(--primary-gold);
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-gold);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .footer-links a::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary-gold);
+      transform: translateX(5px);
+    }
+    
+    .footer-links a:hover::before {
+      width: 20px;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+    }
+    
+    .copyright {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+    
+    .powered-by {
+      color: var(--primary-gold);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .powered-by::before {
+      content: '';
+      display: inline-block;
+      width: 30px;
+      height: 1px;
+      background: var(--primary-gold);
+      margin-right: 15px;
     }
     
     /* ===== BACK TO TOP BUTTON ===== */
     .back-to-top {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background-color: var(--primary-color);
-      color: white;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      background: var(--gold-gradient);
+      color: var(--deep-navy);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -632,7 +1183,7 @@
       opacity: 0;
       visibility: hidden;
       transition: var(--transition);
-      box-shadow: var(--shadow);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
       z-index: 999;
     }
     
@@ -642,105 +1193,34 @@
     }
     
     .back-to-top:hover {
-      background-color: var(--secondary-color);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
     
-    /* ===== FOOTER ===== */
-    footer {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: var(--light-text);
+    /* ===== WHATSAPP FLOATING BUTTON ===== */
+    .whatsapp-float {
+      position: fixed;
+      width: 70px;
+      height: 70px;
+      bottom: 40px;
+      left: 40px;
+      background-color: #25D366;
+      color: #FFF;
+      border-radius: 50%;
       text-align: center;
-      padding: 2rem 0;
-      margin-top: 3rem;
-    }
-    
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
+      font-size: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 100;
       display: flex;
-      flex-direction: column;
       align-items: center;
-    }
-    
-    .footer-links {
-      display: flex;
-      list-style: none;
-      margin: 1rem 0;
-      flex-wrap: wrap;
       justify-content: center;
-    }
-    
-    .footer-links li {
-      margin: 0 1rem;
-    }
-    
-    .footer-links a {
-      color: var(--light-text);
-      text-decoration: none;
       transition: var(--transition);
     }
     
-    .footer-links a:hover {
-      color: var(--white);
-    }
-    
-    .copyright {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-    }
-    
-    /* ===== POWERED BY SECTION ===== */
-    .powered-by {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      z-index: 1000;
-      opacity: 0.8;
-      transition: var(--transition);
-    }
-    
-    .powered-by:hover {
-      opacity: 1;
-    }
-    
-    /* ===== SPLASH SCREEN ===== */
-    .splash-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--primary-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    
-    .splash-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .splash-logo {
-      font-size: 3rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 1rem;
-      animation: pulse 2s infinite;
-    }
-    
-    .splash-powered {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1rem;
+    .whatsapp-float:hover {
+      background-color: #128C7E;
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
     
     /* ===== ANIMATIONS ===== */
@@ -751,105 +1231,40 @@
       }
     }
     
-    @keyframes slideDown {
+    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
     
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-    
-    /* ===== LOADING ANIMATION ===== */
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    
-    .loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .loader-spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    /* ===== SUCCESS MESSAGE ===== */
-    .success-message {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #4BB543;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      box-shadow: var(--shadow);
-      z-index: 1000;
-      transform: translateX(200%);
-      transition: transform 0.3s ease;
-    }
-    
-    .success-message.show {
-      transform: translateX(0);
-    }
-    
     /* ===== RESPONSIVE STYLES ===== */
-    @media (max-width: 992px) {
-      header h1 {
-        font-size: 2.8rem;
+    @media (max-width: 1200px) {
+      .luxury-container {
+        padding: 0 30px;
       }
       
-      header p {
-        font-size: 1.2rem;
-      }
-      
-      .content-section {
-        padding: 2rem;
+      .hero-title {
+        font-size: 3.5rem;
       }
     }
     
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
       }
       
       .nav-links {
         position: fixed;
-        top: 70px;
+        top: 80px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
-        background-color: var(--white);
+        height: calc(100vh - 80px);
+        background: var(--deep-navy);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -857,7 +1272,7 @@
         z-index: 999;
       }
       
-      .nav-links.active {
+      .nav-links active {
         left: 0;
       }
       
@@ -865,370 +1280,490 @@
         margin: 1.5rem 0;
       }
       
+      .nav-links a {
+        color: var(--off-white);
+        font-size: 1.2rem;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
       .testimonial-slide {
         flex-direction: column;
         text-align: center;
       }
       
-      .profile-photo {
+      .author-image {
         margin-right: 0;
-        margin-bottom: 1.5rem;
+        margin-bottom: 15px;
       }
       
-      .stats-section {
+      .testimonial-author {
         flex-direction: column;
         align-items: center;
       }
-      
-      .stat-item {
-        margin-bottom: 1.5rem;
-      }
-      
-      .resource-cards, .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
     }
     
-    @media (max-width: 576px) {
-      header h1 {
+    @media (max-width: 768px) {
+      .luxury-hero {
+        padding: 150px 0 80px;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .luxury-section {
+        padding: 80px 0;
+      }
+      
+      .section-title {
         font-size: 2.2rem;
       }
       
-      header p {
-        font-size: 1rem;
+      .about-content {
+        padding: 40px 30px;
       }
       
-      .content-section {
-        padding: 1.5rem;
+      .portfolio-grid {
+        grid-template-columns: 1fr;
       }
       
-      .contact-form {
-        padding: 1.5rem;
+      .resource-cards {
+        grid-template-columns: 1fr;
       }
       
-      .social-icon {
+      .testimonial-content {
+        padding: 30px;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .back-to-top {
+        bottom: 30px;
+        right: 30px;
         width: 50px;
         height: 50px;
       }
       
-      .social-icon i {
-        font-size: 1.5rem;
+      .whatsapp-float {
+        bottom: 30px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
       }
     }
     
-    @media (max-width: 400px) {
-      .landing-image {
-        max-width: 100%;
+    @media (max-width: 576px) {
+      .luxury-container {
+        padding: 0 20px;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .luxury-btn {
+        padding: 14px 30px;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .case-study {
+        padding: 30px 20px;
+      }
+      
+      .case-study-highlight {
+        padding: 20px;
+      }
+      
+      .testimonial-nav {
+        display: none;
       }
     }
-    /* ===== WHATSAPP FLOATING BUTTON ===== */
-.whatsapp-float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  left: 40px;
-  background-color: #25D366;
-  color: #FFF;
-  border-radius: 50px;
-  text-align: center;
-  font-size: 30px;
-  box-shadow: 2px 2px 3px #999;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.whatsapp-float:hover {
-  background-color: #128C7E;
-  transform: scale(1.1);
-}
-
-.whatsapp-float i {
-  margin-top: 4px;
-}
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
-  <div class="splash-screen" id="splashScreen">
-    <div class="splash-logo">Linkage Media Hub</div>
-    <div class="splash-powered">Powered by MortApps Studios</div>
+  <!-- Luxury Loading Screen -->
+  <div class="luxury-loader" id="luxuryLoader">
+    <div class="loader-animation">
+      <div class="loader-circle"></div>
+      <div class="loader-circle"></div>
+      <div class="loader-circle"></div>
+    </div>
+    <div class="loader-text">Linkage Media Hub</div>
+    <div class="luxury-powered">Powered by MortApps Studios</div>
   </div>
-
-  <!-- Loading Screen -->
-  <div class="loader">
-    <div class="loader-spinner"></div>
-  </div>
-
-  <!-- Powered By Badge -->
-  <div class="powered-by">Powered by MortApps Studios</div>
-  <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/254105399526" class="whatsapp-float" target="_blank">
-  <i class="fab fa-whatsapp"></i>
-</a>
 
   <!-- Header -->
-  <div class="header-container" id="header">
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">Linkage Media Hub</a>
+  <header class="luxury-header" id="header">
+    <div class="luxury-container">
+      <nav class="luxury-nav">
+        <a href="#" class="luxury-logo">Linkage <span>Media</span></a>
         <ul class="nav-links" id="navLinks">
           <li><a href="#home">Home</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#case-studies">Case Studies</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="mailto:linkage.media.hub@gmail.com">Contact</a></li>
+          <li><a href="#blog">Resources</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="career.html">Careers</a></li>
+          <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-          <i class="fas fa-bars"></i>
-        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
-  </div>
+  </header>
 
   <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="container">
-      <header>
-        <h1>Linkage Media Hub</h1>
-        <p>Your Gateway to Influencer Marketing Success</p>
-      </header>
-      <img src="https://images.pexels.com/photos/6476186/pexels-photo-6476186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Influencer Marketing" class="landing-image">
+  <section class="luxury-hero" id="home">
+    <div class="luxury-container">
+      <div class="hero-content">
+        <p class="hero-pre-title">Premium Influencer Marketing</p>
+        <h1 class="hero-title">Elevate Your Brand With Strategic Influence</h1>
+        <p class="hero-subtitle">We craft data-driven influencer campaigns that deliver exceptional ROI and brand transformation</p>
+        <div class="hero-cta">
+          <a href="mailto:mort@linkagemediahub.co.ke" class="luxury-btn">Begin Your Journey</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Main Content -->
-  <main class="container">
+  <main>
     <!-- About Section -->
-    <section class="content-section" id="about">
-      <h2>About Us</h2>
-      <p>At Linkage Media Hub, we position brands, businesses, and creators for digital growth that lasts.
-We’re a modern marketing agency that craft influencer-led campaigns that amplify visibility, build trust, and turn attention into loyal customers. Whether you're launching, scaling, or repositioning, our strategies are built to help you stand out, gain traction, and grow with intention.
-From storytelling to social impact, we make brands impossible to ignore.</p>
-      <p>Ready to unlock your brand's full potential? Contact us today to get started!</p>
-      <a href="mailto:linkage.media.hub@gmail.com" class="cta-button">Contact Us</a>
+    <section class="luxury-section">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Who We Are</p>
+          <h2 class="section-title">Redefining Influence</h2>
+          <p class="section-subtitle">Linkage Media Hub transforms brands through strategic influencer partnerships that drive measurable results and lasting impact.</p>
+        </div>
+        <div class="about-content">
+          <p class="about-text">At Linkage Media Hub, we position brands, businesses, and creators for digital growth that lasts. We're a modern marketing agency that crafts influencer-led campaigns that amplify visibility, build trust, and turn attention into loyal customers.</p>
+          <p class="about-text">Whether you're launching, scaling, or repositioning, our strategies are built to help you stand out, gain traction, and grow with intention. From storytelling to social impact, we make brands impossible to ignore.</p>
+          <a href="mailto:mort@linkagemediahub.co.ke" class="luxury-btn">Schedule Consultation</a>
+        </div>
+      </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section" id="stats">
-      <div class="stat-item">
-        <div class="stat-number" data-count="168">0</div>
-        <div class="stat-label">Happy Clients</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-count="370">0</div>
-        <div class="stat-label">Campaigns</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-count="98">0</div>
-        <div class="stat-label">Success Rate</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-count="3">0</div>
-        <div class="stat-label">Years Experience</div>
+    <section class="luxury-stats" id="stats">
+      <div class="luxury-container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" data-count="346">0</div>
+            <div class="stat-label">Elite Clients</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="2021">0</div>
+            <div class="stat-label">Classic Clients</div>
+           </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="1821">0</div>
+            <div class="stat-label">Successful Campaigns</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="89">0</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-count="3">0</div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section class="content-section" id="portfolio">
-      <h2>Our Portfolio</h2>
-      <p>See how we've transformed brands through strategic influencer partnerships:</p>
-      
-      <div class="portfolio-grid">
-        <!-- Portfolio Item 1 -->
-        <div class="portfolio-item">
-          <img src="https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg" alt="Beauty Brand Campaign">
-          <div class="portfolio-overlay">
-            <h3>Velvet Beauty Cosmetics</h3>
-            <p>Increased sales by 140% in Q3 2023</p>
-          </div>
+    <section class="luxury-section" id="portfolio">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Our Work</p>
+          <h2 class="section-title">Signature Campaigns</h2>
+          <p class="section-subtitle">Discover how we've transformed brands through strategic influencer partnerships and innovative digital solutions.</p>
         </div>
         
-        <!-- Portfolio Item 2 -->
-        <div class="portfolio-item">
-          <img src="https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg" alt="Nonprofit Campaign">
-          <div class="portfolio-overlay">
-            <h3>U.D.G Foundation</h3>
-            <p>120% more donor signups</p>
+        <div class="portfolio-grid">
+          <!-- Portfolio Item 1 -->
+          <div class="portfolio-item">
+            <img src="https://cdn.pixabay.com/photo/2019/10/11/12/19/hair-care-4541744_1280.jpg" alt="Beauty Brand Campaign" class="portfolio-img">
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">Velvet Beauty Cosmetics</h3>
+              <p class="portfolio-desc">Increased sales by 140% in Q3 2023 through targeted micro-influencer partnerships</p>
+            </div>
           </div>
-        </div>
-        
-        <!-- Portfolio Item 3 -->
-        <div class="portfolio-item">
-          <img src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg" alt="Fashion Collaboration">
-          <div class="portfolio-overlay">
-            <h3>Mecky Makeup Studios</h3>
-            <p>200K+ campaign impressions</p>
+          
+          <!-- Portfolio Item 2 -->
+          <div class="portfolio-item">
+            <img src="https://cdn.pixabay.com/photo/2021/10/28/13/43/poverty-6749769_1280.jpg" alt="Nonprofit Campaign" class="portfolio-img">
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">U.D.G Foundation</h3>
+              <p class="portfolio-desc">120% more donor signups through authentic storytelling and influencer advocacy</p>
+            </div>
+          </div>
+          
+          <!-- Portfolio Item 3 -->
+          <div class="portfolio-item">
+            <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg" alt="Fashion Collaboration" class="portfolio-img">
+            <div class="portfolio-overlay">
+              <h3 class="portfolio-title">Mecky Makeup Studios</h3>
+              <p class="portfolio-desc">200K+ campaign impressions and 35% booking increase through visual platform strategy</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Case Studies Section -->
-    <section class="content-section" id="case-studies">
-      <h2>Case Studies</h2>
-      
-      <div class="case-study">
-        <h3>Beauty Brand Transformation: Velvet Beauty Cosmetics</h3>
-        <p><strong>Challenge:</strong> Low brand awareness in the 18-35 demographic despite quality products.</p>
-        
-        <div class="case-study-highlight">
-          <p>"Linkage Media Hub identified micro-influencers who authentically aligned with our brand values. Within 4 months, we became a TikTok sensation."</p>
-          <p><em>- Velvet Beauty Marketing Director</em></p>
+    <section class="luxury-section" id="case-studies">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Success Stories</p>
+          <h2 class="section-title">Transformative Results</h2>
+          <p class="section-subtitle">Detailed explorations of how we've solved complex marketing challenges for our clients.</p>
         </div>
         
-        <div class="case-study-stats">
-          <div class="stat-box">
-            <strong>140%</strong>
-            <span>Sales Increase</span>
+        <div class="case-study">
+          <h3 class="case-study-title">Beauty Brand Transformation: Velvet Beauty Cosmetics</h3>
+          <p><strong>Challenge:</strong> Low brand awareness in the 18-35 demographic despite quality products.</p>
+          
+          <div class="case-study-highlight">
+            <p class="case-study-quote">"Linkage Media Hub identified micro-influencers who authentically aligned with our brand values. Within 4 months, we became a TikTok sensation."</p>
+            <p class="case-study-cite">- Velvet Beauty Marketing Director</p>
           </div>
-          <div class="stat-box">
-            <strong>19K</strong>
-            <span>New Followers</span>
+          
+          <div class="case-study-stats">
+            <div class="stat-box">
+              <strong>140%</strong>
+              <span>Sales Increase</span>
+            </div>
+            <div class="stat-box">
+              <strong>19K</strong>
+              <span>New Followers</span>
+            </div>
+            <div class="stat-box">
+              <strong>12</strong>
+              <span>Influencers Activated</span>
+            </div>
           </div>
-          <div class="stat-box">
-            <strong>12</strong>
-            <span>Influencers Activated</span>
-          </div>
+          
+          <a href="blog.html" class="luxury-btn luxury-btn-outline">Read Full Case Study</a>
         </div>
-        
-        <a href="blog.html" class="cta-button">Read Full Case Study</a>
       </div>
     </section>
 
-    <!-- Blog/Resources Section -->
-    <section class="content-section" id="blog">
-      <h2>Resources & Insights</h2>
-      <p>Actionable strategies for brands and influencers:</p>
-      
-      <div class="resource-cards">
-        <!-- Blog Post 1 -->
-        <div class="resource-card">
-          <h3>📊 The 2024 Influencer Pricing Guide</h3>
-          <p>Learn how to budget for nano, micro, and macro influencers in your niche. Includes regional rate cards.</p>
-          <a href="blog.html#pricing-guide" class="cta-button">Read Article</a>
+    <!-- Resources Section -->
+    <section class="luxury-section" id="blog">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Knowledge</p>
+          <h2 class="section-title">Resources & Insights</h2>
+          <p class="section-subtitle">Actionable strategies for brands and influencers looking to elevate their digital presence.</p>
         </div>
         
-        <!-- Blog Post 2 -->
-        <div class="resource-card">
-          <h3>🎯 How We Grew U.D.G Foundation's Donor Base</h3>
-          <p>Case study on leveraging influencer storytelling for nonprofit impact.</p>
-          <a href="blog.html#udg-foundation" class="cta-button">See Results</a>
+        <div class="resource-cards">
+          <!-- Resource 1 -->
+          <div class="resource-card">
+            <div class="resource-content">
+              <h3>📊 The 2025 Influencer Pricing Guide</h3>
+              <p>Learn how to budget for nano, micro, and macro influencers in your niche. Includes regional rate cards and negotiation strategies.</p>
+              <a href="blog.html" class="luxury-btn luxury-btn-outline">Access Guide</a>
+            </div>
+          </div>
+          
+          <!-- Resource 2 -->
+          <div class="resource-card">
+            <div class="resource-content">
+              <h3>🎯 Nonprofit Influence Strategy</h3>
+              <p>Case study on leveraging influencer storytelling for nonprofit impact and donor acquisition.</p>
+              <a href="blog.html" class="luxury-btn luxury-btn-outline">Learn More</a>
+            </div>
+          </div>
+          
+          <!-- Resource 3 -->
+          <div class="resource-card">
+            <div class="resource-content">
+              <h3>📱 Platform Strategy Deep Dive</h3>
+              <p>Data-driven comparison for brands choosing where to invest their influencer marketing budget.</p>
+              <a href="blog.html" class="luxury-btn luxury-btn-outline">Explore Analysis</a>
+            </div>
+          </div>
         </div>
-        
-        <!-- Blog Post 3 -->
-        <div class="resource-card">
-          <h3>📱 TikTok vs Instagram Reels: Platform Strategy</h3>
-          <p>Data-driven comparison for brands choosing where to invest.</p>
-          <a href="blog.html#platform-comparison" class="cta-button">Learn More</a>
-        </div>
-      </div>
-      
-      <div class="blog-preview">
-        <h3>Latest Article: "Micro-Influencers - The Secret Weapon for Small Brands"</h3>
-        <p>Why brands with &lt;$10k/month budgets see 3x better ROI with nano-influencers than celebrity endorsements...</p>
-        <a href="blog.html#pricing-guide" class="cta-button">Continue Reading</a>
       </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonial-section" id="testimonials">
-      <div class="testimonial-header">
-        <h2>What Our Clients Say</h2>
-      </div>
-      <div class="testimonial-slider" id="testimonialSlider">
-        <div class="testimonial-slide">
-          <img src="https://st.depositphotos.com/1364916/54752/v/600/depositphotos_547526476-stock-illustration-logo-teamwork-unity-business-people.jpg" alt="Profile 1" class="profile-photo">
-          <div class="testimonial-content">
-            <p>Linkage Media Hub's expertise has transformed our foundation. With their help, U.D.G has gained significant recognition and expanded our reach, enabling us to impact more lives. We're grateful for their innovative strategies and unwavering support in driving positive change.</p>
-            <p class="testimonial-author">- U.D.G Foundation</p>
+    <section class="luxury-testimonials" id="testimonials">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Testimonials</p>
+          <h2 class="section-title">Client Acclaim</h2>
+          <p class="section-subtitle">Hear what our partners have to say about their experience working with Linkage Media Hub.</p>
+        </div>
+        
+        <div class="testimonial-slider">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-content">
+                <p class="testimonial-text">Linkage Media Hub's expertise has transformed our foundation. With their help, U.D.G has gained significant recognition and expanded our reach, enabling us to impact more lives. We're grateful for their innovative strategies and unwavering support in driving positive change.</p>
+                <div class="testimonial-author">
+                  <img src="https://st.depositphotos.com/1364916/54752/v/600/depositphotos_547526476-stock-illustration-logo-teamwork-unity-business-people.jpg" alt="U.D.G Foundation" class="author-image">
+                  <div class="author-details">
+                    <span class="author-name">U.D.G Foundation</span>
+                    <span class="author-company">Nonprofit Organization</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-content">
+                <p class="testimonial-text">Before Linkage Media Hub, we relied mostly on referrals and Instagram posts that barely reached anyone. Within weeks of working with them, we saw our bookings jump and new clients saying they discovered us through Reels and influencer shoutouts. They didn't just promote us—they actually understood our brand and helped shape how people see us.</p>
+                <div class="testimonial-author">
+                  <img src="https://images.pexels.com/photos/6954163/pexels-photo-6954163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Mecky Makeup Studios" class="author-image">
+                  <div class="author-details">
+                    <span class="author-name">Mecky Makeup Studios</span>
+                    <span class="author-company">Beauty & Cosmetics</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide">
+              <div class="testimonial-content">
+                <p class="testimonial-text">Working with Linkage Media Hub gave our brand the visibility we'd been chasing for months. They connected us with creators who actually matched our audience, and the content didn't just look good—it got people talking and ordering. Within the first few weeks, we noticed a serious bump in traffic and customer DMs asking where to shop.</p>
+                <div class="testimonial-author">
+                  <img src="https://static8.depositphotos.com/1378583/1010/i/950/depositphotos_10106840-stock-photo-face-logo.jpg" alt="Velvet Beauty Cosmetics" class="author-image">
+                  <div class="author-details">
+                    <span class="author-name">Velvet Beauty Cosmetics</span>
+                    <span class="author-company">Beauty Brand</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="testimonial-slide">
-          <img src="https://images.pexels.com/photos/6954163/pexels-photo-6954163.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Profile 2" class="profile-photo">
-          <div class="testimonial-content">
-            <p>Before Linkage Media Hub, we relied mostly on referrals and Instagram posts that barely reached anyone. Within weeks of working with them, we saw our bookings jump and new clients saying they discovered us through Reels and influencer shoutouts. They didn’t just promote us—they actually understood our brand and helped shape how people see us. Honestly, it’s one of the best decisions we made for our business</p>
-            <p class="testimonial-author">- Mecky Makeup Studios</p>
+          
+          <div class="testimonial-nav">
+            <button class="testimonial-btn" id="testimonialPrev">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="testimonial-btn" id="testimonialNext">
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
-        </div>
-        <div class="testimonial-slide">
-          <img src="https://static8.depositphotos.com/1378583/1010/i/950/depositphotos_10106840-stock-photo-face-logo.jpg" alt="Profile 3" class="profile-photo">
-          <div class="testimonial-content">
-            <p>Working with Linkage Media Hub gave our brand the visibility we’d been chasing for months. They connected us with creators who actually matched our audience, and the content didn’t just look good—it got people talking and ordering. Within the first few weeks, we noticed a serious bump in traffic and customer DMs asking where to shop. LMH made influencer marketing finally make sense for us.</p>
-            <p class="testimonial-author">- Velvet Beauty Cosmetics (VBC)</p>
+          
+          <div class="testimonial-dots" id="testimonialDots">
+            <span class="testimonial-dot active"></span>
+            <span class="testimonial-dot"></span>
+            <span class="testimonial-dot"></span>
           </div>
-        </div>
-      </div>
-      <div class="progress-bar">
-        <div class="progress" id="progressBar"></div>
-      </div>
-      <div class="testimonial-controls">
-        <div class="testimonial-dots" id="testimonialDots">
-          <span class="active"></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="testimonial-nav">
-          <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
-          <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
         </div>
       </div>
     </section>
 
     <!-- Social Media Section -->
-    <section class="social-media-section">
-        <h2>Connect With Us</h2>
-        <p>Follow us on social media for the latest updates and marketing tips</p>
-        <div class="social-media-buttons">
-          <a href="https://api.whatsapp.com/send?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success:%20https://linkagemediahub.co.ke" target="_blank" class="social-button">
+    <section class="social-section">
+      <div class="luxury-container">
+        <div class="section-header">
+          <p class="section-pre-title">Connect</p>
+          <h2 class="section-title">Join The Conversation</h2>
+          <p class="section-subtitle">Follow us for the latest insights on influencer marketing and digital brand growth.</p>
+        </div>
+        
+        <div class="social-buttons">
+          <a href="https://api.whatsapp.com/send?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success:%20https://www.linkagemediahub.co.ke" target="_blank" class="social-button">
             <div class="social-icon">
               <i class="fab fa-whatsapp"></i>
             </div>
-            <span class="icon-label">Share on WhatsApp</span>
+            <span class="social-label">WhatsApp</span>
           </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://linkagemediahub.co.ke" target="_blank" class="social-button">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.linkagemediahub.co.ke" target="_blank" class="social-button">
             <div class="social-icon">
               <i class="fab fa-facebook-f"></i>
             </div>
-            <span class="icon-label">Share on Facebook</span>
+            <span class="social-label">Facebook</span>
           </a>
-          <a href="mailto:?subject=Check%20Out%20Linkage%20Media%20Hub&body=Thought%20you%20might%20be%20interested%20in%20this%20influencer%20marketing%20agency:%20https://linkagemediahub.co.ke" class="social-button">
+          <a href="mailto:?subject=Check%20Out%20Linkage%20Media%20Hub&body=Thought%20you%20might%20be%20interested%20in%20this%20influencer%20marketing%20agency:%20https://www.linkagemediahub.co.ke" class="social-button">
             <div class="social-icon">
               <i class="fas fa-envelope"></i>
             </div>
-            <span class="icon-label">Share via Email</span>
+            <span class="social-label">Email</span>
           </a>
-          <a href="https://twitter.com/intent/tweet?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success&url=https://linkagemediahub.co.ke" target="_blank" class="social-button">
+          <a href="https://twitter.com/intent/tweet?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success&url=https://www.linkagemediahub.co.ke" target="_blank" class="social-button">
             <div class="social-icon">
               <i class="fab fa-twitter"></i>
             </div>
-            <span class="icon-label">Share on Twitter</span>
+            <span class="social-label">X</span>
           </a>
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://linkagemediahub.co.ke&title=Linkage%20Media%20Hub&summary=Your%20Gateway%20to%20Influencer%20Marketing%20Success" target="_blank" class="social-button">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.linkagemediahub.co.ke&title=Linkage%20Media%20Hub&summary=Your%20Gateway%20to%20Influencer%20Marketing%20Success" target="_blank" class="social-button">
             <div class="social-icon">
               <i class="fab fa-linkedin-in"></i>
             </div>
-            <span class="icon-label">Share on LinkedIn</span>
+            <span class="social-label">LinkedIn</span>
           </a>
         </div>
-      </section>
-    </main>
-  
-    <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <ul class="footer-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#case-studies">Case Studies</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-      <p class="copyright">&copy; 2024 Linkage Media Hub. All rights reserved. <span class="powered-by-footer">Powered by MortApps Studios</span></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="luxury-footer">
+    <div class="luxury-container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <a href="#" class="footer-logo">Linkage Media Hub</a>
+          <p class="footer-about">We position brands, businesses, and creators for digital growth that lasts through strategic influencer partnerships and data-driven campaigns.</p>
+        </div>
+        
+        <div class="footer-links-container">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#blog">Resources</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links-container">
+          <h3 class="footer-heading">Connect</h3>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/254105399526" target="_blank">WhatsApp</a></li>
+            <li><a href="mailto:mort@linkagemediahub.co.ke">Email</a></li>
+            <li><a href="https://www.instagram.com/?url=https://www.linkagemediahub.co.ke" target="_blank">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.linkagemediahub.co.ke" target="_blank">LinkedIn</a></li>
+            <li><a href="https://twitter.com/intent/tweet?text=Check%20out%20Linkage%20Media%20Hub%20-%20Your%20Gateway%20to%20Influencer%20Marketing%20Success&url=https://www.linkagemediahub.co.ke" target="_blank">X</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2025 Linkage Media Hub. All rights reserved.</p>
+        <p class="powered-by">Powered by MortApps Studios</p>
+      </div>
     </div>
   </footer>
 
@@ -1237,39 +1772,39 @@ From storytelling to social impact, we make brands impossible to ignore.</p>
     <i class="fas fa-arrow-up"></i>
   </div>
 
-  <!-- Success Message -->
-  <div class="success-message" id="successMessage">
-    <p>Your message has been sent successfully!</p>
-  </div>
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/254105399526" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
   <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Splash Screen
+      // Luxury Loading Screen
+      const luxuryLoader = document.getElementById('luxuryLoader');
+      
       setTimeout(function() {
-        document.getElementById('splashScreen').classList.add('hidden');
-      }, 2500); // Show for 2.5 seconds
-
-      // Loading Screen
+        luxuryLoader.classList.add('animate-out');
+      }, 2000);
+      
       setTimeout(function() {
-        document.querySelector('.loader').classList.add('hidden');
-      }, 1500);
+        luxuryLoader.classList.add('hidden');
+      }, 2800);
 
       // Mobile Navigation
       const hamburger = document.getElementById('hamburger');
       const navLinks = document.getElementById('navLinks');
       
       hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
         navLinks.classList.toggle('active');
-        hamburger.innerHTML = navLinks.classList.contains('active') ? 
-          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
       });
 
       // Close mobile menu when clicking a link
       document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
           navLinks.classList.remove('active');
-          hamburger.innerHTML = '<i class="fas fa-bars"></i>';
         });
       });
 
@@ -1301,75 +1836,54 @@ From storytelling to social impact, we make brands impossible to ignore.</p>
       });
 
       // Testimonial Slider
-      const slider = document.getElementById('testimonialSlider');
-      const dots = document.querySelectorAll('#testimonialDots span');
-      const prevBtn = document.getElementById('prevTestimonial');
-      const nextBtn = document.getElementById('nextTestimonial');
-      const progressBar = document.getElementById('progressBar');
+      const track = document.getElementById('testimonialTrack');
+      const dots = document.querySelectorAll('.testimonial-dot');
+      const prevBtn = document.getElementById('testimonialPrev');
+      const nextBtn = document.getElementById('testimonialNext');
       
       let currentSlide = 0;
-      let slideInterval;
-      let progressInterval;
       const slideCount = document.querySelectorAll('.testimonial-slide').length;
-      const slideDuration = 5000; // 5 seconds per slide
-      let startTime;
-
-      function showSlide(index) {
+      
+      function goToSlide(index) {
         currentSlide = (index + slideCount) % slideCount;
-        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
         
         // Update dots
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === currentSlide);
         });
-        
-        // Reset progress bar
-        resetProgressBar();
       }
-
-      function nextSlide() {
-        showSlide(currentSlide + 1);
-      }
-
-      function prevSlide() {
-        showSlide(currentSlide - 1);
-      }
-
-      function resetProgressBar() {
-        clearInterval(progressInterval);
-        progressBar.style.width = '0%';
-        startTime = Date.now();
-        
-        progressInterval = setInterval(function() {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min((elapsed / slideDuration) * 100, 100);
-          progressBar.style.width = `${progress}%`;
-          
-          if (progress >= 100) {
-            nextSlide();
-          }
-        }, 50);
-      }
-
-      // Initialize
+      
       dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-          showSlide(index);
+          goToSlide(index);
         });
       });
-
-      prevBtn.addEventListener('click', prevSlide);
-      nextBtn.addEventListener('click', nextSlide);
-
-      // Start auto-sliding
-      resetProgressBar();
-
-      // Pause on hover
-      slider.addEventListener('mouseenter', () => {
-        clearInterval(progressInterval);
+      
+      prevBtn.addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
       });
-
-      slider.addEventListener('mouseleave', resetProgressBar);
+      
+      nextBtn.addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+      });
+      
+      // Auto slide testimonials
+      let slideInterval = setInterval(() => {
+        goToSlide(currentSlide + 1);
+      }, 6000);
+      
+      // Pause auto slide on hover
+      const slider = document.querySelector('.testimonial-slider');
+      slider.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+      });
+      
+      slider.addEventListener('mouseleave', () => {
+        slideInterval = setInterval(() => {
+          goToSlide(currentSlide + 1);
+        }, 6000);
+      });
 
       // Animated Counter
       const counters = document.querySelectorAll('.stat-number');
@@ -1398,8 +1912,6 @@ From storytelling to social impact, we make brands impossible to ignore.</p>
       const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            
             // Start counter animation when stats section is visible
             if (entry.target.id === 'stats') {
               animateCounters();
@@ -1410,49 +1922,11 @@ From storytelling to social impact, we make brands impossible to ignore.</p>
         });
       }, observerOptions);
       
-      // Observe all content sections
-      document.querySelectorAll('.content-section').forEach(section => {
-        observer.observe(section);
-      });
-      
       // Observe stats section
       const statsSection = document.getElementById('stats');
       if (statsSection) {
         observer.observe(statsSection);
       }
-
-      // Form Submission
-      const contactForm = document.getElementById('contactForm');
-      const successMessage = document.getElementById('successMessage');
-      
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const message = document.getElementById('message').value;
-        
-        // Create mailto link
-        const subject = `New Contact Form Submission from ${name}`;
-        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AMessage: ${message}`;
-        const mailtoLink = `mailto:linkage.media.hub@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Open default email client
-        window.location.href = mailtoLink;
-        
-        // Show success message
-        successMessage.classList.add('show');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Hide success message after 3 seconds
-        setTimeout(function() {
-          successMessage.classList.remove('show');
-        }, 3000);
-      });
 
       // Smooth scrolling for anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1460,16 +1934,77 @@ From storytelling to social impact, we make brands impossible to ignore.</p>
           e.preventDefault();
           
           const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
           const targetElement = document.querySelector(targetId);
           
           if (targetElement) {
+            const headerHeight = document.getElementById('header').offsetHeight;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
             window.scrollTo({
-              top: targetElement.offsetTop - 80,
+              top: targetPosition,
               behavior: 'smooth'
             });
           }
         });
       });
+
+      // Mobile portfolio item handling
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+      let mobileInterval;
+      
+      function setupPortfolioForMobile() {
+        if (window.innerWidth <= 992) {
+          // Clear any existing intervals
+          if (mobileInterval) clearInterval(mobileInterval);
+          
+          // Set up auto-rotation for mobile
+          let currentItem = 0;
+          
+          mobileInterval = setInterval(() => {
+            // Remove active class from all items
+            portfolioItems.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to current item
+            portfolioItems[currentItem].classList.add('active');
+            
+            // Move to next item
+            currentItem = (currentItem + 1) % portfolioItems.length;
+          }, 4000); // 4 seconds per item (3s visible, 1s transition)
+          
+          // Also allow manual click to show details
+          portfolioItems.forEach(item => {
+            item.addEventListener('click', function() {
+              // Clear the automatic rotation
+              clearInterval(mobileInterval);
+              
+              // Remove active class from all items
+              portfolioItems.forEach(i => i.classList.remove('active'));
+              
+              // Add active class to clicked item
+              this.classList.add('active');
+              
+              // Restart the automatic rotation after a delay
+              setTimeout(() => {
+                setupPortfolioForMobile();
+              }, 5000);
+            });
+          });
+        } else {
+          // Clear interval on desktop
+          if (mobileInterval) clearInterval(mobileInterval);
+          
+          // Remove all active classes on desktop
+          portfolioItems.forEach(item => item.classList.remove('active'));
+        }
+      }
+      
+      // Initialize portfolio behavior
+      setupPortfolioForMobile();
+      
+      // Update on window resize
+      window.addEventListener('resize', setupPortfolioForMobile);
     });
   </script>
 </body>
