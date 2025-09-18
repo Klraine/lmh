@@ -506,12 +506,6 @@
     
     .founder-image {
       position: relative;
-    }
-    
-    .founder-image img {
-      width: 100%;
-      border-radius: 0;
-      box-shadow: var(--shadow);
       /* Prevent interactions with founder image */
       pointer-events: none;
       -webkit-user-select: none;
@@ -522,6 +516,14 @@
       -khtml-user-drag: none;
       -moz-user-drag: none;
       -o-user-drag: none;
+    }
+    
+    .founder-img-container {
+      width: 100%;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
     
     .founder-image::after {
@@ -1021,7 +1023,7 @@
     <div class="luxury-container">
       <div class="founder-content">
         <div class="founder-image">
-          <img src="./images/founder.png" alt="Mort Ian K.">
+          <div class="founder-img-container" id="founder-image"></div>
         </div>
         
         <div class="founder-details">
@@ -1085,7 +1087,6 @@
   </div>
 
   <!-- JavaScript -->
-    <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Luxury Loading Screen
@@ -1168,15 +1169,17 @@
       // Set team member images as CSS backgrounds (making them harder to download)
       document.getElementById('maria-image').style.backgroundImage = 'url("./images/maria_team1.jpeg")';
       document.getElementById('issac-image').style.backgroundImage = 'url("./images/issac_team2.jpeg")';
-      document.getElementById('muhoho-image').style.backgroundImage = 'url("./images/muhoho_team3.jpeg")'; // CORRECTED: Changed from mulhoho to muhoho
+      document.getElementById('muhoho-image').style.backgroundImage = 'url("./images/muhoho_team3.jpeg")';
       document.getElementById('cynthia-image').style.backgroundImage = 'url("./images/cynthia_team4.jpeg")';
       document.getElementById('cosmic-image').style.backgroundImage = 'url("./images/cosmic_team5.jpeg")';
+      document.getElementById('founder-image').style.backgroundImage = 'url("./images/founder.png")';
 
       // Disable right-click context menu on images
       document.addEventListener('contextmenu', function(e) {
         if (e.target.classList.contains('member-image-container') || 
-            e.target.classList.contains('founder-image') || 
-            e.target.tagName === 'IMG') {
+            e.target.classList.contains('founder-img-container') || 
+            e.target.closest('.member-image-container') ||
+            e.target.closest('.founder-img-container')) {
           e.preventDefault();
           return false;
         }
@@ -1185,8 +1188,7 @@
       // Prevent image dragging
       document.addEventListener('dragstart', function(e) {
         if (e.target.classList.contains('member-image-container') || 
-            e.target.classList.contains('founder-image') || 
-            e.target.tagName === 'IMG') {
+            e.target.classList.contains('founder-img-container')) {
           e.preventDefault();
           return false;
         }
@@ -1195,8 +1197,7 @@
       // Prevent text selection on images
       document.addEventListener('selectstart', function(e) {
         if (e.target.classList.contains('member-image-container') || 
-            e.target.classList.contains('founder-image') || 
-            e.target.tagName === 'IMG') {
+            e.target.classList.contains('founder-img-container')) {
           e.preventDefault();
           return false;
         }
@@ -1223,7 +1224,8 @@
         return false;
       }
     });
-      // ===== SELF-DESTRUCT PROTECTION =====
+    
+    // ===== SELF-DESTRUCT PROTECTION =====
     // If someone saves the page locally, break functionality
     (function() {
       // Check if page is running locally (file:// protocol) or from different domain
@@ -1232,10 +1234,9 @@
           window.location.hostname !== 'yourusername.github.io') {
         
         // Destroy image functionality
-        document.querySelectorAll('.member-image-container').forEach(container => {
+        document.querySelectorAll('.member-image-container, .founder-img-container').forEach(container => {
           container.style.backgroundImage = 'none';
           container.style.backgroundColor = '#ccc';
-          container.innerHTML = '<span style="color: #900; font-weight: bold;">Image Protected</span>';
         });
         
         // Break JavaScript functionality gradually
@@ -1250,10 +1251,10 @@
           
           // Break navigation
           document.querySelector('.luxury-logo').href = '#';
-          document.querySelectorAll('.nav-links a').forEach(link => {
+          document.querySelectorAll('.nav-links a, .footer-links a').forEach(link => {
             link.addEventListener('click', function(e) {
               e.preventDefault();
-              alert('Content protection active');
+              alert('Content protection active - This page is designed to work only on the official website.');
             });
           });
         }, 5000);
@@ -1265,5 +1266,3 @@
   </script>
 </body>
 </html>
-
-
