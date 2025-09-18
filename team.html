@@ -1223,7 +1223,47 @@
         return false;
       }
     });
+      // ===== SELF-DESTRUCT PROTECTION =====
+    // If someone saves the page locally, break functionality
+    (function() {
+      // Check if page is running locally (file:// protocol) or from different domain
+      if (window.location.protocol === 'file:' || 
+          window.location.hostname !== 'linkagemediahub.co.ke' && 
+          window.location.hostname !== 'yourusername.github.io') {
+        
+        // Destroy image functionality
+        document.querySelectorAll('.member-image-container').forEach(container => {
+          container.style.backgroundImage = 'none';
+          container.style.backgroundColor = '#ccc';
+          container.innerHTML = '<span style="color: #900; font-weight: bold;">Image Protected</span>';
+        });
+        
+        // Break JavaScript functionality gradually
+        setTimeout(() => {
+          // Remove smooth scrolling
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              window.scrollTo(0, 0);
+            });
+          });
+          
+          // Break navigation
+          document.querySelector('.luxury-logo').href = '#';
+          document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              alert('Content protection active');
+            });
+          });
+        }, 5000);
+        
+        console.log('%c⚠️  PROTECTION TRIGGERED: This site is designed to break when downloaded locally', 
+                   'color: red; font-size: 16px; font-weight: bold;');
+      }
+    })();
   </script>
 </body>
 </html>
+
 
