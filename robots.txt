@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /$
+
+# Block all image crawlers from all images
+User-agent: Googlebot-Image
+Disallow: /
+
+# Block other crawlers from image folders
+User-agent: Bingbot
+Disallow: /images/
+
+User-agent: Yandex
+Disallow: /images/
+
+# Allow other pages to be indexed
+Allow: /index.html
+Allow: /career.html
+Allow: /team.html
+Allow: /blog.html
