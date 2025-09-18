@@ -342,6 +342,11 @@
       z-index: 2;
       max-width: 800px;
       margin: 0 auto;
+      /* Prevent text selection */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     
     .leadership-pre-title {
@@ -412,14 +417,26 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
     
-    .member-image {
+    /* UPDATED: CSS Background Image Approach for Protection */
+    .member-image-container {
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      object-fit: cover;
       margin: 0 auto 20px;
       border: 3px solid var(--primary-gold);
       box-shadow: var(--shadow);
+      background-size: cover;
+      background-position: center;
+      /* Prevent all interactions */
+      pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
     }
     
     .member-name {
@@ -495,6 +512,16 @@
       width: 100%;
       border-radius: 0;
       box-shadow: var(--shadow);
+      /* Prevent interactions with founder image */
+      pointer-events: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
     }
     
     .founder-image::after {
@@ -862,7 +889,7 @@
         padding: 25px;
       }
       
-      .member-image {
+      .member-image-container {
         width: 120px;
         height: 120px;
       }
@@ -898,7 +925,6 @@
           <li><a href="career.html">Careers</a></li>
           <li><a href="team.html">Our Team</a></li>
           <li><a href="mailto:mort@linkagemediahub.co.ke">Contact</a></li>
-
         </ul>
         <button class="hamburger" id="hamburger">
           <span></span>
@@ -924,7 +950,7 @@
       <div class="team-grid">
         <!-- Maria Wangari -->
         <div class="team-member">
-          <img src="./images/maria_team1.jpeg" alt="Maria Wangari" class="member-image">
+          <div class="member-image-container" id="maria-image"></div>
           <h3 class="member-name">Maria Wangari</h3>
           <p class="member-title">Director of Client Strategy</p>
           <p class="member-bio">Maria specializes in developing comprehensive influencer marketing strategies that align with brand objectives and drive measurable results.</p>
@@ -937,7 +963,7 @@
 
         <!-- Issac J. K. -->
         <div class="team-member">
-          <img src="./images/issac_team2.jpeg" alt="Issac J. K." class="member-image">
+          <div class="member-image-container" id="issac-image"></div>
           <h3 class="member-name">Issac J. K.</h3>
           <p class="member-title">Head of Creative Development</p>
           <p class="member-bio">Issac leads our creative team in developing innovative content strategies that captivate audiences and elevate brand storytelling.</p>
@@ -950,7 +976,7 @@
 
         <!-- K. W. Muhoho -->
         <div class="team-member">
-          <img src="./images/muhoho_team3.jpeg" alt="K. W. Muhoho" class="member-image">
+          <div class="member-image-container" id="muhoho-image"></div>
           <h3 class="member-name">K. W. Muhoho</h3>
           <p class="member-title">Operations Director</p>
           <p class="member-bio">With expertise in project management and process optimization, K. W. ensures our campaigns are executed flawlessly and efficiently.</p>
@@ -963,7 +989,7 @@
 
         <!-- Cynthia Wariri -->
         <div class="team-member">
-          <img src="./images/cynthia_team4.jpeg" alt="Cynthia Wariri" class="member-image">
+          <div class="member-image-container" id="cynthia-image"></div>
           <h3 class="member-name">Cynthia Wariri</h3>
           <p class="member-title">Head of Talent Relations</p>
           <p class="member-bio">Cynthia manages our network of influencers and content creators, ensuring perfect brand-creator alignment for every campaign.</p>
@@ -976,7 +1002,7 @@
 
         <!-- Cosmic -->
         <div class="team-member">
-          <img src="./images/cosmic_team5.jpeg" alt="Cosmic" class="member-image">
+          <div class="member-image-container" id="cosmic-image"></div>
           <h3 class="member-name">Cosmic</h3>
           <p class="member-title">Campaign Director</p>
           <p class="member-bio">Cosmic oversees the execution of all marketing campaigns, ensuring strategic alignment and maximum impact for our clients.</p>
@@ -1004,10 +1030,10 @@
           
           <p class="founder-bio">Mort Ian K. founded Linkage Media Hub with the simple idea that meaningful partnerships between brands and creators could drive real impact. At 22, he has already built a reputation for clear thinking, steady execution, and an eye for opportunities in the fast-changing digital landscape.</p>
           
-          <p class="founder-bio">Grounded in strategy rather than hype, Mort’s work reflects a commitment to helping businesses grow through honest, effective influencer marketing. Beyond LMH, he has also ventured into technology and creative projects—each guided by the same principle: building what lasts. His vision for LMH is not about chasing trends but creating a platform where brands and creators thrive together.</p>
+          <p class="founder-bio">Grounded in strategy rather than hype, Mort's work reflects a commitment to helping businesses grow through honest, effective influencer marketing. Beyond LMH, he has also ventured into technology and creative projects—each guided by the same principle: building what lasts. His vision for LMH is not about chasing trends but creating a platform where brands and creators thrive together.</p>
           
           <div class="founder-quote">
-            <p>"We don’t chase trends—we build what outlives them."</p>
+            <p>"We don't chase trends—we build what outlives them."</p>
           </div>
         </div>
       </div>
@@ -1137,11 +1163,65 @@
           }
         });
       });
+
+      // Set team member images as CSS backgrounds (making them harder to download)
+      document.getElementById('maria-image').style.backgroundImage = 'url("./images/maria_team1.jpeg")';
+      document.getElementById('issac-image').style.backgroundImage = 'url("./images/issac_team2.jpeg")';
+      document.getElementById('muhoho-image').style.backgroundImage = 'url("./images/mulhoho_team3.jpeg")';
+      document.getElementById('cynthia-image').style.backgroundImage = 'url("./images/cynthia_team4.jpeg")';
+      document.getElementById('cosmic-image').style.backgroundImage = 'url("./images/cosmic_team5.jpeg")';
+
+      // Disable right-click context menu on images
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.classList.contains('member-image-container') || 
+            e.target.classList.contains('founder-image') || 
+            e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Prevent image dragging
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.classList.contains('member-image-container') || 
+            e.target.classList.contains('founder-image') || 
+            e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Prevent text selection on images
+      document.addEventListener('selectstart', function(e) {
+        if (e.target.classList.contains('member-image-container') || 
+            e.target.classList.contains('founder-image') || 
+            e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Additional protection: Prevent opening images in new tab
+      document.addEventListener('keydown', function(e) {
+        // Prevent Ctrl+Click (Windows) or Cmd+Click (Mac)
+        if ((e.ctrlKey || e.metaKey) && e.target.classList.contains('member-image-container')) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
+
+    // Extra layer of protection - disable developer tools (basic)
+    document.addEventListener('keydown', function(e) {
+      // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+          (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+          (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+        return false;
+      }
     });
   </script>
 </body>
-
 </html>
-
-
-
