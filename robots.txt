@@ -1,19 +1,20 @@
 User-agent: *
-Allow: /$
+Disallow:
 
-# Block all image crawlers from all images
+# Allow Google image crawler to index only the root-level logo file
 User-agent: Googlebot-Image
-Disallow: /
+Allow: /logo.png
 
-# Block other crawlers from image folders
+# Keep the images folder blocked (if you still want DeepSeek-protected images not crawled)
 User-agent: Bingbot
 Disallow: /images/
 
 User-agent: Yandex
 Disallow: /images/
 
-# Allow other pages to be indexed
+# Allow main pages to be indexed
 Allow: /index.html
 Allow: /career.html
 Allow: /team.html
 Allow: /blog.html
+
