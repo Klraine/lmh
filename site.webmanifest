@@ -1,21 +1,21 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Linkage Media Hub",
+  "short_name": "Linkage Media",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png.png",
+      "src": "android-chrome-192x192.png.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/android-chrome-512x512.png.png",
+      "src": "android-chrome-512x512.png.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#D4AF37",
   "background_color": "#ffffff",
   "display": "standalone"
 }
