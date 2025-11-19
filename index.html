@@ -8,18 +8,17 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@500;600&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<!-- For modern browsers -->
-<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-<!-- iOS/Safari -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<!-- Android -->
-<link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#D4AF37">
+  
+  <!-- FAVICON & APP ICONS - UPDATED WITH CORRECT PATHS -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#D4AF37">
+
   <style>
     /* ===== LUXURY DESIGN VARIABLES ===== */
     :root {
@@ -59,162 +58,777 @@
       font-weight: 700;
       line-height: 1.3;
     }
-    
-    /* ===== LUXURY LOADING SCREEN ===== */
+
+    /* ===== ULTIMATE CHRISTMAS LOADING SCREEN ===== */
     .luxury-loader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--deep-navy);
+      background: linear-gradient(135deg, #0A1931 0%, #1a2b4d 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      z-index: 99999;
+      overflow: hidden !important;
+      font-family: 'Playfair Display', serif;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: none;
+      touch-action: none;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      perspective: 1000;
+      pointer-events: all;
     }
-    
+
     .luxury-loader.hidden {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
-    
-    .luxury-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: var(--primary-gold);
-      margin-bottom: 1.5rem;
+
+    body.loading-active {
+      overflow: hidden !important;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Enhanced Cinematic Background */
+    .cinematic-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(26, 43, 77, 0.1) 0%, transparent 50%);
+    }
+
+    /* Optimized Gold Sparkles for Mobile */
+    .gold-sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--primary-gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkleTwinkle 6s ease-in-out infinite;
+      box-shadow: 0 0 8px var(--primary-gold);
+      z-index: 2;
+    }
+
+    .gold-sparkle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .gold-sparkle:nth-child(2) { top: 85%; left: 90%; animation-delay: 2s; }
+    .gold-sparkle:nth-child(3) { top: 65%; left: 5%; animation-delay: 4s; }
+    .gold-sparkle:nth-child(4) { top: 25%; left: 95%; animation-delay: 6s; }
+
+    /* Optimized Gingle Bells for Mobile */
+    .gingle-bell {
+      position: absolute;
+      font-size: 2.2rem;
+      opacity: 0;
+      animation: bellEntrance 1.5s ease-out forwards, gentleSwing 5s ease-in-out 1.5s infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+      z-index: 10;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .gingle-bell.left-top { top: 25px; left: 25px; animation-delay: 0.3s; }
+    .gingle-bell.right-top { top: 25px; right: 25px; animation-delay: 0.5s; }
+    .gingle-bell.left-bottom { bottom: 45px; left: 25px; animation-delay: 0.7s; }
+    .gingle-bell.right-bottom { bottom: 45px; right: 25px; animation-delay: 0.9s; }
+
+    /* Optimized Falling Snow for Mobile */
+    .snow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .snowflake {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: snowfall 12s linear infinite;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      z-index: 3;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Optimized Music Notes for Mobile */
+    .music-note {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: musicFloat 8s ease-in-out infinite;
+      color: rgba(255, 255, 255, 0.6);
+      z-index: 2;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .music-note:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+    .music-note:nth-child(2) { top: 70%; left: 85%; animation-delay: 2s; }
+    .music-note:nth-child(3) { top: 40%; left: 10%; animation-delay: 4s; }
+    .music-note:nth-child(4) { top: 80%; left: 20%; animation-delay: 6s; }
+
+    /* Main Content - FIXED TITLE POSITION */
+    .cinematic-content {
       position: relative;
-      display: inline-block;
+      z-index: 20;
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      padding: 0 20px;
+      margin-top: 0; /* FIXED: Removed negative margin that was pushing title up */
     }
-    
-    .luxury-logo::after {
+
+    /* Enhanced Typing Animation */
+    .title-sequence {
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .typing-container {
+      display: inline-block;
+      position: relative;
+    }
+
+    .cinematic-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 4rem;
+      font-weight: 600;
+      color: transparent;
+      background: linear-gradient(135deg, #D4AF37 0%, #FFD700 30%, #F0E68C 70%, #D4AF37 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      text-shadow: 
+        0 0 30px rgba(212, 175, 55, 0.4),
+        0 0 60px rgba(212, 175, 55, 0.2);
+      letter-spacing: 2px;
+      margin: 0;
+      line-height: 1.2;
+      position: relative;
+    }
+
+    .cinematic-logo::after {
       content: '';
       position: absolute;
       bottom: -10px;
       left: 0;
       width: 100%;
       height: 2px;
-      background: var(--gold-gradient);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.8s ease;
+      background: linear-gradient(90deg, transparent, #D4AF37, #FFD700, #D4AF37, transparent);
+      opacity: 0.7;
     }
-    
-    .luxury-loader.animate-out .luxury-logo::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-    
-    .luxury-powered {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1rem;
-      letter-spacing: 2px;
-      position: absolute;
-      bottom: 30px;
-      right: 30px;
+
+    /* Enhanced Christmas Tree */
+    .luxury-tree-container {
+      position: relative;
+      margin: 40px 0 50px;
+      height: 180px;
       display: flex;
+      justify-content: center;
       align-items: center;
+      z-index: 15;
     }
-    
-    .luxury-powered::before {
-      content: '';
-      display: inline-block;
-      width: 30px;
-      height: 1px;
-      background: var(--primary-gold);
-      margin-right: 15px;
-    }
-    
-    .loader-animation {
+
+    .luxury-christmas-tree {
       position: relative;
       width: 120px;
-      height: 120px;
-      margin-bottom: 2rem;
+      height: 160px;
+      z-index: 15;
+      filter: drop-shadow(0 0 25px rgba(34, 139, 34, 0.3));
     }
-    
-    .loader-circle {
+
+    .tree-star {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.5rem;
+      animation: starGlow 3s ease-in-out infinite alternate;
+      z-index: 20;
+      text-shadow: 0 0 20px gold;
+    }
+
+    .tree-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 60px solid rgba(34, 139, 34, 0.95);
+      animation: treeLayerReveal 0.8s ease-out forwards;
+      opacity: 0;
+      z-index: 16;
+    }
+
+    .tree-layer:nth-child(2) {
+      top: 30px;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 70px solid rgba(46, 139, 87, 0.9);
+      animation-delay: 0.3s;
+    }
+
+    .tree-layer:nth-child(3) {
+      top: 70px;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 80px solid rgba(34, 139, 34, 0.85);
+      animation-delay: 0.6s;
+    }
+
+    .tree-trunk {
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 25px;
+      background: linear-gradient(to bottom, #8B4513, #654321);
+      border-radius: 3px;
+      opacity: 0;
+      animation: fadeInUp 0.5s 1s forwards;
+      z-index: 16;
+    }
+
+    /* Enhanced Luxury Ornaments */
+    .luxury-ornament {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: ornamentReveal 0.6s ease-out forwards, ornamentGlow 4s ease-in-out infinite alternate;
+      z-index: 18;
+      cursor: default;
+    }
+
+    .luxury-ornament.gold {
+      background: radial-gradient(circle at 30% 30%, #FFD700, #D4AF37, #B8860B);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    }
+
+    .luxury-ornament.crystal {
+      background: radial-gradient(circle at 30% 30%, #FFFFFF, #E6E6FA, #D8BFD8);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .luxury-ornament.pearl {
+      background: radial-gradient(circle at 30% 30%, #F8F8FF, #E6E6FA, #DCDCDC);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    }
+
+    .luxury-ornament.ruby {
+      background: radial-gradient(circle at 30% 30%, #DC143C, #B22222, #8B0000);
+      box-shadow: 0 0 15px rgba(220, 20, 60, 0.7);
+    }
+
+    .luxury-ornament:nth-child(5) { top: 35px; left: 30px; animation-delay: 1.2s; }
+    .luxury-ornament:nth-child(6) { top: 65px; right: 25px; animation-delay: 1.4s; }
+    .luxury-ornament:nth-child(7) { top: 95px; left: 40px; animation-delay: 1.6s; }
+    .luxury-ornament:nth-child(8) { bottom: 40px; right: 40px; animation-delay: 1.8s; }
+    .luxury-ornament:nth-child(9) { top: 50px; left: 45px; animation-delay: 2s; }
+    .luxury-ornament:nth-child(10) { top: 80px; right: 35px; animation-delay: 2.2s; }
+
+    /* Enhanced Handwritten Message */
+    .handwritten-message {
+      margin: 40px 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s 2s forwards;
+      z-index: 20;
+    }
+
+    .elegant-wishes {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 15px;
+      line-height: 1.3;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .signature-line {
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #D4AF37, #FFD700, #D4AF37, transparent);
+      margin: 12px auto;
+      opacity: 0.7;
+    }
+
+    .brand-signature {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: rgba(212, 175, 55, 0.9);
+      letter-spacing: 2px;
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    /* Christmas Countdown - ENHANCED with Powered By */
+    .festive-countdown {
+      margin: 30px 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s 2.2s forwards;
+      z-index: 20;
+      position: relative;
+    }
+
+    .countdown-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .countdown-timer {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    /* Elegant Powered By Tag */
+    .powered-by-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1.5px;
+      opacity: 0;
+      animation: fadeInDelayed 0.8s 3s forwards, fadeOutDelayed 0.8s 3.5s forwards;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .powered-by-tag::before,
+    .powered-by-tag::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+    }
+
+    .powered-by-tag::before { left: -25px; }
+    .powered-by-tag::after { right: -25px; }
+
+    /* Enhanced Brand Footer - REMOVED REDUNDANT TEXT */
+    .cinematic-brand-footer {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 20;
+      padding: 0 20px;
+    }
+
+    /* ===== ULTIMATE PROFESSIONAL LOADING SCREEN ===== */
+    .professional-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--deep-navy) 0%, #1a2b4d 100%);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 99998;
+      font-family: 'Cinzel', serif;
+    }
+
+    .professional-loader.active {
+      display: flex;
+      animation: professionalFadeIn 0.5s ease-out;
+    }
+
+    .professional-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    /* Luxury Spinner */
+    .luxury-spinner {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin-bottom: 3rem;
+    }
+
+    .spinner-ring {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border: 2px solid transparent;
-      border-top: 2px solid var(--primary-gold);
+      border: 3px solid transparent;
       border-radius: 50%;
-      animation: spin 1.5s linear infinite;
+      animation: luxurySpin 3s linear infinite;
     }
-    
-    .loader-circle:nth-child(2) {
-      border: 2px solid transparent;
-      border-right: 2px solid var(--secondary-gold);
-      animation: spin 2s linear infinite reverse;
+
+    .spinner-ring:nth-child(1) {
+      border-top: 3px solid var(--primary-gold);
+      border-right: 3px solid transparent;
+      animation-delay: 0s;
     }
-    
-    .loader-circle:nth-child(3) {
-      width: 80px;
-      height: 80px;
-      top: 20px;
-      left: 20px;
-      border: 2px solid transparent;
-      border-bottom: 2px solid rgba(212, 175, 55, 0.7);
-      animation: spin 2.5s linear infinite;
+
+    .spinner-ring:nth-child(2) {
+      border-right: 3px solid var(--secondary-gold);
+      border-bottom: 3px solid transparent;
+      animation-delay: 0.5s;
+      width: 130px;
+      height: 130px;
+      top: 15px;
+      left: 15px;
     }
-    
-    @keyframes spin {
+
+    .spinner-ring:nth-child(3) {
+      border-bottom: 3px solid rgba(212, 175, 55, 0.7);
+      border-left: 3px solid transparent;
+      animation-delay: 1s;
+      width: 100px;
+      height: 100px;
+      top: 30px;
+      left: 30px;
+    }
+
+    .spinner-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, var(--primary-gold) 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: centerPulse 2s ease-in-out infinite alternate;
+    }
+
+    /* Professional Logo - FIXED FOR MOBILE */
+    .professional-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      font-weight: 600;
+      color: transparent;
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--secondary-gold) 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+      letter-spacing: 3px;
+      margin-bottom: 2rem;
+      position: relative;
+      text-align: center;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .professional-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+      animation: lineExtend 2s ease-in-out infinite;
+    }
+
+    /* Progress Bar */
+    .luxury-progress {
+      width: 300px;
+      margin: 2rem 0;
+    }
+
+    .progress-track {
+      position: relative;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+      border-radius: 2px;
+      animation: progressLoad 2s ease-in-out forwards;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .progress-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 2px;
+      margin-top: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Professional Brand - REMOVED REDUNDANT TEXT */
+    .professional-brand {
+      position: absolute;
+      bottom: 40px;
+      text-align: center;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .professional-powered {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 2px;
+      position: relative;
+      padding: 0 20px;
+      display: block;
+    }
+
+    .professional-powered::before,
+    .professional-powered::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    }
+
+    .professional-powered::before { left: -35px; }
+    .professional-powered::after { right: -35px; }
+
+    /* ===== OPTIMIZED ANIMATIONS FOR MOBILE ===== */
+    @keyframes sparkleTwinkle {
+      0%, 100% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+    }
+
+    @keyframes bellEntrance {
+      0% { opacity: 0; transform: scale(0) rotate(-180deg); }
+      70% { opacity: 1; transform: scale(1.1) rotate(10deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes gentleSwing {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    @keyframes snowfall {
+      0% { transform: translateY(-100px) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh) translateX(100px) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes musicFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    @keyframes starGlow {
+      0% { 
+        filter: drop-shadow(0 0 5px gold);
+        transform: translateX(-50%) scale(1);
+      }
+      100% { 
+        filter: drop-shadow(0 0 20px gold) drop-shadow(0 0 30px gold);
+        transform: translateX(-50%) scale(1.1);
+      }
+    }
+
+    @keyframes treeLayerReveal {
+      0% { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.8); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+
+    @keyframes ornamentReveal {
+      0% { opacity: 0; transform: scale(0) rotate(-180deg); }
+      70% { opacity: 1; transform: scale(1.2) rotate(10deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes ornamentGlow {
+      0%, 100% { box-shadow: 0 0 10px currentColor; }
+      50% { box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+    }
+
+    @keyframes gentleGlow {
+      0%, 100% { opacity: 0.7; text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+      50% { opacity: 1; text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.3); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* New animations for powered by tag */
+    @keyframes fadeInDelayed {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeOutDelayed {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Professional Animations */
+    @keyframes professionalFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes luxurySpin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    
-    /* ===== LOADER TEXT WITH GOLDEN LINE ===== */
-    .loader-text {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.9);
-      letter-spacing: 2px;
-      margin-top: 1.5rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
+
+    @keyframes centerPulse {
+      0% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.1); }
     }
-    
-    .loader-text::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--primary-gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: dashLine 2.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+
+    @keyframes lineExtend {
+      0%, 100% { width: 50px; opacity: 0.5; }
+      50% { width: 150px; opacity: 1; }
     }
-    
-    @keyframes dashLine {
-      0% {
-        transform: scaleX(0);
-        transform-origin: left;
+
+    @keyframes progressLoad {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ===== MOBILE OPTIMIZATIONS - PERFECTED ===== */
+    @media (max-width: 768px) {
+      .cinematic-logo { 
+        font-size: 3rem; 
+        letter-spacing: 1px;
       }
-      50% {
-        transform: scaleX(1);
-        transform-origin: left;
+      .professional-logo { 
+        font-size: 2.8rem; 
+        letter-spacing: 2px;
+        padding: 0 20px;
+        text-align: center;
       }
-      51% {
-        transform: scaleX(1);
-        transform-origin: right;
+      .elegant-wishes { font-size: 1.8rem; }
+      .gingle-bell { font-size: 1.8rem; }
+      .luxury-tree-container { height: 150px; }
+      .luxury-christmas-tree { width: 100px; height: 130px; }
+      .tree-layer {
+        border-left-width: 30px;
+        border-right-width: 30px;
+        border-bottom-width: 50px;
       }
-      100% {
-        transform: scaleX(0);
-        transform-origin: right;
+      .tree-layer:nth-child(2) {
+        border-left-width: 40px;
+        border-right-width: 40px;
+        border-bottom-width: 60px;
+      }
+      .tree-layer:nth-child(3) {
+        border-left-width: 50px;
+        border-right-width: 50px;
+        border-bottom-width: 70px;
+      }
+      .luxury-spinner { width: 120px; height: 120px; }
+      .spinner-ring:nth-child(2) { width: 90px; height: 90px; top: 15px; left: 15px; }
+      .spinner-ring:nth-child(3) { width: 60px; height: 60px; top: 30px; left: 30px; }
+      .luxury-progress { width: 280px; }
+      .progress-text { font-size: 0.9rem; }
+      
+      /* Reduce animations on mobile for better performance */
+      .gold-sparkle,
+      .music-note {
+        animation-duration: 8s;
+      }
+      .snowflake {
+        animation-duration: 15s;
       }
     }
-    
+
+    @media (max-width: 480px) {
+      .cinematic-logo { 
+        font-size: 2.5rem; 
+        letter-spacing: 1px;
+      }
+      .professional-logo { 
+        font-size: 2.2rem; 
+        letter-spacing: 1px;
+        padding: 0 15px;
+      }
+      .elegant-wishes { font-size: 1.5rem; }
+      .gingle-bell {
+        font-size: 1.5rem;
+      }
+      .gingle-bell.left-top,
+      .gingle-bell.right-top { 
+        top: 15px; 
+      }
+      .gingle-bell.left-bottom,
+      .gingle-bell.right-bottom { 
+        bottom: 30px; 
+      }
+      .luxury-tree-container { 
+        height: 120px; 
+      }
+      .countdown-timer { font-size: 1.8rem; }
+      .luxury-progress { width: 250px; }
+      .progress-text { font-size: 0.8rem; letter-spacing: 1px; }
+      
+      /* Further reduce animations on very small screens */
+      .snowflake {
+        animation-duration: 18s;
+      }
+      .gold-sparkle {
+        display: none; /* Remove sparkles on very small screens */
+      }
+    }
+
+    /* Rest of your existing CSS remains exactly the same... */
     /* ===== HEADER & NAVIGATION ===== */
     .luxury-header {
       position: fixed;
@@ -1224,21 +1838,6 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
     
-    /* ===== ANIMATIONS ===== */
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
     /* ===== RESPONSIVE STYLES ===== */
     @media (max-width: 1200px) {
       .luxury-container {
@@ -1398,86 +1997,122 @@
     }
   </style>
 
-  <!-- Tell Google who we are -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Linkage Media Hub",
-  "url": "https://www.linkagemediahub.co.ke/",
-  "logo": "https://www.linkagemediahub.co.ke/logo.png",
-  "sameAs": [
-    "https://www.instagram.com/linkagemediahub/",
-    "https://www.linkedin.com/company/linkage-media-hub/"
-  ]
-}
-</script>
-
-<link rel="icon" sizes="512x512" href="https://www.linkagemediahub.co.ke/logo.png">
-<meta property="og:image:type" content="image/png">
-
-<!-- Favicons - FIXED VERSION -->
-<link rel="icon" type="image/x-icon" href="https://www.linkagemediahub.co.ke/favicon.ico">
-<link rel="icon" type="image/png" sizes="96x96" href="https://www.linkagemediahub.co.ke/favicon-96x96.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://www.linkagemediahub.co.ke/apple-touch-icon.png">
-<link rel="manifest" href="https://www.linkagemediahub.co.ke/site.webmanifest">
-
-  <!-- Extra tags to help Google find our logo -->
-<meta property="og:image" content="https://www.linkagemediahub.co.ke/logo.png">
-<meta property="og:image:width" content="500">
-<meta property="og:image:height" content="500">
-<meta name="twitter:image" content="https://www.linkagemediahub.co.ke/logo.png">
-
-
-
-  <!-- Anti-copy & anti-image-save protection -->
-<style>
-  /* Disable text selection */
-  body {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  <!-- SEO & Social Meta -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Linkage Media Hub",
+    "url": "https://www.linkagemediahub.co.ke/",
+    "logo": "https://www.linkagemediahub.co.ke/logo.png",
+    "sameAs": [
+      "https://www.instagram.com/linkagemediahub/",
+      "https://www.linkedin.com/company/linkage-media-hub/"
+    ]
   }
-
-  /* Disable image dragging */
-  img {
-    -webkit-user-drag: none;
-    user-drag: none;
-    pointer-events: none; /* images cannot be clicked or long-pressed */
-  }
-</style>
-
-<script>
-  // Disable right-click
-  document.addEventListener('contextmenu', event => event.preventDefault());
-
-  // Disable keyboard copy shortcuts (Ctrl+C, Ctrl+U, Ctrl+Shift+I, Ctrl+S)
-  document.addEventListener('keydown', function(e) {
-    if (
-      (e.ctrlKey && e.key === 'c') ||   // Copy
-      (e.ctrlKey && e.key === 's') ||   // Save
-      (e.ctrlKey && e.key === 'u') ||   // View Source
-      (e.ctrlKey && e.shiftKey && e.key === 'I') // DevTools
-    ) {
-      e.preventDefault();
-    }
-  });
-</script>
-
-
-  
+  </script>
 </head>
 <body>
-  <!-- Luxury Loading Screen -->
+  <!-- ULTIMATE CHRISTMAS LOADING SCREEN -->
   <div class="luxury-loader" id="luxuryLoader">
-    <div class="loader-animation">
-      <div class="loader-circle"></div>
-      <div class="loader-circle"></div>
-      <div class="loader-circle"></div>
+    <!-- Enhanced Cinematic Background -->
+    <div class="cinematic-background">
+      <div class="gold-sparkle"></div>
+      <div class="gold-sparkle"></div>
+      <div class="gold-sparkle"></div>
+      <div class="gold-sparkle"></div>
+      
+      <!-- Enhanced Gingle Bells -->
+      <div class="gingle-bell left-top">🔔</div>
+      <div class="gingle-bell right-top">🔔</div>
+      <div class="gingle-bell left-bottom">🔔</div>
+      <div class="gingle-bell right-bottom">🔔</div>
+      
+      <!-- Falling Snow -->
+      <div class="snow-container" id="snowContainer"></div>
+      
+      <!-- Christmas Music Notes -->
+      <div class="music-note">♪</div>
+      <div class="music-note">♫</div>
+      <div class="music-note">♪</div>
+      <div class="music-note">♫</div>
     </div>
-    <div class="loader-text">Linkage Media Hub</div>
-    <div class="luxury-powered">Powered by MortApps Studios</div>
+
+    <!-- Main Content Container -->
+    <div class="cinematic-content">
+      <!-- Enhanced Typing Animation -->
+      <div class="title-sequence">
+        <div class="typing-container">
+          <h1 class="cinematic-logo" id="typedLogo"></h1>
+        </div>
+      </div>
+
+      <!-- Enhanced Christmas Tree -->
+      <div class="luxury-tree-container">
+        <div class="luxury-christmas-tree">
+          <div class="tree-star">✨</div>
+          <div class="tree-layer"></div>
+          <div class="tree-layer"></div>
+          <div class="tree-layer"></div>
+          <div class="tree-trunk"></div>
+          
+          <!-- Enhanced Luxury Ornaments -->
+          <div class="luxury-ornament gold"></div>
+          <div class="luxury-ornament crystal"></div>
+          <div class="luxury-ornament pearl"></div>
+          <div class="luxury-ornament ruby"></div>
+          <div class="luxury-ornament gold"></div>
+          <div class="luxury-ornament crystal"></div>
+        </div>
+      </div>
+
+      <!-- Enhanced Festive Countdown with Powered By -->
+      <div class="festive-countdown">
+        <div class="countdown-title">Festive Countdown</div>
+        <div class="countdown-timer" id="countdownTimer">24 Days</div>
+        <div class="powered-by-tag">Powered by MortApps Studios</div>
+      </div>
+
+      <!-- Enhanced Handwritten Message -->
+      <div class="handwritten-message">
+        <p class="elegant-wishes">Wishing You a Season of Digital Excellence</p>
+        <div class="signature-line"></div>
+        <p class="brand-signature">Linkage Media Hub</p>
+      </div>
+    </div>
+
+    <!-- Enhanced Brand Footer - REMOVED REDUNDANT TEXT -->
+    <div class="cinematic-brand-footer">
+      <!-- Removed the redundant LINKAGE MEDIA HUB text -->
+    </div>
+  </div>
+
+  <!-- ULTIMATE PROFESSIONAL LOADING SCREEN -->
+  <div class="professional-loader" id="professionalLoader">
+    <!-- Luxury Spinner -->
+    <div class="luxury-spinner">
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-ring"></div>
+      <div class="spinner-center"></div>
+    </div>
+
+    <!-- Professional Logo - FIXED FOR MOBILE -->
+    <h1 class="professional-logo">Linkage Media Hub</h1>
+
+    <!-- Progress Bar -->
+    <div class="luxury-progress">
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-text">Premium Influencer Marketing</div>
+    </div>
+
+    <!-- Professional Brand - REMOVED REDUNDANT TEXT -->
+    <div class="professional-brand">
+      <div class="professional-powered">Powered by MortApps Studios</div>
+      <!-- Removed the redundant LINKAGE MEDIA HUB text -->
+    </div>
   </div>
 
   <!-- Header -->
@@ -1851,16 +2486,114 @@
   <!-- JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Luxury Loading Screen
+      // PERFECTED DUAL LOADING EXPERIENCE
       const luxuryLoader = document.getElementById('luxuryLoader');
+      const professionalLoader = document.getElementById('professionalLoader');
+      const typedLogo = document.getElementById('typedLogo');
+      const snowContainer = document.getElementById('snowContainer');
+      const countdownTimer = document.getElementById('countdownTimer');
       
-      setTimeout(function() {
-        luxuryLoader.classList.add('animate-out');
-      }, 2000);
+      // IMMEDIATELY lock the page to prevent any background interaction
+      document.body.classList.add('loading-active');
       
-      setTimeout(function() {
-        luxuryLoader.classList.add('hidden');
-      }, 2800);
+      // Create falling snow - OPTIMIZED FOR MOBILE
+      function createSnow() {
+        const snowCount = window.innerWidth < 768 ? 20 : 30; // Reduce snow on mobile
+        
+        for (let i = 0; i < snowCount; i++) {
+          const snowflake = document.createElement('div');
+          snowflake.className = 'snowflake';
+          snowflake.innerHTML = '❄';
+          snowflake.style.left = Math.random() * 100 + 'vw';
+          snowflake.style.animationDelay = Math.random() * 12 + 's';
+          snowflake.style.fontSize = (Math.random() * 8 + 8) + 'px'; // Smaller on mobile
+          snowContainer.appendChild(snowflake);
+        }
+      }
+      
+      // Christmas countdown
+      function updateCountdown() {
+        const now = new Date();
+        const christmas = new Date(now.getFullYear(), 11, 25);
+        if (now.getMonth() === 11 && now.getDate() > 25) {
+          christmas.setFullYear(christmas.getFullYear() + 1);
+        }
+        
+        const diff = christmas - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        
+        if (days === 0) {
+          countdownTimer.textContent = 'Merry Christmas!';
+        } else {
+          countdownTimer.textContent = `${days} Day${days !== 1 ? 's' : ''}`;
+        }
+      }
+      
+      // Simple, reliable typing animation
+      function typeWriter(text, element, speed = 100) {
+        return new Promise((resolve) => {
+          let i = 0;
+          element.innerHTML = '';
+          
+          function type() {
+            if (i < text.length) {
+              element.innerHTML += text.charAt(i);
+              i++;
+              setTimeout(type, speed);
+            } else {
+              resolve();
+            }
+          }
+          type();
+        });
+      }
+
+      // Start the PERFECTED dual loading experience
+      async function startPerfectExperience() {
+        try {
+          // Create snow and countdown
+          createSnow();
+          updateCountdown();
+          
+          // Start typing immediately
+          await typeWriter('Linkage Media Hub', typedLogo, 80);
+          
+          // Perfect timing - 4 seconds for Christmas animation
+          setTimeout(() => {
+            // SMOOTH transition to professional loader - NO GAPS
+            luxuryLoader.style.opacity = '0';
+            luxuryLoader.style.visibility = 'hidden';
+            
+            setTimeout(() => {
+              luxuryLoader.style.display = 'none';
+              professionalLoader.classList.add('active');
+              
+              // Professional loader timing - 2.5 seconds
+              setTimeout(() => {
+                professionalLoader.classList.add('hidden');
+                
+                // Unlock the page after transition
+                setTimeout(() => {
+                  document.body.classList.remove('loading-active');
+                  professionalLoader.style.display = 'none';
+                }, 800);
+              }, 2500);
+            }, 50); // Tiny delay for smooth transition
+          }, 4000);
+          
+        } catch (error) {
+          // Fallback: hide everything after 7 seconds
+          console.error('Loading error:', error);
+          setTimeout(() => {
+            luxuryLoader.style.display = 'none';
+            professionalLoader.style.display = 'none';
+            document.body.classList.remove('loading-active');
+          }, 7000);
+        }
+      }
+
+      // Start immediately
+      startPerfectExperience();
 
       // Mobile Navigation
       const hamburger = document.getElementById('hamburger');
@@ -2042,7 +2775,7 @@
             
             // Move to next item
             currentItem = (currentItem + 1) % portfolioItems.length;
-          }, 4000); // 4 seconds per item (3s visible, 1s transition)
+          }, 4000);
           
           // Also allow manual click to show details
           portfolioItems.forEach(item => {
@@ -2080,14 +2813,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
