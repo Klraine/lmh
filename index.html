@@ -2012,6 +2012,47 @@
     ]
   }
   </script>
+
+  <!-- Anti-copy & anti-image-save protection -->
+<style>
+  /* Disable text selection */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Disable image dragging */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none; /* images cannot be clicked or long-pressed */
+  }
+</style>
+
+<script>
+  // Disable right-click
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
+  // Disable keyboard copy shortcuts (Ctrl+C, Ctrl+U, Ctrl+Shift+I, Ctrl+S)
+  document.addEventListener('keydown', function(e) {
+    if (
+      (e.ctrlKey && e.key === 'c') ||   // Copy
+      (e.ctrlKey && e.key === 's') ||   // Save
+      (e.ctrlKey && e.key === 'u') ||   // View Source
+      (e.ctrlKey && e.shiftKey && e.key === 'I') // DevTools
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+
+  
+
+
+  
 </head>
 <body>
   <!-- ULTIMATE CHRISTMAS LOADING SCREEN -->
@@ -2814,3 +2855,4 @@
   </script>
 </body>
 </html>
+
