@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SigMax | Linkage Media Hub Agreement</title>
+
+    <!-- Favicons & Icons – linked from /icons/ folder (untouched as requested) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --ink:#0a0a0f;--ink2:#13131a;--ink3:#1c1c27;
+            --border:rgba(255,255,255,0.07);--gold:#c9a96e;--gold2:#e8d5b0;
+            --smoke:rgba(255,255,255,0.55);--white:#ffffff;
+            --doc-bg:#fafaf8;--doc-text:#1a1a1a;--doc-gray:#555;
+            --doc-rule:#d4d0c8;--doc-accent:#1a1a2e;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:'DM Sans',sans-serif;background:var(--ink);min-height:100vh;color:var(--white);}
+        .topbar{position:sticky;top:0;z-index:200;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between;height:64px;}
+        .logo{display:flex;align-items:baseline;gap:2px;text-decoration:none;}
+        .logo-mark{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:500;color:var(--white);letter-spacing:-0.02em;}
+        .logo-mark span{color:var(--gold);}
+        .logo-badge{font-size:0.6rem;font-weight:500;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-left:8px;border:1px solid rgba(201,169,110,0.4);padding:2px 6px;border-radius:2px;}
+        .topbar-actions{display:flex;gap:10px;align-items:center;}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border:none;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.03em;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;}
+        .btn-ghost{background:transparent;color:var(--smoke);border:1px solid var(--border);}
+        .btn-ghost:hover{border-color:rgba(255,255,255,0.2);color:var(--white);background:rgba(255,255,255,0.04);}
+        .btn-primary{background:var(--gold);color:var(--ink);font-weight:600;}
+        .btn-primary:hover{background:var(--gold2);}
+        .btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
+        .btn svg{flex-shrink:0;}
+        .btn-switch-role{background:transparent;color:var(--gold);border:1px solid rgba(201,169,110,0.3);padding:7px 14px;font-size:0.75rem;letter-spacing:0.06em;}
+        .btn-switch-role:hover{background:rgba(201,169,110,0.08);border-color:var(--gold);color:var(--gold2);}
+        .shell{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px);}
+        .sidebar{background:var(--ink2);border-right:1px solid var(--border);padding:32px 24px;display:flex;flex-direction:column;gap:40px;}
+        .sidebar-section-label{font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:14px;}
+        .toc-list{list-style:none;display:flex;flex-direction:column;gap:2px;}
+        .toc-list li a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:4px;text-decoration:none;font-size:0.8rem;color:var(--smoke);transition:all 0.15s;}
+        .toc-list li a:hover{background:rgba(255,255,255,0.05);color:var(--white);}
+        .toc-num{font-size:0.65rem;color:var(--gold);font-family:'Cormorant Garamond',serif;min-width:16px;}
+        .status-card{background:var(--ink3);border:1px solid var(--border);border-radius:8px;padding:18px;}
+        .status-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+        .status-row:last-child{margin-bottom:0;}
+        .status-key{font-size:0.75rem;color:rgba(255,255,255,0.35);}
+        .status-val{font-size:0.78rem;color:var(--smoke);font-weight:500;}
+        .status-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:5px;box-shadow:0 0 6px #4ade80;}
+        .main{padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;align-items:center;background:var(--ink);}
+        .progress-bar-wrap{width:100%;max-width:820px;margin-bottom:24px;}
+        .progress-label{display:flex;justify-content:space-between;font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:8px;letter-spacing:0.05em;}
+        .progress-track{height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;}
+        .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width 0.4s ease;}
+        #document-wrapper{background:var(--doc-bg);width:100%;max-width:820px;padding:clamp(24px,6vw,56px) clamp(24px,8vw,72px);border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5),0 40px 100px rgba(0,0,0,0.3);color:var(--doc-text);font-family:'DM Sans',sans-serif;position:relative;}
+        #document-wrapper::before{content:'';position:absolute;top:0;right:0;width:40px;height:40px;background:linear-gradient(225deg,rgba(201,169,110,0.15) 0%,transparent 60%);pointer-events:none;}
+        .doc-header{display:flex;flex-direction:column;align-items:center;text-align:center;padding-bottom:28px;margin-bottom:32px;border-bottom:1px solid var(--doc-rule);position:relative;}
+        .doc-header-logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:500;color:var(--doc-accent);letter-spacing:-0.01em;margin-bottom:4px;}
+        .doc-header-logo span{color:#9a7a40;}
+        .doc-header-rule{width:32px;height:1px;background:#9a7a40;margin:10px auto;}
+        .doc-header h2{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--doc-accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+        .doc-header p{font-size:0.78rem;color:var(--doc-gray);line-height:1.6;margin-bottom:3px;}
+        .doc-meta-row{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+        .doc-meta-pill{font-size:0.7rem;background:#f0ede6;color:#666;padding:3px 10px;border-radius:20px;letter-spacing:0.04em;}
+        .doc-body h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--doc-accent);letter-spacing:0.08em;text-transform:uppercase;margin-top:32px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--doc-rule);}
+        .doc-body h3:first-child{margin-top:0;}
+        .doc-body h4{font-size:0.85rem;font-weight:600;color:#333;margin-top:16px;margin-bottom:6px;letter-spacing:0.02em;}
+        .doc-body p,.doc-body li{font-size:0.82rem;line-height:1.75;color:#3a3a3a;margin-bottom:8px;text-align:justify;}
+        .doc-body ul{padding-left:20px;margin-bottom:12px;}
+        .doc-body li{margin-bottom:4px;}
+        .callout{background:#f5f2eb;border-left:3px solid #9a7a40;padding:14px 16px;margin:16px 0;border-radius:0 4px 4px 0;}
+        .callout p{margin:0;font-size:0.79rem;color:#555;}
+        .callout strong{color:#3a3030;}
+        .page-break{margin-top:40px;padding-top:32px;border-top:1px solid var(--doc-rule);}
+        .signing-section h3{margin-top:0 !important;}
+        .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+        @media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
+        .form-group label{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#888;margin-bottom:6px;}
+        .form-group input[type="text"],.form-group input[type="date"]{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:3px;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--doc-text);background:#fff;transition:border-color 0.2s;outline:none;}
+        .form-group input:focus{border-color:#9a7a40;}
+        .sig-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#888;margin-bottom:6px;}
+        .signature-wrapper{border:1px solid #ccc;background:#fff;position:relative;height:130px;border-radius:3px;cursor:crosshair;overflow:hidden;touch-action:none;}
+        .signature-wrapper canvas{display:block;width:100%;height:100%;}
+        .signature-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ccc;font-style:italic;font-size:0.9rem;pointer-events:none;user-select:none;transition:opacity 0.2s;}
+        .party-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:24px;}
+        @media(max-width:560px){.party-grid{grid-template-columns:1fr;gap:20px;}}
+        .party-block{display:flex;flex-direction:column;gap:8px;}
+        .party-title{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;margin-bottom:4px;}
+        .party-signed{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:#1a1a2e;border-bottom:1px solid #ddd;padding-bottom:4px;min-height:36px;}
+        .party-name{font-size:0.78rem;color:#333;font-weight:500;}
+        .party-role{font-size:0.7rem;color:#999;}
+        .doc-footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--doc-rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+        .doc-footer p{font-size:0.68rem;color:#bbb;margin:0;text-align:left;}
+        .doc-footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#bbb;}
+        .doc-footer-logo span{color:#9a7a40;}
+        @media(max-width:900px){.shell{grid-template-columns:1fr;}.sidebar{display:none;}}
+        @media(max-width:640px){.logo-badge{display:none;}.btn-ghost span{display:none;}.btn-ghost{padding:9px 12px;}.btn-switch-role span{display:none;}.btn-switch-role{padding:7px 10px;}}
+        #pdf-overlay{display:none;position:fixed;inset:0;background:rgba(10,10,15,0.92);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+        #pdf-overlay.active{display:flex;}
+        .spinner{width:40px;height:40px;border:2px solid rgba(201,169,110,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        #pdf-overlay p{font-size:0.85rem;color:var(--smoke);letter-spacing:0.06em;}
+
+        /* ===== POP-UP MODAL STYLES ===== */
+        #role-modal{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.95);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fadeIn 0.3s ease;}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .modal-card{background:var(--ink2);border:1px solid var(--border);border-radius:12px;padding:48px 40px;max-width:520px;width:90%;text-align:center;animation:slideUp 0.4s ease;}
+        @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .modal-card .modal-logo{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--white);margin-bottom:4px;}
+        .modal-card .modal-logo span{color:var(--gold);}
+        .modal-divider{width:32px;height:1px;background:var(--gold);margin:12px auto 20px;}
+        .modal-card h2{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--smoke);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+        .modal-card p{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:28px;}
+        .role-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+        .role-btn{flex:1;min-width:200px;padding:20px 24px;border:1px solid var(--border);border-radius:8px;background:var(--ink3);color:var(--white);font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.25s ease;text-align:center;position:relative;overflow:hidden;}
+        .role-btn:hover{border-color:var(--gold);background:rgba(201,169,110,0.08);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,169,110,0.1);}
+        .role-btn .role-icon{width:44px;height:44px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.15);}
+        .role-btn .role-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--white);margin-bottom:4px;}
+        .role-btn .role-sub{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.04em;}
+        @media(max-width:480px){.role-buttons{flex-direction:column;}.role-btn{min-width:auto;}}
+    </style>
+</head>
+<body>
+
+<!-- ===== ROLE SELECTION POP-UP ===== -->
+<div id="role-modal">
+    <div class="modal-card">
+        <div class="modal-logo">Linkage <span>Media Hub</span></div>
+        <div class="modal-divider"></div>
+        <h2>Welcome</h2>
+        <p>Before proceeding, please identify yourself so we can present the correct agreement for you to sign.</p>
+        <div class="role-buttons">
+            <button class="role-btn" onclick="selectRole('influencer')">
+                <span class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                <div class="role-title">Influencer</div>
+                <div class="role-sub">I am a content creator / influencer</div>
+            </button>
+            <button class="role-btn" onclick="selectRole('client')">
+                <span class="role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>
+                <div class="role-title">Client</div>
+                <div class="role-sub">I am a brand / business seeking services</div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="pdf-overlay"><div class="spinner"></div><p>Preparing your document&#8230;</p></div>
+
+<header class="topbar">
+    <div class="logo">
+        <span class="logo-mark">Sig<span>Max</span></span>
+        <span class="logo-badge">LMH</span>
+    </div>
+    <div class="topbar-actions">
+        <button class="btn btn-switch-role" id="switch-role-btn" style="display:none;" onclick="goBackToRoleSelection()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <span>Switch Role</span>
+        </button>
+        <button class="btn btn-ghost" onclick="clearCanvas()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6l-1 14H6L5 6M8 6V4h8v2"/></svg>
+            <span>Clear Signature</span>
+        </button>
+        <button class="btn btn-primary" onclick="generatePDF()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+            Download Signed PDF
+        </button>
+    </div>
+</header>
+
+<div class="shell">
+    <aside class="sidebar">
+        <div>
+            <p class="sidebar-section-label">Document Sections</p>
+            <ul class="toc-list" id="toc-list">
+                <!-- Populated dynamically based on role -->
+            </ul>
+        </div>
+        <div>
+            <p class="sidebar-section-label">Document Status</p>
+            <div class="status-card">
+                <div class="status-row"><span class="status-key">Status</span><span class="status-val"><span class="status-dot"></span>Ready to Sign</span></div>
+                <div class="status-row"><span class="status-key">Version</span><span class="status-val">1.0</span></div>
+                <div class="status-row"><span class="status-key">Effective</span><span class="status-val" id="sidebar-date">May 2026</span></div>
+                <div class="status-row"><span class="status-key">Type</span><span class="status-val" id="sidebar-type">&#8212;</span></div>
+                <div class="status-row"><span class="status-key">Jurisdiction</span><span class="status-val">Kenya</span></div>
+            </div>
+        </div>
+        <div style="margin-top:auto;">
+            <p style="font-size:0.68rem;color:rgba(255,255,255,0.2);line-height:1.6;">
+                Powered by SigMax &#183; Linkage Media Hub<br>
+                mort&#64;linkagemediahub.co.ke
+            </p>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="progress-bar-wrap">
+            <div class="progress-label"><span>Completion</span><span id="progress-pct">0%</span></div>
+            <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+
+        <div id="document-wrapper">
+
+            <!-- ===== INFLUENCER CONTRACT ===== -->
+            <div id="contract-influencer" style="display:none;">
+                <div class="doc-header">
+                    <div class="doc-header-logo">Linkage <span>Media Hub</span></div>
+                    <div class="doc-header-rule"></div>
+                    <h2>Influencer Partnership &amp; Campaign Participation Agreement</h2>
+                    <p>Terms &amp; Conditions for Influencer Marketing Campaigns</p>
+                    <div class="doc-meta-row">
+                        <span class="doc-meta-pill">Version 1.0</span>
+                        <span class="doc-meta-pill dynamic-month-year">May 2026</span>
+                        <span class="doc-meta-pill">Nairobi, Kenya</span>
+                        <span class="doc-meta-pill">mort&#64;linkagemediahub.co.ke</span>
+                    </div>
+                </div>
+                <div class="doc-body">
+                    <h3 id="s1">1. Introduction</h3>
+                    <p>This Influencer Partnership &amp; Campaign Participation Agreement ("Agreement") outlines the terms and conditions governing the working relationship between Linkage Media Hub ("LMH," "Agency," "we," "us," or "our") and the participating Influencer ("you" or "your") for the execution of influencer marketing campaigns, promotions, collaborations, and related digital marketing activities.</p>
+                    <p>By participating in campaigns coordinated by Linkage Media Hub, you acknowledge that you have read, understood, and agreed to be bound by the terms outlined in this Agreement.</p>
+                    <h4>1.1 Purpose of This Agreement</h4>
+                    <p>This Agreement exists to establish a professional, organized, and transparent framework between influencers and Linkage Media Hub. The digital space moves quickly, and clear expectations protect both parties while ensuring campaigns are executed efficiently and professionally.</p>
+                    <p>We value long term relationships, reliability, and professionalism over one-off transactions.</p>
+                    <h4>1.2 Scope of Services</h4>
+                    <p>Linkage Media Hub coordinates influencer campaigns that may include:</p>
+                    <ul>
+                        <li>Sponsored Instagram posts, reels, stories, and live sessions</li>
+                        <li>TikTok promotional campaigns</li>
+                        <li>Brand awareness campaigns</li>
+                        <li>Product or service promotions</li>
+                        <li>Event marketing and attendance</li>
+                        <li>WhatsApp and Telegram promotional activities</li>
+                        <li>Affiliate or referral-based campaigns</li>
+                        <li>Ambassador partnerships and long-term collaborations</li>
+                        <li>Content creation for client marketing use</li>
+                    </ul>
+                    <p>Campaign requirements may vary depending on the client, target audience, and campaign objectives.</p>
+
+                    <h3 id="s2">2. Campaign Participation</h3>
+                    <h4>2.1 Campaign Selection</h4>
+                    <p>Participation in campaigns is entirely at the discretion of Linkage Media Hub and the client involved. Being part of our influencer network does not guarantee automatic campaign opportunities.</p>
+                    <p>Campaign selection may depend on factors including:</p>
+                    <ul>
+                        <li>Audience relevance</li>
+                        <li>Engagement quality</li>
+                        <li>Professionalism</li>
+                        <li>Communication consistency</li>
+                        <li>Content quality</li>
+                        <li>Reliability during previous collaborations</li>
+                        <li>Brand compatibility</li>
+                    </ul>
+                    <p>Follower count alone does not determine campaign eligibility.</p>
+                    <h4>2.2 Campaign Instructions</h4>
+                    <p>For each campaign, influencers may receive specific instructions regarding:</p>
+                    <ul>
+                        <li>Posting dates and deadlines</li>
+                        <li>Captions or talking points</li>
+                        <li>Brand mentions or tags</li>
+                        <li>Hashtags</li>
+                        <li>Visual requirements</li>
+                        <li>Story duration or post retention period</li>
+                        <li>Call-to-action requirements</li>
+                    </ul>
+                    <p>Influencers are expected to follow campaign guidelines reasonably and professionally while maintaining their natural content style and audience authenticity.</p>
+                    <h4>2.3 Content Standards</h4>
+                    <p>Content submitted or posted as part of LMH campaigns must:</p>
+                    <ul>
+                        <li>Maintain acceptable visual and audio quality</li>
+                        <li>Avoid misleading claims about products or services</li>
+                        <li>Avoid offensive, discriminatory, or unlawful material</li>
+                        <li>Reflect professionalism appropriate for the represented brand</li>
+                        <li>Remain publicly accessible for the agreed campaign duration unless otherwise instructed</li>
+                    </ul>
+                    <div class="callout">
+                        <p><strong>Our Philosophy:</strong> We believe the strongest marketing feels authentic, conversational, and believable rather than forced advertising.</p>
+                    </div>
+
+                    <h3 id="s3">3. Payment Terms</h3>
+                    <h4>3.1 Payment Structure</h4>
+                    <p>Influencer compensation may vary depending on:</p>
+                    <ul>
+                        <li>Campaign size</li>
+                        <li>Platform used</li>
+                        <li>Audience engagement</li>
+                        <li>Deliverable quantity</li>
+                        <li>Exclusivity requirements</li>
+                        <li>Campaign duration</li>
+                        <li>Client budget</li>
+                    </ul>
+                    <p>Compensation structures may include:</p>
+                    <ul>
+                        <li>Fixed campaign payments</li>
+                        <li>Per-post or per-story payments</li>
+                        <li>Performance-based incentives</li>
+                        <li>Affiliate commissions</li>
+                        <li>Long-term ambassador retainers</li>
+                    </ul>
+                    <p>Specific payment terms for each campaign will be communicated separately.</p>
+                    <h4>3.2 Payment Processing</h4>
+                    <p>Unless otherwise agreed in writing:</p>
+                    <ul>
+                        <li>Clients remit campaign payments to Linkage Media Hub first</li>
+                        <li>LMH then processes influencer payments after confirmation of deliverables and campaign compliance</li>
+                        <li>Payments are typically made via M-Pesa, bank transfer, or other agreed methods</li>
+                    </ul>
+                    <p>This structure ensures campaign coordination, accountability, and smoother project management for all parties involved.</p>
+                    <h4>3.3 Payment Eligibility</h4>
+                    <p>Influencer payment eligibility is dependent upon:</p>
+                    <ul>
+                        <li>Completion of agreed deliverables</li>
+                        <li>Compliance with campaign instructions</li>
+                        <li>Timely posting and participation</li>
+                        <li>Maintenance of posted content for the agreed duration</li>
+                        <li>Submission of requested analytics or proof of posting where applicable</li>
+                    </ul>
+                    <p>Failure to fulfill campaign obligations may result in delayed, reduced, or withheld payment depending on the nature of the issue.</p>
+                    <h4>3.4 Refunds &amp; Reversals</h4>
+                    <p>If an influencer:</p>
+                    <ul>
+                        <li>Deletes campaign content prematurely</li>
+                        <li>Fails to post within agreed timelines</li>
+                        <li>Substantially deviates from campaign instructions</li>
+                        <li>Engages in conduct that damages the client's reputation during an active campaign</li>
+                    </ul>
+                    <p>Linkage Media Hub reserves the right to:</p>
+                    <ul>
+                        <li>Request partial or full repayment</li>
+                        <li>Withhold future payments</li>
+                        <li>Suspend future collaborations</li>
+                        <li>Or terminate the working relationship entirely</li>
+                    </ul>
+                    <div class="callout">
+                        <p><strong>Professional reliability matters deeply</strong> in marketing partnerships. A single careless post can damage an entire campaign.</p>
+                    </div>
+
+                    <h3 id="s4">4. Content Usage Rights</h3>
+                    <h4>4.1 Campaign Content Usage</h4>
+                    <p>By participating in LMH campaigns, you grant Linkage Media Hub and the associated client a non-exclusive right to repost, share, screenshot, archive, or reference campaign-related content for marketing, portfolio, reporting, or promotional purposes unless otherwise agreed in writing.</p>
+                    <p>This may include:</p>
+                    <ul>
+                        <li>Social media reposts</li>
+                        <li>Portfolio showcases</li>
+                        <li>Client reports</li>
+                        <li>Website displays</li>
+                        <li>Promotional graphics featuring campaign results</li>
+                    </ul>
+                    <p>Ownership of your personal account remains entirely yours.</p>
+                    <h4>4.2 Editing &amp; Republishing</h4>
+                    <p>LMH and its clients may reasonably resize, crop, or adapt campaign content for cross-platform usage provided such modifications do not intentionally misrepresent the influencer.</p>
+
+                    <h3 id="s5">5. Professional Conduct</h3>
+                    <h4>5.1 Communication Expectations</h4>
+                    <p>Influencers are expected to maintain reasonable communication throughout active campaigns.</p>
+                    <p>This includes:</p>
+                    <ul>
+                        <li>Responding within reasonable timeframes</li>
+                        <li>Communicating delays early</li>
+                        <li>Confirming deliverables honestly</li>
+                        <li>Maintaining respectful communication with LMH representatives and clients</li>
+                    </ul>
+                    <p>Disappearing during live campaigns creates operational and reputational risks for all involved parties.</p>
+                    <h4>5.2 Reputation &amp; Brand Safety</h4>
+                    <p>During active campaigns, influencers are expected to avoid conduct likely to seriously damage the associated client's public reputation.</p>
+                    <p>This includes, but is not limited to:</p>
+                    <ul>
+                        <li>Hate speech</li>
+                        <li>Fraudulent activity</li>
+                        <li>Deliberate misinformation</li>
+                        <li>Public harassment</li>
+                        <li>Criminal conduct directly affecting campaign credibility</li>
+                    </ul>
+                    <p>LMH reserves the right to immediately discontinue collaborations where brand safety concerns arise.</p>
+
+                    <h3 id="s6">6. Exclusivity &amp; Conflict of Interest</h3>
+                    <p>Certain campaigns may involve temporary exclusivity arrangements.</p>
+                    <p>For example, an influencer promoting one restaurant brand may be restricted from promoting direct competitors for a limited agreed period.</p>
+                    <p>Any exclusivity requirements will be communicated before campaign acceptance.</p>
+                    <p>Unless explicitly agreed otherwise, influencers remain free to work with other brands and agencies.</p>
+
+                    <h3 id="s7">7. Independent Contractor Relationship</h3>
+                    <p>Influencers engaged through Linkage Media Hub operate as independent contractors and not as employees, partners, or legal representatives of LMH.</p>
+                    <p>Nothing in this Agreement creates:</p>
+                    <ul>
+                        <li>Employment relationships</li>
+                        <li>Joint ventures</li>
+                        <li>Agency authority</li>
+                        <li>Or ownership interests</li>
+                    </ul>
+                    <p>Influencers remain responsible for their own taxes, statutory obligations, and account management.</p>
+
+                    <h3 id="s8">8. Campaign Changes &amp; Cancellations</h3>
+                    <h4>8.1 Campaign Adjustments</h4>
+                    <p>Clients and campaigns may evolve due to market conditions, scheduling changes, or strategic adjustments. LMH reserves the right to reasonably modify campaign timelines, deliverables, or posting schedules where necessary.</p>
+                    <p>We will always attempt to communicate such changes promptly.</p>
+                    <h4>8.2 Campaign Cancellation</h4>
+                    <p>In rare circumstances, campaigns may be canceled due to:</p>
+                    <ul>
+                        <li>Client withdrawal</li>
+                        <li>Budget changes</li>
+                        <li>Legal concerns</li>
+                        <li>Force majeure events</li>
+                        <li>Or unforeseen operational issues</li>
+                    </ul>
+                    <p>Where work has already been reasonably completed, LMH may determine partial compensation at its discretion depending on the situation.</p>
+
+                    <h3 id="s9">9. Limitation of Liability</h3>
+                    <h4>9.1 Platform Issues</h4>
+                    <p>Linkage Media Hub is not responsible for:</p>
+                    <ul>
+                        <li>Account restrictions</li>
+                        <li>Shadow bans</li>
+                        <li>Platform outages</li>
+                        <li>Reduced reach</li>
+                        <li>Algorithmic changes</li>
+                        <li>Or technical failures caused by third-party social media platforms</li>
+                    </ul>
+                    <p>The digital landscape changes constantly, often without warning.</p>
+                    <h4>9.2 Indirect Damages</h4>
+                    <p>LMH shall not be liable for indirect losses including:</p>
+                    <ul>
+                        <li>Lost opportunities</li>
+                        <li>Lost profits</li>
+                        <li>Audience decline</li>
+                        <li>Reputational disputes beyond our direct control</li>
+                        <li>Or third-party platform enforcement actions</li>
+                    </ul>
+                    <h4>9.3 Maximum Liability</h4>
+                    <p>In all circumstances, Linkage Media Hub's maximum liability shall not exceed the amount paid to the influencer for the specific campaign giving rise to the dispute.</p>
+
+                    <h3 id="s10">10. Termination of Relationship</h3>
+                    <h4>10.1 Termination Rights</h4>
+                    <p>Either party may discontinue the working relationship at any time.</p>
+                    <p>However, active campaign obligations already accepted before termination must still be fulfilled unless otherwise agreed.</p>
+                    <h4>10.2 Immediate Suspension</h4>
+                    <p>LMH reserves the right to immediately suspend or terminate collaborations in cases involving:</p>
+                    <ul>
+                        <li>Fraud</li>
+                        <li>Fake engagement manipulation</li>
+                        <li>Breach of campaign confidentiality</li>
+                        <li>Severe misconduct</li>
+                        <li>Repeated unreliability</li>
+                        <li>Or material breach of this Agreement</li>
+                    </ul>
+
+                    <h3 id="s11">11. Governing Law &amp; Dispute Resolution</h3>
+                    <p>This Agreement shall be governed by and interpreted in accordance with the laws of the Republic of Kenya.</p>
+                    <p>In the event of any dispute arising from this Agreement, both parties agree to first attempt resolution through good-faith communication and negotiation before pursuing formal legal action.</p>
+                    <p>Where necessary, disputes may be submitted to the appropriate courts of Kenya.</p>
+
+                    <h3 id="s12">12. Agreement Acceptance</h3>
+                    <p>By participating in campaigns coordinated by Linkage Media Hub, accepting campaign briefs, receiving campaign materials, or accepting payment for campaign participation, you acknowledge that you have read, understood, and agreed to the terms outlined in this Agreement.</p>
+                    <div class="callout">
+                        <p><strong>Professionalism builds reputation. Reputation builds longevity.</strong> And in this industry, longevity is worth more than temporary hype.</p>
+                    </div>
+
+                    <div class="page-break signing-section">
+                        <h3>Influencer Acknowledgment</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="influencerName">Full Legal Name</label>
+                                <input type="text" id="influencerName" placeholder="e.g. Jane Wambui Muthoni">
+                            </div>
+                            <div class="form-group">
+                                <label for="influencerDate">Date of Signing</label>
+                                <input type="date" id="influencerDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="sig-label">Signature</p>
+                            <div class="signature-wrapper" id="signature-pad">
+                                <span class="signature-placeholder" id="sig-placeholder">Sign inside the box</span>
+                                <canvas id="sigCanvas"></canvas>
+                            </div>
+                        </div>
+                        <div class="party-grid">
+                            <div class="party-block">
+                                <p class="party-title">For Linkage Media Hub</p>
+                                <div class="party-signed">Linkage Media Hub</div>
+                                <p class="party-name">Authorized Representative</p>
+                                <p class="party-role">Agency / Campaign Coordinator</p>
+                            </div>
+                            <div class="party-block">
+                                <p class="party-title">For the Influencer</p>
+                                <div class="party-signed" id="preview-name" style="color:#ccc;font-style:italic;">Awaiting signature&#8230;</div>
+                                <p class="party-name" id="preview-date" style="color:#aaa;">&#8212;</p>
+                                <p class="party-role">Influencer / Campaign Participant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doc-footer">
+                    <p>Linkage Media Hub &#183; Nairobi, Kenya &#183; mort&#64;linkagemediahub.co.ke</p>
+                    <div class="doc-footer-logo">Sig<span>Max</span></div>
+                </div>
+            </div>
+
+            <!-- ===== CLIENT CONTRACT ===== -->
+            <div id="contract-client" style="display:none;">
+                <div class="doc-header">
+                    <div class="doc-header-logo">Linkage <span>Media Hub</span></div>
+                    <div class="doc-header-rule"></div>
+                    <h2>Client Marketing Services Agreement</h2>
+                    <p>Terms &amp; Conditions for Influencer Marketing, Digital Promotion, and Campaign Management Services</p>
+                    <div class="doc-meta-row">
+                        <span class="doc-meta-pill">Version 1.0</span>
+                        <span class="doc-meta-pill dynamic-month-year">May 2026</span>
+                        <span class="doc-meta-pill">Nairobi, Kenya</span>
+                        <span class="doc-meta-pill">mort&#64;linkagemediahub.co.ke</span>
+                    </div>
+                </div>
+                <div class="doc-body">
+                    <h3 id="s1">1. Introduction</h3>
+                    <p>This Client Marketing Services Agreement ("Agreement") outlines the terms and conditions governing the relationship between Linkage Media Hub ("LMH," "Agency," "we," "us," or "our") and the Client ("you" or "your") for the provision of influencer marketing, promotional campaigns, digital visibility services, and related marketing coordination activities.</p>
+                    <p>By engaging Linkage Media Hub for services, you acknowledge that you have read, understood, and agreed to be bound by the terms outlined in this Agreement.</p>
+                    <h4>1.1 Purpose of This Agreement</h4>
+                    <p>This Agreement exists to establish a professional, transparent, and organized working relationship between Linkage Media Hub and its clients.</p>
+                    <p>Marketing campaigns involve coordination between brands, influencers, content creators, timelines, platforms, and audience behavior. Clear expectations protect both parties and help campaigns operate smoothly and effectively.</p>
+                    <div class="callout">
+                        <p><strong>Visibility without structure becomes noise. Structure creates results.</strong></p>
+                    </div>
+                    <h4>1.2 Scope of Services</h4>
+                    <p>Linkage Media Hub may provide services including, but not limited to:</p>
+                    <ul>
+                        <li>Influencer sourcing and coordination</li>
+                        <li>Instagram, TikTok, Facebook, X, and WhatsApp promotions</li>
+                        <li>Brand awareness campaigns</li>
+                        <li>Product and service marketing</li>
+                        <li>Sponsored content coordination</li>
+                        <li>Campaign planning and execution</li>
+                        <li>Digital brand positioning</li>
+                        <li>Social media visibility campaigns</li>
+                        <li>Event promotion campaigns</li>
+                        <li>Content creator partnerships</li>
+                        <li>Ambassador campaign management</li>
+                        <li>Audience engagement campaigns</li>
+                    </ul>
+                    <p>Campaign details may vary depending on budget, industry, campaign objectives, and platform suitability.</p>
+
+                    <h3 id="s2">2. Campaign Coordination</h3>
+                    <h4>2.1 Influencer Selection</h4>
+                    <p>Linkage Media Hub carefully selects influencers and creators based on factors including:</p>
+                    <ul>
+                        <li>Audience relevance</li>
+                        <li>Engagement quality</li>
+                        <li>Brand compatibility</li>
+                        <li>Professionalism</li>
+                        <li>Geographic relevance</li>
+                        <li>Campaign objectives</li>
+                    </ul>
+                    <p>While client preferences are welcomed, final influencer recommendations remain subject to operational feasibility, availability, and campaign suitability.</p>
+                    <p>Follower count alone is not treated as the sole indicator of influence or campaign effectiveness.</p>
+                    <h4>2.2 Campaign Execution</h4>
+                    <p>LMH coordinates communication, scheduling, posting timelines, and general campaign management between the client and participating influencers.</p>
+                    <p>Campaign deliverables may include:</p>
+                    <ul>
+                        <li>Posts</li>
+                        <li>Stories</li>
+                        <li>Reels</li>
+                        <li>Videos</li>
+                        <li>Mentions</li>
+                        <li>Event attendance</li>
+                        <li>Product demonstrations</li>
+                        <li>Sponsored integrations</li>
+                    </ul>
+                    <p>Specific deliverables will typically be discussed and agreed upon before campaign launch.</p>
+                    <h4>2.3 Creative Flexibility</h4>
+                    <p>Influencer marketing performs best when creators are allowed to communicate naturally with their audiences.</p>
+                    <p>While LMH and the client may provide guidance, messaging points, captions, or branding direction, influencers may adapt delivery styles to fit their audience tone and platform culture.</p>
+                    <div class="callout">
+                        <p><strong>Authenticity generally performs better</strong> than rigid scripted advertising.</p>
+                    </div>
+
+                    <h3 id="s3">3. Client Responsibilities</h3>
+                    <p>To ensure successful campaign execution, clients are expected to:</p>
+                    <ul>
+                        <li>Provide accurate information regarding products or services</li>
+                        <li>Supply logos, visuals, videos, or promotional materials where necessary</li>
+                        <li>Communicate campaign goals clearly</li>
+                        <li>Respond to approvals and feedback requests within reasonable timeframes</li>
+                        <li>Fulfill payment obligations as agreed</li>
+                        <li>Maintain professional communication throughout the campaign period</li>
+                    </ul>
+                    <p>Delays in approvals or required materials may affect campaign timelines and deliverables.</p>
+                    <h4>3.1 Product &amp; Service Accuracy</h4>
+                    <p>Clients are solely responsible for ensuring that all products, services, claims, pricing, and promotional information provided to LMH are accurate, lawful, and compliant with applicable regulations.</p>
+                    <p>LMH does not independently verify all client claims and is not responsible for misinformation originating from the client.</p>
+
+                    <h3 id="s4">4. Payment Terms</h3>
+                    <h4>4.1 Campaign Fees</h4>
+                    <p>Campaign pricing may vary depending on:</p>
+                    <ul>
+                        <li>Influencer size and reach</li>
+                        <li>Campaign complexity</li>
+                        <li>Deliverable quantity</li>
+                        <li>Platform selection</li>
+                        <li>Campaign duration</li>
+                        <li>Production requirements</li>
+                        <li>Urgency and scheduling demands</li>
+                    </ul>
+                    <p>All pricing discussions, quotations, or proposals provided by LMH remain confidential unless otherwise agreed.</p>
+                    <h4>4.2 Payment Structure</h4>
+                    <p>Unless otherwise agreed in writing:</p>
+                    <ul>
+                        <li>Campaign payments are typically made upfront before campaign launch</li>
+                        <li>Partial upfront deposits may apply for larger campaigns</li>
+                        <li>Campaign execution may begin only after confirmation of required payment</li>
+                    </ul>
+                    <p>This structure allows LMH to secure influencer participation, allocate resources, and coordinate campaign logistics effectively.</p>
+                    <h4>4.3 Non-Refundable Operational Costs</h4>
+                    <p>Once campaign coordination has begun, certain operational costs become immediately active.</p>
+                    <p>These may include:</p>
+                    <ul>
+                        <li>Influencer booking commitments</li>
+                        <li>Content preparation</li>
+                        <li>Scheduling allocations</li>
+                        <li>Campaign management time</li>
+                        <li>Creative planning</li>
+                    </ul>
+                    <p>As a result, portions of campaign payments may become non-refundable once campaign preparations are underway.</p>
+                    <h4>4.4 Late Payments</h4>
+                    <p>Late payments may result in:</p>
+                    <ul>
+                        <li>Campaign delays</li>
+                        <li>Paused deliverables</li>
+                        <li>Postponed influencer scheduling</li>
+                        <li>Suspension of services</li>
+                        <li>Or cancellation of ongoing coordination activities</li>
+                    </ul>
+                    <p>Repeated payment delays may affect future collaboration eligibility.</p>
+
+                    <h3 id="s5">5. Influencer Participation &amp; Performance</h3>
+                    <h4>5.1 Third-Party Creators</h4>
+                    <p>Influencers and creators participating in campaigns are independent third parties and not employees of Linkage Media Hub.</p>
+                    <p>While LMH coordinates campaigns professionally, we cannot guarantee:</p>
+                    <ul>
+                        <li>Exact sales figures</li>
+                        <li>Viral performance</li>
+                        <li>Audience purchasing behavior</li>
+                        <li>Platform algorithm reach</li>
+                        <li>Or specific engagement outcomes</li>
+                    </ul>
+                    <div class="callout">
+                        <p><strong>Marketing improves probability. It does not control human behavior.</strong></p>
+                    </div>
+                    <h4>5.2 Performance Variability</h4>
+                    <p>Campaign results may vary due to factors including:</p>
+                    <ul>
+                        <li>Audience behavior</li>
+                        <li>Market trends</li>
+                        <li>Timing</li>
+                        <li>Platform algorithms</li>
+                        <li>Economic conditions</li>
+                        <li>Competitor activity</li>
+                        <li>And content reception</li>
+                    </ul>
+                    <p>No campaign outcome can be guaranteed with absolute certainty.</p>
+                    <h4>5.3 Influencer Conduct</h4>
+                    <p>LMH works to maintain professional standards among creators. However, influencers remain independent individuals with their own personalities, audiences, and online presence.</p>
+                    <p>LMH is not responsible for unrelated statements, opinions, or personal conduct expressed by influencers outside the scope of campaign deliverables.</p>
+
+                    <h3 id="s6">6. Content Usage &amp; Promotion Rights</h3>
+                    <h4>6.1 Campaign Content Usage</h4>
+                    <p>LMH reserves the right to repost, showcase, archive, reference, or include campaign-related materials in:</p>
+                    <ul>
+                        <li>Portfolios</li>
+                        <li>Presentations</li>
+                        <li>Social media pages</li>
+                        <li>Marketing materials</li>
+                        <li>Case studies</li>
+                        <li>Or internal reporting documentation</li>
+                    </ul>
+                    <p>This may include screenshots, campaign visuals, analytics, or public campaign content.</p>
+                    <h4>6.2 Brand References</h4>
+                    <p>By engaging LMH services, clients grant permission for Linkage Media Hub to reference the completed collaboration as part of our professional portfolio unless otherwise agreed in writing.</p>
+                    <div class="callout">
+                        <p><strong>We believe successful work should be visible.</strong></p>
+                    </div>
+
+                    <h3 id="s7">7. Campaign Delays, Adjustments &amp; Cancellations</h3>
+                    <h4>7.1 Scheduling Adjustments</h4>
+                    <p>Campaign schedules may occasionally shift due to:</p>
+                    <ul>
+                        <li>Influencer availability</li>
+                        <li>Platform issues</li>
+                        <li>Content revisions</li>
+                        <li>Public events</li>
+                        <li>Technical problems</li>
+                        <li>Or strategic campaign adjustments</li>
+                    </ul>
+                    <p>LMH will make reasonable efforts to communicate schedule changes promptly.</p>
+                    <h4>7.2 Campaign Cancellation</h4>
+                    <p>Clients may request campaign cancellation before launch.</p>
+                    <p>However, if campaign coordination, influencer booking, or production activities have already begun, cancellation fees or partial payment retention may apply to cover operational commitments already made.</p>
+                    <h4>7.3 Force Majeure</h4>
+                    <p>LMH shall not be held liable for delays or failures caused by circumstances beyond reasonable control, including:</p>
+                    <ul>
+                        <li>Internet outages</li>
+                        <li>Platform disruptions</li>
+                        <li>Governmental actions</li>
+                        <li>Strikes</li>
+                        <li>Natural disasters</li>
+                        <li>Cyber incidents</li>
+                        <li>Or widespread technical failures</li>
+                    </ul>
+                    <p>The digital world is powerful, but not invincible.</p>
+
+                    <h3 id="s8">8. Limitation of Liability</h3>
+                    <h4>8.1 Platform Dependency</h4>
+                    <p>Social media platforms are controlled by third-party companies whose systems, algorithms, policies, and enforcement actions remain outside LMH's control.</p>
+                    <p>We are not liable for:</p>
+                    <ul>
+                        <li>Reduced reach</li>
+                        <li>Shadow bans</li>
+                        <li>Account restrictions</li>
+                        <li>Platform outages</li>
+                        <li>Content removals</li>
+                        <li>Or algorithmic suppression</li>
+                    </ul>
+                    <h4>8.2 Indirect Losses</h4>
+                    <p>LMH shall not be liable for indirect or consequential losses including:</p>
+                    <ul>
+                        <li>Loss of profits</li>
+                        <li>Loss of business opportunities</li>
+                        <li>Reputational disputes</li>
+                        <li>Audience reactions</li>
+                        <li>Or market performance fluctuations</li>
+                    </ul>
+                    <h4>8.3 Maximum Liability</h4>
+                    <p>In all cases, Linkage Media Hub's total liability shall not exceed the amount paid by the client for the specific campaign giving rise to the dispute.</p>
+
+                    <h3 id="s9">9. Confidentiality</h3>
+                    <p>Both parties agree to maintain reasonable confidentiality regarding:</p>
+                    <ul>
+                        <li>Campaign pricing</li>
+                        <li>Influencer payment structures</li>
+                        <li>Internal strategy discussions</li>
+                        <li>Private campaign analytics</li>
+                        <li>And non-public business information</li>
+                    </ul>
+                    <p>Professional trust matters in long-term partnerships.</p>
+
+                    <h3 id="s10">10. Service Termination</h3>
+                    <h4>10.1 Termination Rights</h4>
+                    <p>Either party may discontinue the working relationship at any time.</p>
+                    <p>However, ongoing campaigns already approved or launched may still require settlement of operational costs and outstanding obligations.</p>
+                    <h4>10.2 Suspension of Services</h4>
+                    <p>LMH reserves the right to suspend or terminate services in cases involving:</p>
+                    <ul>
+                        <li>Non-payment</li>
+                        <li>Abusive conduct</li>
+                        <li>Fraudulent activity</li>
+                        <li>Unlawful products or services</li>
+                        <li>Reputational risks</li>
+                        <li>Or material breach of this Agreement</li>
+                    </ul>
+                    <div class="callout">
+                        <p><strong>Not every opportunity is worth attaching a reputation to.</strong></p>
+                    </div>
+
+                    <h3 id="s11">11. Governing Law &amp; Dispute Resolution</h3>
+                    <p>This Agreement shall be governed by and interpreted in accordance with the laws of the Republic of Kenya.</p>
+                    <p>In the event of any dispute arising from this Agreement, both parties agree to first attempt resolution through good-faith negotiation before pursuing formal legal proceedings.</p>
+                    <p>Where necessary, disputes may be submitted to the appropriate courts of Kenya.</p>
+
+                    <h3 id="s12">12. Agreement Acceptance</h3>
+                    <p>By engaging Linkage Media Hub services, approving campaign proposals, making campaign payments, or participating in coordinated campaigns, you acknowledge that you have read, understood, and agreed to the terms outlined in this Agreement.</p>
+                    <div class="callout">
+                        <p><strong>Marketing is not merely about visibility.</strong> It is about perception, timing, trust, and coordination. The brands that understand this rarely remain invisible for long.</p>
+                    </div>
+
+                    <div class="page-break signing-section">
+                        <h3>Client Acknowledgment</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="clientName">Full Legal Name</label>
+                                <input type="text" id="clientName" placeholder="e.g. Jane Wambui Muthoni">
+                            </div>
+                            <div class="form-group">
+                                <label for="clientDate">Date of Signing</label>
+                                <input type="date" id="clientDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="sig-label">Signature</p>
+                            <div class="signature-wrapper" id="signature-pad-client">
+                                <span class="signature-placeholder" id="sig-placeholder-client">Sign inside the box</span>
+                                <canvas id="sigCanvasClient"></canvas>
+                            </div>
+                        </div>
+                        <div class="party-grid">
+                            <div class="party-block">
+                                <p class="party-title">For Linkage Media Hub</p>
+                                <div class="party-signed">Linkage Media Hub</div>
+                                <p class="party-name">Authorized Representative</p>
+                                <p class="party-role">Agency / Service Provider</p>
+                            </div>
+                            <div class="party-block">
+                                <p class="party-title">For the Client</p>
+                                <div class="party-signed" id="preview-name-client" style="color:#ccc;font-style:italic;">Awaiting signature&#8230;</div>
+                                <p class="party-name" id="preview-date-client" style="color:#aaa;">&#8212;</p>
+                                <p class="party-role">Client / Service Recipient</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doc-footer">
+                    <p>Linkage Media Hub &#183; Nairobi, Kenya &#183; mort&#64;linkagemediahub.co.ke</p>
+                    <div class="doc-footer-logo">Sig<span>Max</span></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    // ===== BLOCK RIGHT-CLICK & DEV TOOLS =====
+    (function() {
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.key === 'u') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.key === 's') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && e.key === 'U') { e.preventDefault(); return false; }
+        });
+    })();
+
+    // ===== REAL-TIME DATE HELPER =====
+    function getCurrentMonthYear() {
+        const now = new Date();
+        return now.toLocaleDateString('en-KE', { month: 'long', year: 'numeric' });
+    }
+    function getCurrentDateISO() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return y + '-' + m + '-' + d;
+    }
+    function updateAllDates() {
+        const my = getCurrentMonthYear();
+        document.querySelectorAll('.dynamic-month-year').forEach(function(el) { el.textContent = my; });
+        document.getElementById('sidebar-date').textContent = my;
+    }
+    updateAllDates();
+    // Update every minute to catch midnight rollover
+    setInterval(updateAllDates, 60000);
+
+    // ===== ROLE SELECTION =====
+    let currentRole = null;
+
+    const influencerTOC = [
+        { num: '01', label: 'Introduction', id: 's1' },
+        { num: '02', label: 'Campaign Participation', id: 's2' },
+        { num: '03', label: 'Payment Terms', id: 's3' },
+        { num: '04', label: 'Content Usage Rights', id: 's4' },
+        { num: '05', label: 'Professional Conduct', id: 's5' },
+        { num: '06', label: 'Exclusivity & Conflicts', id: 's6' },
+        { num: '07', label: 'Independent Contractor', id: 's7' },
+        { num: '08', label: 'Campaign Changes', id: 's8' },
+        { num: '09', label: 'Limitation of Liability', id: 's9' },
+        { num: '10', label: 'Termination', id: 's10' },
+        { num: '11', label: 'Governing Law', id: 's11' },
+        { num: '12', label: 'Agreement Acceptance', id: 's12' }
+    ];
+    const clientTOC = [
+        { num: '01', label: 'Introduction', id: 's1' },
+        { num: '02', label: 'Campaign Coordination', id: 's2' },
+        { num: '03', label: 'Client Responsibilities', id: 's3' },
+        { num: '04', label: 'Payment Terms', id: 's4' },
+        { num: '05', label: 'Influencer Performance', id: 's5' },
+        { num: '06', label: 'Content Usage Rights', id: 's6' },
+        { num: '07', label: 'Delays & Cancellations', id: 's7' },
+        { num: '08', label: 'Limitation of Liability', id: 's8' },
+        { num: '09', label: 'Confidentiality', id: 's9' },
+        { num: '10', label: 'Service Termination', id: 's10' },
+        { num: '11', label: 'Governing Law', id: 's11' },
+        { num: '12', label: 'Agreement Acceptance', id: 's12' }
+    ];
+
+    function buildTOC(items) {
+        const list = document.getElementById('toc-list');
+        list.innerHTML = '';
+        items.forEach(function(item) {
+            const li = document.createElement('li');
+            li.innerHTML = '<a href="#' + item.id + '"><span class="toc-num">' + item.num + '</span>' + item.label + '</a>';
+            list.appendChild(li);
+        });
+    }
+
+    function selectRole(role) {
+        currentRole = role;
+        // Hide the modal
+        document.getElementById('role-modal').style.display = 'none';
+        // Show the "Switch Role" button in topbar
+        document.getElementById('switch-role-btn').style.display = 'inline-flex';
+        // Show the correct contract
+        if (role === 'influencer') {
+            document.getElementById('contract-influencer').style.display = 'block';
+            document.getElementById('contract-client').style.display = 'none';
+            document.getElementById('sidebar-type').textContent = 'Influencer';
+            buildTOC(influencerTOC);
+            initInfluencerContract();
+        } else {
+            document.getElementById('contract-influencer').style.display = 'none';
+            document.getElementById('contract-client').style.display = 'block';
+            document.getElementById('sidebar-type').textContent = 'Client';
+            buildTOC(clientTOC);
+            initClientContract();
+        }
+    }
+
+    function goBackToRoleSelection() {
+        // Clear any entered data on both contracts
+        if (sigPadInfluencer) sigPadInfluencer.clear();
+        if (sigPadClient) sigPadClient.clear();
+        const infName = document.getElementById('influencerName');
+        const infDate = document.getElementById('influencerDate');
+        const cliName = document.getElementById('clientName');
+        const cliDate = document.getElementById('clientDate');
+        if (infName) infName.value = '';
+        if (infDate) infDate.value = '';
+        if (cliName) cliName.value = '';
+        if (cliDate) cliDate.value = '';
+        // Reset previews
+        const pn = document.getElementById('preview-name');
+        if (pn) { pn.textContent = 'Awaiting signature\u2026'; pn.style.color = '#ccc'; pn.style.fontStyle = 'italic'; }
+        const pd = document.getElementById('preview-date');
+        if (pd) pd.textContent = '\u2014';
+        const pnc = document.getElementById('preview-name-client');
+        if (pnc) { pnc.textContent = 'Awaiting signature\u2026'; pnc.style.color = '#ccc'; pnc.style.fontStyle = 'italic'; }
+        const pdc = document.getElementById('preview-date-client');
+        if (pdc) pdc.textContent = '\u2014';
+        // Hide both contracts
+        document.getElementById('contract-influencer').style.display = 'none';
+        document.getElementById('contract-client').style.display = 'none';
+        // Hide the switch role button
+        document.getElementById('switch-role-btn').style.display = 'none';
+        // Reset progress
+        document.getElementById('progress-fill').style.width = '0%';
+        document.getElementById('progress-pct').textContent = '0%';
+        // Reset sidebar type
+        document.getElementById('sidebar-type').textContent = '\u2014';
+        // Clear TOC
+        document.getElementById('toc-list').innerHTML = '';
+        // Show the modal again
+        currentRole = null;
+        const modal = document.getElementById('role-modal');
+        modal.style.display = 'flex';
+        modal.style.animation = 'none';
+        modal.offsetHeight; // trigger reflow
+        modal.style.animation = 'fadeIn 0.3s ease';
+    }
+
+    // ===== SMOOTH SIGNATURE PAD ENGINE =====
+    // Uses quadratic bezier curves + velocity-based stroke width for buttery-smooth drawing
+    class SmoothSignaturePad {
+        constructor(canvasId, placeholderId) {
+            this.canvas = document.getElementById(canvasId);
+            this.ctx = this.canvas.getContext('2d');
+            this.placeholderId = placeholderId;
+            this.isDrawing = false;
+            this.points = [];
+            this.lastWidth = 1.8;
+            this.minWidth = 1.0;
+            this.maxWidth = 3.8;
+            this.velocityFilterWeight = 0.7;
+            this._lastVelocity = 0;
+            this._lastWidth = this.minWidth;
+            this._isEmpty = true;
+
+            this._resizeCanvas();
+            window.addEventListener('resize', () => this._resizeCanvas());
+
+            // Mouse events
+            this.canvas.addEventListener('mousedown', (e) => this._startStroke(e));
+            this.canvas.addEventListener('mousemove', (e) => this._continueStroke(e));
+            this.canvas.addEventListener('mouseup', () => this._endStroke());
+            this.canvas.addEventListener('mouseout', () => this._endStroke());
+
+            // Touch events — smooth mobile drawing
+            this.canvas.addEventListener('touchstart', (e) => { e.preventDefault(); this._startStroke(e); }, { passive: false });
+            this.canvas.addEventListener('touchmove', (e) => { e.preventDefault(); this._continueStroke(e); }, { passive: false });
+            this.canvas.addEventListener('touchend', () => this._endStroke());
+            this.canvas.addEventListener('touchcancel', () => this._endStroke());
+        }
+
+        _resizeCanvas() {
+            const rect = this.canvas.parentElement.getBoundingClientRect();
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            // Save current drawing
+            const imgData = this._isEmpty ? null : this.canvas.toDataURL();
+            this.canvas.width = rect.width * ratio;
+            this.canvas.height = rect.height * ratio;
+            this.ctx.scale(ratio, ratio);
+            this.ctx.strokeStyle = '#1a1a2e';
+            this.ctx.lineCap = 'round';
+            this.ctx.lineJoin = 'round';
+            this.ctx.imageSmoothingEnabled = true;
+            this.ctx.imageSmoothingQuality = 'high';
+            // Restore drawing after resize
+            if (imgData && !this._isEmpty) {
+                const img = new Image();
+                img.onload = () => {
+                    this.ctx.drawImage(img, 0, 0, rect.width, rect.height);
+                };
+                img.src = imgData;
+            }
+        }
+
+        _getPos(e) {
+            const rect = this.canvas.getBoundingClientRect();
+            const src = e.touches ? e.touches[0] : e;
+            return { x: src.clientX - rect.left, y: src.clientY - rect.top, time: Date.now() };
+        }
+
+        _startStroke(e) {
+            this.isDrawing = true;
+            this._isEmpty = false;
+            const p = this._getPos(e);
+            this.points = [p];
+            this._lastVelocity = 0;
+            this._lastWidth = (this.minWidth + this.maxWidth) / 2;
+            document.getElementById(this.placeholderId).style.opacity = '0';
+        }
+
+        _continueStroke(e) {
+            if (!this.isDrawing) return;
+            const p = this._getPos(e);
+            this.points.push(p);
+            this._drawCurve();
+        }
+
+        _endStroke() {
+            if (!this.isDrawing) return;
+            this.isDrawing = false;
+            // Draw a dot if only one point
+            if (this.points.length === 1) {
+                const p = this.points[0];
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, this._lastWidth / 2, 0, Math.PI * 2);
+                this.ctx.fillStyle = '#1a1a2e';
+                this.ctx.fill();
+            }
+            this.points = [];
+        }
+
+        _drawCurve() {
+            if (this.points.length < 2) return;
+
+            const len = this.points.length;
+            const p1 = this.points[len - 2];
+            const p2 = this.points[len - 1];
+
+            // Calculate velocity for stroke width
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const dt = Math.max(p2.time - p1.time, 1);
+            const velocity = Math.sqrt(dx * dx + dy * dy) / dt;
+
+            // Smooth velocity
+            this._lastVelocity = this._lastVelocity * this.velocityFilterWeight + velocity * (1 - this.velocityFilterWeight);
+
+            // Map velocity to width (faster = thinner, slower = thicker)
+            const newWidth = Math.max(this.maxWidth / (this._lastVelocity * 3 + 1), this.minWidth);
+            const smoothWidth = this._lastWidth * 0.6 + newWidth * 0.4;
+            this._lastWidth = smoothWidth;
+
+            this.ctx.beginPath();
+            this.ctx.lineWidth = smoothWidth;
+
+            if (len === 2) {
+                // Only two points — draw a straight line with round cap
+                this.ctx.moveTo(p1.x, p1.y);
+                this.ctx.lineTo(p2.x, p2.y);
+            } else {
+                // Three or more points — use quadratic bezier for smoothness
+                const p0 = this.points[len - 3];
+                // Midpoints for smooth curves
+                const mid1 = { x: (p0.x + p1.x) / 2, y: (p0.y + p1.y) / 2 };
+                const mid2 = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+                this.ctx.moveTo(mid1.x, mid1.y);
+                this.ctx.quadraticCurveTo(p1.x, p1.y, mid2.x, mid2.y);
+            }
+
+            this.ctx.stroke();
+        }
+
+        clear() {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            this.ctx.clearRect(0, 0, this.canvas.width / ratio, this.canvas.height / ratio);
+            this._isEmpty = true;
+            this.points = [];
+            document.getElementById(this.placeholderId).style.opacity = '1';
+        }
+
+        isEmpty() {
+            if (this._isEmpty) return true;
+            const data = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
+            for (let i = 3; i < data.length; i += 4) { if (data[i] > 0) return false; }
+            return true;
+        }
+    }
+
+    // ===== SIGNATURE PAD INSTANCES =====
+    let sigPadInfluencer = null;
+    let sigPadClient = null;
+    let activeSigPad = null;
+
+    function initInfluencerContract() {
+        if (!sigPadInfluencer) {
+            setTimeout(() => {
+                sigPadInfluencer = new SmoothSignaturePad('sigCanvas', 'sig-placeholder');
+                activeSigPad = sigPadInfluencer;
+                // Set today's date
+                document.getElementById('influencerDate').value = getCurrentDateISO();
+                // Live name preview
+                document.getElementById('influencerName').addEventListener('input', function() {
+                    const v = this.value.trim();
+                    const el = document.getElementById('preview-name');
+                    el.textContent = v || 'Awaiting signature\u2026';
+                    el.style.color = v ? '#1a1a2e' : '#ccc';
+                    el.style.fontStyle = v ? 'normal' : 'italic';
+                    updateProgress();
+                });
+                // Live date preview
+                document.getElementById('influencerDate').addEventListener('change', function() {
+                    const d = this.value ? new Date(this.value).toLocaleDateString('en-KE', { day:'numeric', month:'long', year:'numeric' }) : '\u2014';
+                    document.getElementById('preview-date').textContent = d;
+                    updateProgress();
+                });
+                // Trigger initial date display
+                document.getElementById('influencerDate').dispatchEvent(new Event('change'));
+            }, 150);
+        } else {
+            activeSigPad = sigPadInfluencer;
+        }
+    }
+
+    function initClientContract() {
+        if (!sigPadClient) {
+            setTimeout(() => {
+                sigPadClient = new SmoothSignaturePad('sigCanvasClient', 'sig-placeholder-client');
+                activeSigPad = sigPadClient;
+                // Set today's date
+                document.getElementById('clientDate').value = getCurrentDateISO();
+                // Live name preview
+                document.getElementById('clientName').addEventListener('input', function() {
+                    const v = this.value.trim();
+                    const el = document.getElementById('preview-name-client');
+                    el.textContent = v || 'Awaiting signature\u2026';
+                    el.style.color = v ? '#1a1a2e' : '#ccc';
+                    el.style.fontStyle = v ? 'normal' : 'italic';
+                    updateProgress();
+                });
+                // Live date preview
+                document.getElementById('clientDate').addEventListener('change', function() {
+                    const d = this.value ? new Date(this.value).toLocaleDateString('en-KE', { day:'numeric', month:'long', year:'numeric' }) : '\u2014';
+                    document.getElementById('preview-date-client').textContent = d;
+                    updateProgress();
+                });
+                // Trigger initial date display
+                document.getElementById('clientDate').dispatchEvent(new Event('change'));
+            }, 150);
+        } else {
+            activeSigPad = sigPadClient;
+        }
+    }
+
+    // ===== CLEAR SIGNATURE =====
+    function clearCanvas() {
+        if (activeSigPad) activeSigPad.clear();
+        else if (sigPadInfluencer) sigPadInfluencer.clear();
+        else if (sigPadClient) sigPadClient.clear();
+        updateProgress();
+    }
+
+    // ===== PROGRESS BAR =====
+    function updateProgress() {
+        let hasName = false, hasDate = false, hasSig = false;
+        if (currentRole === 'influencer') {
+            hasName = !!document.getElementById('influencerName').value.trim();
+            hasDate = !!document.getElementById('influencerDate').value;
+            hasSig = sigPadInfluencer ? !sigPadInfluencer.isEmpty() : false;
+        } else if (currentRole === 'client') {
+            hasName = !!document.getElementById('clientName').value.trim();
+            hasDate = !!document.getElementById('clientDate').value;
+            hasSig = sigPadClient ? !sigPadClient.isEmpty() : false;
+        }
+        const pct = Math.round(([hasName, hasDate, hasSig].filter(Boolean).length / 3) * 100);
+        document.getElementById('progress-fill').style.width = pct + '%';
+        document.getElementById('progress-pct').textContent = pct + '%';
+    }
+    setInterval(updateProgress, 1000);
+
+    // ===== PDF GENERATION =====
+    async function generatePDF() {
+        if (!currentRole) { alert('Please select your role first.'); return; }
+
+        let name = '';
+        if (currentRole === 'influencer') {
+            name = document.getElementById('influencerName').value.trim();
+            if (!name) { alert('Please enter your full legal name before downloading.'); return; }
+            if (sigPadInfluencer.isEmpty()) { alert('Please add your signature before downloading.'); return; }
+        } else {
+            name = document.getElementById('clientName').value.trim();
+            if (!name) { alert('Please enter your full legal name before downloading.'); return; }
+            if (sigPadClient.isEmpty()) { alert('Please add your signature before downloading.'); return; }
+        }
+
+        document.getElementById('pdf-overlay').classList.add('active');
+        try {
+            const { jsPDF } = window.jspdf;
+            const wrapper = document.getElementById('document-wrapper');
+            const snap = await html2canvas(wrapper, { scale: 2, useCORS: true, logging: false, windowWidth: 900 });
+
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfW = pdf.internal.pageSize.getWidth();
+            const pdfH = pdf.internal.pageSize.getHeight();
+            const pxPerMm = snap.width / pdfW;
+            const pageHeightPx = Math.floor(pdfH * pxPerMm * 0.92);
+            const totalHeight = snap.height;
+
+            const fullC = document.createElement('canvas');
+            fullC.width = snap.width; fullC.height = snap.height;
+            fullC.getContext('2d').drawImage(snap, 0, 0);
+            const pixelData = fullC.getContext('2d').getImageData(0, 0, snap.width, snap.height).data;
+
+            function isBlankRow(y) {
+                if (y < 0 || y >= totalHeight) return true;
+                const rowStart = y * snap.width * 4;
+                for (let x = 0; x < snap.width; x++) {
+                    const idx = rowStart + x * 4;
+                    if (pixelData[idx] < 245 || pixelData[idx+1] < 245 || pixelData[idx+2] < 245) return false;
+                }
+                return true;
+            }
+            function findSafeCut(idealY) {
+                for (let dy = 0; dy <= 80; dy++) {
+                    if (isBlankRow(idealY - dy)) return idealY - dy;
+                }
+                return idealY;
+            }
+
+            const cuts = [];
+            let yOffset = 0;
+            while (yOffset < totalHeight) {
+                const idealEnd = yOffset + pageHeightPx;
+                if (idealEnd >= totalHeight) { cuts.push({ start: yOffset, end: totalHeight }); break; }
+                const safeEnd = findSafeCut(idealEnd);
+                cuts.push({ start: yOffset, end: safeEnd });
+                yOffset = safeEnd;
+            }
+
+            cuts.forEach((cut, i) => {
+                const sliceH = cut.end - cut.start;
+                if (sliceH <= 0) return;
+                const sc = document.createElement('canvas');
+                sc.width = snap.width; sc.height = sliceH;
+                const sctx = sc.getContext('2d');
+                sctx.fillStyle = '#ffffff';
+                sctx.fillRect(0, 0, snap.width, sliceH);
+                sctx.drawImage(snap, 0, cut.start, snap.width, sliceH, 0, 0, snap.width, sliceH);
+                if (i > 0) pdf.addPage();
+                pdf.addImage(sc.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, pdfW, sliceH / pxPerMm);
+            });
+
+            const roleLabel = currentRole === 'influencer' ? 'Influencer' : 'Client';
+            pdf.save('LMH_' + roleLabel + '_Agreement_' + name.replace(/\s+/g, '_') + '.pdf');
+        } catch (err) {
+            console.error(err);
+            alert('Error generating PDF. Please try again.');
+        } finally {
+            document.getElementById('pdf-overlay').classList.remove('active');
+        }
+    }
+</script>
+</body>
+</html>
